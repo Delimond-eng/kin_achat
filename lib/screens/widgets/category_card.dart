@@ -17,11 +17,11 @@ class Cardcategory extends StatelessWidget {
   Widget build(BuildContext context) {
     var color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
     return Container(
-      margin: const EdgeInsets.only(right: 5.0),
+      margin: const EdgeInsets.only(right: 8.0),
       height: 80.0,
       width: 80.0,
       decoration: BoxDecoration(
-        color: color.shade300,
+        color: color.shade200,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
@@ -39,16 +39,20 @@ class Cardcategory extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              child: Text(
-                data.title,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.didactGothic(
-                  color: Colors.black,
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w800,
+            Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    data.title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.didactGothic(
+                      color: Colors.black,
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             )
           ],
         ),
