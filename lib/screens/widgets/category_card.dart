@@ -21,8 +21,12 @@ class Cardcategory extends StatelessWidget {
       height: 80.0,
       width: 80.0,
       decoration: BoxDecoration(
-        color: color.shade200,
+        color: color.shade100,
         borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          color: color.shade400,
+          width: .5,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -40,6 +44,7 @@ class Cardcategory extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   child: Text(

@@ -56,7 +56,7 @@ class SlideDot extends StatelessWidget {
       margin: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: isActived ? (activeColor ?? Colors.yellow[800]) : Colors.grey,
+        color: isActived ? (activeColor ?? Colors.indigo[800]) : Colors.grey,
       ),
     );
   }
