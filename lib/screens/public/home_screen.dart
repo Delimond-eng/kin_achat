@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/models/category.dart';
+import 'package:kinachat/models/product.dart';
+import 'package:kinachat/screens/widgets/filter_product_card.dart';
 import 'package:kinachat/screens/widgets/search_bar.dart';
 
 import '../widgets/category_card.dart';
@@ -49,6 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return StatefulBuilder(builder: (context, setter) {
       return Column(
         children: [
+          const SizedBox(
+            height: 15.0,
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding:
@@ -67,6 +72,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   .toList(),
             ),
           ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.fromLTRB(10.0, 5, 10, 15.0),
+            child: Row(
+              children: products
+                  .map((e) => FilterProductCard(data: e, onPressed: () {}))
+                  .toList(),
+            ),
+          )
         ],
       );
     });
