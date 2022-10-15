@@ -221,13 +221,12 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(5.0),
                     onTap: () {},
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(7.0),
                       child: Text(
                         "Voir plus",
                         style: GoogleFonts.didactGothic(
                           color: Colors.indigo,
                           fontWeight: FontWeight.w900,
-                          fontSize: 20.0,
                         ),
                       ),
                     ),

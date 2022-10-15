@@ -84,7 +84,7 @@ class GridProductCard extends StatelessWidget {
                             text: "${data.price} ",
                             style: GoogleFonts.anton(
                               color: Colors.orange[800],
-                              fontSize: 25.0,
+                              fontSize: 20.0,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 1.0,
                             ),
