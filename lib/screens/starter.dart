@@ -16,6 +16,7 @@ class _StarterState extends State<Starter> {
   int currentImageIndex = 0;
   final PageController pageController = PageController(initialPage: 0);
 
+  //* List des widgets sliders *//
   List<Widget> sliders = [
     const StarterSliderItem(
       isFirst: true,
@@ -44,22 +45,22 @@ class _StarterState extends State<Starter> {
       vectorPath: "assets/lotties/a-vector_5.json",
     ),
   ];
+  //*end initialisation list sliders*//
+
+  //*Main build*//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
-          _coverBg(),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.indigo.withOpacity(.6),
-                  Colors.indigo.withOpacity(.6),
-                  Colors.indigo.withOpacity(.8),
-                  Colors.indigo.withOpacity(.9),
-                  Colors.indigo[900]
+                  Colors.indigo[900],
+                  Colors.indigo[900],
+                  Colors.indigo[400],
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -69,7 +70,6 @@ class _StarterState extends State<Starter> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _logo(),
                 Expanded(
                   child: PageView.builder(
                     controller: pageController,
@@ -106,7 +106,7 @@ class _StarterState extends State<Starter> {
                         margin: const EdgeInsets.only(right: 6.0),
                         decoration: BoxDecoration(
                           color: Colors.indigo[400],
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(30.0),
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 10.0,
@@ -146,83 +146,6 @@ class _StarterState extends State<Starter> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  ////*
-  ///***[@Widget] image de fond transparent */
-  ////*
-  Widget _coverBg() {
-    var _size = MediaQuery.of(context).size;
-    return Container(
-      height: _size.height,
-      width: _size.width,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          alignment: Alignment.center,
-          image: AssetImage("assets/images/cover_0.jpg"),
-        ),
-      ),
-    );
-  }
-
-  ////*
-  ///***[@Widget] le titre en haut de la page */
-  ////*
-  Widget _logo() {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            RichText(
-              text: TextSpan(
-                style: GoogleFonts.ultra(
-                  color: Colors.white,
-                  fontSize: 33.0,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 2.0,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withOpacity(.1),
-                      blurRadius: 5,
-                      offset: const Offset(0, 5),
-                    )
-                  ],
-                ),
-                children: [
-                  const TextSpan(
-                    text: "Kin ",
-                  ),
-                  TextSpan(
-                    text: "Achat",
-                    style: GoogleFonts.ultra(
-                      color: Colors.yellow,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              "Acheter partout et en toute facilité !",
-              style: GoogleFonts.didactGothic(
-                fontSize: 15.0,
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                shadows: [
-                  Shadow(
-                    color: Colors.black.withOpacity(.1),
-                    blurRadius: 2,
-                    offset: const Offset(0, 2),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
@@ -266,7 +189,7 @@ class StarterSliderItem extends StatelessWidget {
           Text(
             "$title ",
             textAlign: TextAlign.center,
-            style: GoogleFonts.ultra(
+            style: GoogleFonts.staatliches(
               fontSize: 30.0,
               fontWeight: FontWeight.w900,
               letterSpacing: 2.0,
@@ -303,13 +226,12 @@ class Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: isSelected ? 12 : 10.0,
-      width: isSelected ? 12 : 10.0,
+      height: 4,
+      width: isSelected ? 15.0 : 18.0,
       margin: const EdgeInsets.only(right: 4.0),
       decoration: BoxDecoration(
-        color: isSelected ? Colors.indigo : Colors.white,
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 2.5),
+        color: isSelected ? Colors.indigo[900] : Colors.white,
+        borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(.2),

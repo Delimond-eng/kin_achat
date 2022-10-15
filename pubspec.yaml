@@ -16,6 +16,8 @@ dependencies:
   flutter_svg: any
   lottie: 1.4.1
   palette_generator: 0.3.3
+  get: 4.6.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -30,6 +32,7 @@ flutter:
     - assets/vectors/
     - assets/svgs/
     - assets/lotties/
+    - assets/cats/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
