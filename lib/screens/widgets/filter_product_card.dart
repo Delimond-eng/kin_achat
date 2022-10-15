@@ -35,7 +35,7 @@ class FilterProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 180.0,
+                height: 160.0,
                 width: MediaQuery.of(context).size.width / 2,
                 margin: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
@@ -46,7 +46,7 @@ class FilterProductCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Hero(
-                    tag: data.imgPath,
+                    tag: '${data.id}',
                     child: Image.asset(
                       data.imgPath,
                       fit: BoxFit.scaleDown,

@@ -26,13 +26,13 @@ class FilterBtn extends StatelessWidget {
             offset: const Offset(0, 2),
           )
         ],
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       child: Material(
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(4.0),
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(4.0),
           onTap: onSelected,
           child: Padding(
             padding: const EdgeInsets.all(8.0),

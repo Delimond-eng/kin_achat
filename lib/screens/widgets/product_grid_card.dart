@@ -17,6 +17,7 @@ class GridProductCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
+        color: Colors.white,
       ),
       child: Material(
         borderRadius: BorderRadius.circular(5.0),
@@ -31,17 +32,14 @@ class GridProductCard extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(8),
+                      top: Radius.circular(5),
                     ),
-                    color: Colors.grey[300],
+                    color: Colors.grey[400],
                   ),
                   child: Center(
-                    child: Hero(
-                      tag: data.imgPath,
-                      child: Image.asset(
-                        data.imgPath,
-                        fit: BoxFit.scaleDown,
-                      ),
+                    child: Image.asset(
+                      data.imgPath,
+                      fit: BoxFit.scaleDown,
                     ),
                   ),
                 ),
@@ -50,7 +48,10 @@ class GridProductCard extends StatelessWidget {
                 height: 5.0,
               ),
               Padding(
-                padding: const EdgeInsets.all(2.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,7 +60,7 @@ class GridProductCard extends StatelessWidget {
                       style: GoogleFonts.didactGothic(
                         color: Colors.black54,
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w900,
                       ),
                     ),
                     const SizedBox(
@@ -82,7 +83,7 @@ class GridProductCard extends StatelessWidget {
                           TextSpan(
                             text: "${data.price} ",
                             style: GoogleFonts.anton(
-                              color: const Color.fromARGB(255, 31, 2, 2),
+                              color: Colors.orange[800],
                               fontSize: 25.0,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 1.0,
