@@ -12,7 +12,7 @@ class PQtyUpdate extends StatelessWidget {
       return Row(
         children: [
           RoundedIconBtn(
-            color: qty <= 1 ? Colors.grey : Colors.indigo,
+            color: qty <= 1 ? Colors.grey[400] : Colors.indigo,
             icon: CupertinoIcons.minus,
             size: 25.0,
             onPressed: () async {
@@ -51,7 +51,7 @@ class PQtyUpdate extends StatelessWidget {
 
 class RoundedIconBtn extends StatelessWidget {
   final IconData icon;
-  final MaterialColor color;
+  final Color color;
   final Function onPressed;
   final double size;
   const RoundedIconBtn(
@@ -65,7 +65,7 @@ class RoundedIconBtn extends StatelessWidget {
       width: size ?? 35.0,
       margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
-        color: color.shade600,
+        color: color,
         borderRadius: BorderRadius.circular(35.0),
         boxShadow: [
           BoxShadow(

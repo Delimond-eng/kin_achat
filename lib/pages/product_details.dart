@@ -37,14 +37,17 @@ class ProductSelectedDetails extends StatelessWidget {
                       Flexible(
                         child: Text(
                           data.title,
-                          style: GoogleFonts.didactGothic(
-                            color: Colors.indigo,
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
                             fontSize: 25.0,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 5.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,12 +75,73 @@ class ProductSelectedDetails extends StatelessWidget {
                           ],
                         ),
                       ),
-                      PQtyUpdate(
-                        onQuantityChanged: (int q) {
-                          debugPrint('$q');
-                        },
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              _line(),
+                              Text(
+                                "Quantité",
+                                style: GoogleFonts.didactGothic(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              _line()
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          PQtyUpdate(
+                            onQuantityChanged: (int q) {
+                              debugPrint('$q');
+                            },
+                          ),
+                        ],
                       )
                     ],
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Description",
+                    style: GoogleFonts.didactGothic(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2.0,
+                  ),
+                  Text(
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit  consectetur adipisicing elit.",
+                    style: GoogleFonts.didactGothic(
+                      color: Colors.black54,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  Text(
+                    "Autres Détails",
+                    style: GoogleFonts.didactGothic(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  ...List.generate(
+                    6,
+                    (index) => _detailItem(context,
+                        title: "detail $index  ",
+                        value: "velit mollitia numquam nemo !"),
                   ),
                 ],
               ),
@@ -85,6 +149,16 @@ class ProductSelectedDetails extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _line() {
+    return Container(
+      height: 2,
+      width: 12.0,
+      color: Colors.black,
+      alignment: Alignment.center,
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
     );
   }
 
@@ -250,6 +324,41 @@ class ProductSelectedDetails extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _detailItem(BuildContext context, {String title, String value}) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(width: .5, color: Colors.grey[300]),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "$title ",
+            style: GoogleFonts.didactGothic(
+              color: Colors.indigo,
+              fontSize: 18.0,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          Flexible(
+            child: Text(
+              value,
+              style: GoogleFonts.didactGothic(
+                color: Colors.black,
+                fontSize: 17.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

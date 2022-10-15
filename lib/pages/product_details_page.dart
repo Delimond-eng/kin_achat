@@ -383,10 +383,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           ),
                         ),
                         ...List.generate(
-                            6,
-                            (index) => _detailItem(
-                                title: "detail $index  ",
-                                value: "velit mollitia numquam nemo !")),
+                          6,
+                          (index) => _detailItem(
+                              title: "detail $index  ",
+                              value: "velit mollitia numquam nemo !"),
+                        ),
                       ],
                     ),
                   ),
