@@ -105,7 +105,7 @@ class _StarterState extends State<Starter> {
                         width: 80.0,
                         margin: const EdgeInsets.only(right: 6.0),
                         decoration: BoxDecoration(
-                          color: Colors.indigo[400],
+                          color: Colors.indigo,
                           borderRadius: BorderRadius.circular(30.0),
                           boxShadow: [
                             BoxShadow(
@@ -186,18 +186,21 @@ class StarterSliderItem extends StatelessWidget {
               fit: BoxFit.scaleDown,
             ),
           ],
+          const SizedBox(
+            height: 15.0,
+          ),
           Text(
             "$title ",
             textAlign: TextAlign.center,
             style: GoogleFonts.staatliches(
-              fontSize: 30.0,
+              fontSize: 25.0,
               fontWeight: FontWeight.w900,
               letterSpacing: 2.0,
               color: Colors.white,
             ),
           ),
           const SizedBox(
-            height: 5.0,
+            height: 8.0,
           ),
           Text(
             subtitle,
@@ -226,11 +229,11 @@ class Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: 4,
-      width: isSelected ? 15.0 : 18.0,
+      height: 5.0,
+      width: isSelected ? 18.0 : 10.0,
       margin: const EdgeInsets.only(right: 4.0),
       decoration: BoxDecoration(
-        color: isSelected ? Colors.indigo[900] : Colors.white,
+        color: isSelected ? Colors.yellow[800] : Colors.white,
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(

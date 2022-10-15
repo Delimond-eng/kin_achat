@@ -5,10 +5,11 @@ class Category {
 }
 
 List<Category> categories = [
-  Category(iconPath: "assets/svgs/clothes.svg", title: "Vêtement"),
-  Category(iconPath: "assets/svgs/mobile.svg", title: "Mobile & tablette"),
-  Category(iconPath: "assets/svgs/beauty.svg", title: "Beauté"),
-  Category(iconPath: "assets/svgs/resto.svg", title: "Restaurant"),
-  Category(iconPath: "assets/svgs/job.svg", title: "Emploi"),
-  Category(iconPath: "assets/svgs/electro.svg", title: "Electronique"),
+  Category(iconPath: "assets/cats/cat_0.jpg", title: "Vêtement"),
+  Category(iconPath: "assets/cats/cat_6.jpg", title: "Beauté"),
+  Category(iconPath: "assets/cats/cat_4.jpg", title: "Lunettes"),
+  Category(iconPath: "assets/cats/cat_9.jpg", title: "Meubles"),
+  Category(iconPath: "assets/cats/cat_8.jpg", title: "Voitures"),
+  Category(iconPath: "assets/cats/cat_5.jpg", title: "Electroniques"),
+  Category(iconPath: "assets/cats/cat_2.jpg", title: "Parfums"),
 ];
