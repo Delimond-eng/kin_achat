@@ -21,133 +21,148 @@ class ProductSelectedDetails extends StatelessWidget {
         children: [
           _header(context),
           _detailImageSliders(context),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 8.0,
+          _headerDetails(),
+          const SizedBox(
+            height: 10.0,
+          ),
+          _moreDetails(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _headerDetails() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  data.title,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            ],
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "${data.price} ",
+                      style: GoogleFonts.anton(
+                        color: Colors.orange[800],
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "CDF",
+                      style: GoogleFonts.didactGothic(
+                        color: Colors.black54,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Flexible(
-                        child: Text(
-                          data.title,
-                          style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w800,
-                          ),
+                      _line(),
+                      Text(
+                        "Quantité",
+                        style: GoogleFonts.didactGothic(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
+                      _line()
                     ],
                   ),
                   const SizedBox(
                     height: 5.0,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "${data.price} ",
-                              style: GoogleFonts.anton(
-                                color: Colors.orange[800],
-                                fontSize: 28.0,
-                                fontWeight: FontWeight.w900,
-                                letterSpacing: 1.0,
-                              ),
-                            ),
-                            TextSpan(
-                              text: "CDF",
-                              style: GoogleFonts.didactGothic(
-                                color: Colors.black54,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              _line(),
-                              Text(
-                                "Quantité",
-                                style: GoogleFonts.didactGothic(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                              _line()
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
-                          PQtyUpdate(
-                            onQuantityChanged: (int q) {
-                              debugPrint('$q');
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    "Description",
-                    style: GoogleFonts.didactGothic(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2.0,
-                  ),
-                  Text(
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit  consectetur adipisicing elit.",
-                    style: GoogleFonts.didactGothic(
-                      color: Colors.black54,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  Text(
-                    "Autres Détails",
-                    style: GoogleFonts.didactGothic(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  ...List.generate(
-                    6,
-                    (index) => _detailItem(context,
-                        title: "detail $index  ",
-                        value: "velit mollitia numquam nemo !"),
+                  PQtyUpdate(
+                    onQuantityChanged: (int q) {
+                      debugPrint('$q');
+                    },
                   ),
                 ],
-              ),
-            ),
+              )
+            ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _moreDetails(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 8.0,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Description",
+              style: GoogleFonts.didactGothic(
+                color: Colors.black,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(
+              height: 2.0,
+            ),
+            Text(
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit  consectetur adipisicing elit.",
+              style: GoogleFonts.didactGothic(
+                color: Colors.black54,
+                fontSize: 15.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              "Autres Détails",
+              style: GoogleFonts.didactGothic(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            ...List.generate(
+              6,
+              (index) => _detailItem(context,
+                  title: "detail $index  ",
+                  value: "velit mollitia numquam nemo !"),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -353,8 +368,7 @@ class ProductSelectedDetails extends StatelessWidget {
               value,
               style: GoogleFonts.didactGothic(
                 color: Colors.black,
-                fontSize: 17.0,
-                fontWeight: FontWeight.w600,
+                fontSize: 18.0,
               ),
             ),
           )
