@@ -13,15 +13,15 @@ class FilterProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 2,
+      width: MediaQuery.of(context).size.width / 1.80,
       margin: const EdgeInsets.only(right: 8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(.3),
-            blurRadius: 10.0,
+            color: Colors.grey.withOpacity(.1),
+            blurRadius: 2.0,
             offset: const Offset(0, 2),
           )
         ],
@@ -37,7 +37,7 @@ class FilterProductCard extends StatelessWidget {
             children: [
               Container(
                 height: 160.0,
-                width: MediaQuery.of(context).size.width / 2,
+                width: MediaQuery.of(context).size.width / 1.80,
                 margin: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.vertical(
