@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -87,28 +88,57 @@ class FilterProductCard extends StatelessWidget {
                     const SizedBox(
                       height: 4.0,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "${data.price} ",
-                            style: GoogleFonts.anton(
-                              color: Colors.orange[800],
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.0,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "${data.price} ",
+                                  style: GoogleFonts.anton(
+                                    color: Colors.orange[800],
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "CDF",
+                                  style: GoogleFonts.didactGothic(
+                                    color: Colors.black54,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                          TextSpan(
-                            text: "CDF",
-                            style: GoogleFonts.didactGothic(
-                              color: Colors.black54,
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w600,
+                        ),
+                        Container(
+                          height: 30.0,
+                          width: 30.0,
+                          decoration: BoxDecoration(
+                            color: Colors.indigo[100],
+                            borderRadius: BorderRadius.circular(30.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(.3),
+                                offset: const Offset(0, 2),
+                                blurRadius: 2,
+                              )
+                            ],
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              CupertinoIcons.heart,
+                              size: 15.0,
+                              color: Colors.indigo,
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
