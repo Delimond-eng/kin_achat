@@ -26,10 +26,73 @@ class ProductSelectedDetails extends StatelessWidget {
             height: 10.0,
           ),
           _moreDetails(context),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            child: Row(
+              children: [
+                Flexible(
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(20.0),
+                      backgroundColor: Colors.indigo[100],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                    onPressed: () {},
+                    label: Text(
+                      "Commander",
+                      style: GoogleFonts.didactGothic(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15.0,
+                        color: Colors.indigo[800],
+                      ),
+                    ),
+                    icon: Icon(
+                      CupertinoIcons.bag,
+                      color: Colors.indigo[800],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Flexible(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        alignment: Alignment.center,
+                        backgroundColor: Colors.indigo,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      onPressed: () {},
+                      label: Text(
+                        "Panier",
+                        style: GoogleFonts.didactGothic(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15.0,
+                        ),
+                      ),
+                      icon: const Icon(
+                        CupertinoIcons.shopping_cart,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
+
+  //*Affichage des détails du produits*//
 
   Widget _headerDetails() {
     return Padding(
@@ -177,6 +240,7 @@ class ProductSelectedDetails extends StatelessWidget {
     );
   }
 
+  //* Affichage carousel *//
   Widget _detailImageSliders(BuildContext context) {
     final PageController _pageController = PageController(initialPage: 0);
     int _currentSlider = 0;
@@ -224,6 +288,7 @@ class ProductSelectedDetails extends StatelessWidget {
     );
   }
 
+  //*Indicateur du carousel des images du produit cible*//
   Widget _sliderIndicators(int currentSlide) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -243,6 +308,7 @@ class ProductSelectedDetails extends StatelessWidget {
     );
   }
 
+  //*Header la page *//
   Widget _header(BuildContext context) {
     return SafeArea(
       child: Padding(
@@ -343,6 +409,7 @@ class ProductSelectedDetails extends StatelessWidget {
     );
   }
 
+  //*@[Widget] composant reutilisable pour afficher les détails clé-valeur*//
   Widget _detailItem(BuildContext context, {String title, String value}) {
     return Container(
       width: MediaQuery.of(context).size.width,

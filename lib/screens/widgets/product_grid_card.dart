@@ -112,13 +112,6 @@ class GridProductCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.indigo[100],
                             borderRadius: BorderRadius.circular(30.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(.3),
-                                offset: const Offset(0, 2),
-                                blurRadius: 2,
-                              )
-                            ],
                           ),
                           child: const Center(
                             child: Icon(

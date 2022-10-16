@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/pages/more_categories_viewer.dart';
 
 import '../models/category.dart';
 import '../models/product.dart';
@@ -58,7 +59,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   //*Affichage du grid de tous les produits*//
-
   Widget _allProducts(BuildContext context) {
     return Column(
       children: [
@@ -178,7 +178,6 @@ class _HomePageState extends State<HomePage> {
       );
     });
   }
-
   //*End Filtering*//
 
   //*Affiche toutes les catégories de produits*//
@@ -219,7 +218,14 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.transparent,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(5.0),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MoreCategoriesViewer(),
+                        ),
+                      );
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(7.0),
                       child: Text(
