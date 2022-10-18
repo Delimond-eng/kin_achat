@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/models/product.dart';
+import 'package:kinachat/screens/widgets/line.dart';
 import 'package:kinachat/screens/widgets/product_qty_update.dart';
 
 import '../screens/widgets/utilities_widget.dart';
@@ -32,26 +33,29 @@ class ProductSelectedDetails extends StatelessWidget {
             child: Row(
               children: [
                 Flexible(
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20.0),
-                      backgroundColor: Colors.indigo[100],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(20.0),
+                        backgroundColor: Colors.indigo[100],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
                       ),
-                    ),
-                    onPressed: () {},
-                    label: Text(
-                      "Commander",
-                      style: GoogleFonts.didactGothic(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 15.0,
+                      onPressed: () {},
+                      label: Text(
+                        "Commander",
+                        style: GoogleFonts.didactGothic(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15.0,
+                          color: Colors.indigo[800],
+                        ),
+                      ),
+                      icon: Icon(
+                        CupertinoIcons.bag,
                         color: Colors.indigo[800],
                       ),
-                    ),
-                    icon: Icon(
-                      CupertinoIcons.bag,
-                      color: Colors.indigo[800],
                     ),
                   ),
                 ),
@@ -150,7 +154,7 @@ class ProductSelectedDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      _line(),
+                      const GLine(),
                       Text(
                         "Quantité",
                         style: GoogleFonts.didactGothic(
@@ -158,7 +162,7 @@ class ProductSelectedDetails extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-                      _line()
+                      const GLine(),
                     ],
                   ),
                   const SizedBox(
@@ -227,16 +231,6 @@ class ProductSelectedDetails extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _line() {
-    return Container(
-      height: 2,
-      width: 12.0,
-      color: Colors.black,
-      alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(horizontal: 4.0),
     );
   }
 
@@ -358,7 +352,7 @@ class ProductSelectedDetails extends StatelessWidget {
                   height: 30.0,
                   width: 30.0,
                   decoration: BoxDecoration(
-                    color: Colors.indigo[100],
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(30.0),
                     boxShadow: [
                       BoxShadow(
@@ -368,11 +362,11 @@ class ProductSelectedDetails extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Icon(
                       CupertinoIcons.heart,
                       size: 15.0,
-                      color: Colors.indigo,
+                      color: Colors.orange[800],
                     ),
                   ),
                 ),
@@ -393,11 +387,11 @@ class ProductSelectedDetails extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Icon(
                       CupertinoIcons.shopping_cart,
                       size: 15.0,
-                      color: Colors.orange,
+                      color: Colors.indigo[800],
                     ),
                   ),
                 )

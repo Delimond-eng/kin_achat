@@ -37,6 +37,9 @@ class FilterBtn extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+              mainAxisAlignment: isSelected
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
               children: [
                 if (isSelected) ...[
                   Container(

@@ -1,15 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kinachat/pages/more_categories_viewer.dart';
+import 'package:kinachat/components/app_main_header.dart';
+import 'package:kinachat/components/products_list_viewer.dart';
 
+import '../components/filter_end_drawer.dart';
 import '../models/category.dart';
 import '../models/product.dart';
 import '../screens/widgets/category_card.dart';
 import '../screens/widgets/filter_card.dart';
 import '../screens/widgets/filter_product_card.dart';
-import '../screens/widgets/product_grid_card.dart';
-import '../screens/widgets/search_bar.dart';
+
+import 'cart.dart';
 import 'product_details.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,6 +28,9 @@ class _HomePageState extends State<HomePage> {
     {"key": "discount", "label": "Remises"},
   ];
   //*End List *//
+
+  //*scaffold _key state allow to open filter drawer *//
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -35,12 +39,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
+      drawerScrimColor: Colors.transparent,
+      endDrawer: const FilterEndDrawer(),
       backgroundColor: Colors.grey[200],
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _mainHeader(context),
+          AppMainHeader(
+            onOpenCart: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Cart(),
+                ),
+              );
+            },
+            onLoggedIn: () {},
+            onFiltered: () {
+              _key.currentState.openEndDrawer();
+            },
+          ),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -60,70 +80,9 @@ class _HomePageState extends State<HomePage> {
 
   //*Affichage du grid de tous les produits*//
   Widget _allProducts(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 8.0,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Liste des produits",
-                style: GoogleFonts.didactGothic(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20.0,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(.1),
-                      blurRadius: 2,
-                      offset: const Offset(0, 2),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Material(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5.0),
-                    onTap: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.dashboard,
-                          size: 18.0, color: Colors.indigo),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        GridView.builder(
-          padding: const EdgeInsets.all(10.0),
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: .6,
-            crossAxisCount: 2,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemCount: products.length,
-          itemBuilder: ((context, index) {
-            var data = products[index];
-            return GridProductCard(data: data);
-          }),
-        )
-      ],
+    return ProductsListViewer(
+      dataList: products,
+      isScrollable: false,
     );
   }
 
@@ -190,56 +149,13 @@ class _HomePageState extends State<HomePage> {
             horizontal: 10.0,
             vertical: 8.0,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Catégories",
-                style: GoogleFonts.didactGothic(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20.0,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(.1),
-                      blurRadius: 2,
-                      offset: const Offset(0, 2),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Material(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5.0),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MoreCategoriesViewer(),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(7.0),
-                      child: Text(
-                        "Voir plus",
-                        style: GoogleFonts.didactGothic(
-                          color: Colors.indigo,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
+          child: Text(
+            "Catégories",
+            style: GoogleFonts.didactGothic(
+              color: Colors.black,
+              fontWeight: FontWeight.w900,
+              fontSize: 20.0,
+            ),
           ),
         ),
         SingleChildScrollView(
@@ -260,120 +176,4 @@ class _HomePageState extends State<HomePage> {
   }
   //*End categories viewer *//
 
-  //*Partie d'entete principal de l'appli pour la page principale*//
-  Widget _mainHeader(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Container(
-      height: 152.0,
-      width: size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Theme.of(context).primaryColor,
-            Colors.indigo[300],
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _logo(),
-                  Row(
-                    children: [
-                      Container(
-                        height: 35.0,
-                        width: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.indigo[100],
-                          image: const DecorationImage(
-                            alignment: Alignment.center,
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/slider-1.jpeg"),
-                          ),
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(.3),
-                              offset: const Offset(0, 2),
-                              blurRadius: 2,
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
-                      Container(
-                        height: 35.0,
-                        width: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.indigo[100],
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(.3),
-                              offset: const Offset(0, 2),
-                              blurRadius: 2,
-                            )
-                          ],
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            CupertinoIcons.shopping_cart,
-                            size: 20.0,
-                            color: Colors.indigo,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              const SearchBar(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  //*App Logo*//
-  Widget _logo() {
-    return RichText(
-      text: TextSpan(
-        style: GoogleFonts.staatliches(
-          color: Colors.white,
-          fontSize: 28.0,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 2.0,
-          shadows: [
-            Shadow(
-              color: Colors.black.withOpacity(.1),
-              blurRadius: 5,
-              offset: const Offset(0, 5),
-            )
-          ],
-        ),
-        children: [
-          const TextSpan(
-            text: "Kin",
-          ),
-          TextSpan(
-            text: " Achat",
-            style: GoogleFonts.staatliches(
-              color: Colors.yellow,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

@@ -1,6 +1,7 @@
 class Product {
   int id;
   String title, price, imgPath;
+  int qty;
 
   Product({this.id, this.title, this.price, this.imgPath});
 }
