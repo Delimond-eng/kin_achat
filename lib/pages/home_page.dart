@@ -46,6 +46,8 @@ class _HomePageState extends State<HomePage> {
               Get.to(
                 const AuthScreen(),
                 transition: Transition.circularReveal,
+                duration: const Duration(milliseconds: 1000),
+                popGesture: false,
               );
             },
             onFiltered: () {},

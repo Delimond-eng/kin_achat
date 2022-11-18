@@ -34,7 +34,8 @@ class _AuthScreenState extends State<AuthScreen> {
           children: [
             Container(
               width: size.width,
-              height: size.height * .4,
+              height: size.height * .3,
+              margin: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(5.0),
@@ -52,11 +53,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 children: [
                   _logo(),
                   const SocialBtn(
-                    icon: "google_account.svg",
+                    icon: "google_account",
                     label: "Se connecter avec Google",
                   ),
                   const SocialBtn(
-                    icon: "facebook_account.svg",
+                    icon: "facebook_account",
                     label: "Se connecter avec Facebook",
                   ),
                 ],
@@ -71,7 +72,7 @@ class _AuthScreenState extends State<AuthScreen> {
   //*App Logo*//
   Widget _logo() {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(12.0),
       child: Center(
         child: RichText(
           text: TextSpan(
@@ -83,8 +84,8 @@ class _AuthScreenState extends State<AuthScreen> {
               shadows: [
                 Shadow(
                   color: Colors.black.withOpacity(.1),
-                  blurRadius: 5,
-                  offset: const Offset(0, 5),
+                  blurRadius: 1,
+                  offset: const Offset(0, 1),
                 )
               ],
             ),
@@ -95,7 +96,7 @@ class _AuthScreenState extends State<AuthScreen> {
               TextSpan(
                 text: " Achat",
                 style: GoogleFonts.staatliches(
-                  color: Colors.yellow,
+                  color: Colors.orange,
                 ),
               ),
             ],
@@ -121,7 +122,7 @@ class SocialBtn extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(
         horizontal: 10.0,
-        vertical: 8.0,
+        vertical: 4.0,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -148,8 +149,8 @@ class SocialBtn extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   "assets/svgs/$icon.svg",
-                  height: 25.0,
-                  width: 25.0,
+                  height: 30.0,
+                  width: 30.0,
                 ),
                 const SizedBox(
                   width: 5.0,
