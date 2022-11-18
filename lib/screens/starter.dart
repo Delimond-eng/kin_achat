@@ -51,101 +51,96 @@ class _StarterState extends State<Starter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.indigo[900],
-                  Colors.indigo[900],
-                  Colors.indigo[400],
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.indigo[900],
+              Colors.indigo[900],
+              Colors.indigo[400],
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentImageIndex = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return sliders[index];
+                },
+                itemCount: sliders.length,
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: pageController,
-                    onPageChanged: (index) {
-                      setState(() {
-                        currentImageIndex = index;
-                      });
-                    },
-                    itemBuilder: (context, index) {
-                      return sliders[index];
-                    },
-                    itemCount: sliders.length,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          for (int i = 0; i < sliders.length; i++) ...[
-                            if (i == currentImageIndex)
-                              const Dot(isSelected: true)
-                            else
-                              const Dot()
-                          ]
-                        ],
-                      ),
-                      Container(
-                        height: 40.0,
-                        width: 80.0,
-                        margin: const EdgeInsets.only(right: 6.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 10.0,
-                              color: Colors.black.withOpacity(.1),
-                              offset: const Offset(0, 5),
-                            ),
-                          ],
-                        ),
-                        child: Material(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(5.0),
-                            onTap: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomeScreen(),
-                                  ),
-                                  (route) => false);
-                            },
-                            child: Center(
-                              child: SvgPicture.asset(
-                                "assets/svgs/next_big.svg",
-                                height: 20.0,
-                                width: 20,
-                                color: Colors.indigo,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                      for (int i = 0; i < sliders.length; i++) ...[
+                        if (i == currentImageIndex)
+                          const Dot(isSelected: true)
+                        else
+                          const Dot()
+                      ]
                     ],
                   ),
-                )
-              ],
-            ),
-          ),
-        ],
+                  Container(
+                    height: 40.0,
+                    width: 80.0,
+                    margin: const EdgeInsets.only(right: 6.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5.0),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10.0,
+                          color: Colors.black.withOpacity(.1),
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(5.0),
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ),
+                              (route) => false);
+                        },
+                        child: Center(
+                          child: SvgPicture.asset(
+                            "assets/svgs/next_big.svg",
+                            height: 20.0,
+                            width: 20,
+                            color: Colors.indigo,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

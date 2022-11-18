@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/app_main_header.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
+import 'package:kinachat/screens/auth/auth.dart';
 
 import '../components/cart_viewer.dart';
 import '../models/category.dart';
@@ -40,7 +42,12 @@ class _HomePageState extends State<HomePage> {
             onOpenCart: () {
               _key.currentState.openEndDrawer();
             },
-            onLoggedIn: () {},
+            onLoggedIn: () {
+              Get.to(
+                const AuthScreen(),
+                transition: Transition.circularReveal,
+              );
+            },
             onFiltered: () {},
           ),
           Expanded(
