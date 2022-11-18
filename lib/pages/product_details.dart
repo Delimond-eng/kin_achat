@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/components/cart_viewer.dart';
 import 'package:kinachat/models/product.dart';
 import 'package:kinachat/screens/widgets/line.dart';
 import 'package:kinachat/screens/widgets/product_qty_update.dart';
@@ -14,13 +17,17 @@ class ProductSelectedDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: const CartViewer(),
+      drawerScrimColor: Colors.black12,
       backgroundColor: Colors.grey[200],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _header(context),
+          _header(context, key: _scaffoldKey),
           _detailImageSliders(context),
           _headerDetails(),
           const SizedBox(
@@ -38,36 +45,6 @@ class ProductSelectedDetails extends StatelessWidget {
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(20.0),
-                        backgroundColor: Colors.indigo[100],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                      ),
-                      onPressed: () {},
-                      label: Text(
-                        "Commander",
-                        style: GoogleFonts.didactGothic(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 15.0,
-                          color: Colors.indigo[800],
-                        ),
-                      ),
-                      icon: Icon(
-                        CupertinoIcons.bag,
-                        color: Colors.indigo[800],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10.0,
-                ),
-                Flexible(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(20.0),
                         alignment: Alignment.center,
                         backgroundColor: Colors.indigo,
                         shape: RoundedRectangleBorder(
@@ -76,14 +53,13 @@ class ProductSelectedDetails extends StatelessWidget {
                       ),
                       onPressed: () {},
                       label: Text(
-                        "Panier",
-                        style: GoogleFonts.didactGothic(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 15.0,
+                        "Ajouter au panier",
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       icon: const Icon(
-                        CupertinoIcons.shopping_cart,
+                        CupertinoIcons.cart_badge_plus,
                       ),
                     ),
                   ),
@@ -138,7 +114,7 @@ class ProductSelectedDetails extends StatelessWidget {
                     ),
                     TextSpan(
                       text: "CDF",
-                      style: GoogleFonts.didactGothic(
+                      style: GoogleFonts.poppins(
                         color: Colors.black54,
                         fontSize: 15.0,
                         fontWeight: FontWeight.w600,
@@ -157,7 +133,7 @@ class ProductSelectedDetails extends StatelessWidget {
                       const GLine(),
                       Text(
                         "Quantité",
-                        style: GoogleFonts.didactGothic(
+                        style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.w800,
                         ),
@@ -169,9 +145,7 @@ class ProductSelectedDetails extends StatelessWidget {
                     height: 5.0,
                   ),
                   PQtyUpdate(
-                    onQuantityChanged: (int q) {
-                      debugPrint('$q');
-                    },
+                    onQuantityChanged: (int q) {},
                   ),
                 ],
               )
@@ -186,48 +160,164 @@ class ProductSelectedDetails extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
           vertical: 8.0,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Description",
-              style: GoogleFonts.didactGothic(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w600,
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+              child: Text(
+                "Description",
+                style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+              child: Text(
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit  consectetur adipisicing elit.",
+                style: GoogleFonts.didactGothic(
+                  color: Colors.black54,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             const SizedBox(
-              height: 2.0,
+              height: 10.0,
             ),
-            Text(
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit  consectetur adipisicing elit.",
-              style: GoogleFonts.didactGothic(
-                color: Colors.black54,
-                fontSize: 15.0,
-                fontWeight: FontWeight.w600,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 2.0),
+                  child: Text(
+                    "Vous preferez quelle couleur ?",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 5.0,
+                  ),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      7,
+                      (index) => Container(
+                        height: 30.0,
+                        width: 30.0,
+                        margin: const EdgeInsets.only(right: 8.0),
+                        decoration: BoxDecoration(
+                          color: Colors
+                              .primaries[
+                                  Random().nextInt(Colors.primaries.length)]
+                              .shade900,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Container(
+                          margin: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color:
+                                index == 0 ? Colors.white : Colors.transparent,
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              height: 8.0,
+              height: 5.0,
             ),
-            Text(
-              "Autres Détails",
-              style: GoogleFonts.didactGothic(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w600,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 2.0),
+                  child: Text(
+                    "Sélectionnez la taille",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 5.0),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      7,
+                      (index) => Container(
+                        height: 50.0,
+                        margin: const EdgeInsets.only(right: 8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(
+                            color: Colors.indigo[200],
+                            width: .5,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "XXL",
+                              style: GoogleFonts.poppins(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+              child: Text(
+                "Autres Détails",
+                style: GoogleFonts.poppins(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-            ...List.generate(
-              6,
-              (index) => _detailItem(context,
-                  title: "detail $index  ",
-                  value: "velit mollitia numquam nemo !"),
-            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: [
+                  ...List.generate(
+                    6,
+                    (index) => _detailItem(context,
+                        title: "detail $index  ",
+                        value: "velit mollitia numquam nemo !"),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -303,7 +393,7 @@ class ProductSelectedDetails extends StatelessWidget {
   }
 
   //*Header la page *//
-  Widget _header(BuildContext context) {
+  Widget _header(BuildContext context, {key}) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -340,7 +430,7 @@ class ProductSelectedDetails extends StatelessWidget {
             ),
             Text(
               "Détails",
-              style: GoogleFonts.didactGothic(
+              style: GoogleFonts.poppins(
                 color: Colors.black,
                 fontSize: 18.0,
                 fontWeight: FontWeight.w900,
@@ -349,11 +439,11 @@ class ProductSelectedDetails extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  height: 30.0,
-                  width: 30.0,
+                  height: 35.0,
+                  width: 35.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(.3),
@@ -374,11 +464,11 @@ class ProductSelectedDetails extends StatelessWidget {
                   width: 8.0,
                 ),
                 Container(
-                  height: 30.0,
-                  width: 30.0,
+                  height: 35.0,
+                  width: 35.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(.3),
@@ -387,11 +477,21 @@ class ProductSelectedDetails extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: Center(
-                    child: Icon(
-                      CupertinoIcons.shopping_cart,
-                      size: 15.0,
-                      color: Colors.indigo[800],
+                  child: Material(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        key.currentState.openEndDrawer();
+                      },
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Center(
+                        child: Icon(
+                          CupertinoIcons.shopping_cart,
+                          size: 15.0,
+                          color: Colors.indigo[800],
+                        ),
+                      ),
                     ),
                   ),
                 )
@@ -418,18 +518,17 @@ class ProductSelectedDetails extends StatelessWidget {
         children: [
           Text(
             "$title ",
-            style: GoogleFonts.didactGothic(
+            style: GoogleFonts.poppins(
               color: Colors.indigo,
-              fontSize: 18.0,
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w700,
             ),
           ),
           Flexible(
             child: Text(
               value,
-              style: GoogleFonts.didactGothic(
+              style: GoogleFonts.poppins(
                 color: Colors.black,
-                fontSize: 18.0,
+                fontWeight: FontWeight.w500,
               ),
             ),
           )

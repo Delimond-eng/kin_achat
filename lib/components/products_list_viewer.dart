@@ -31,10 +31,10 @@ class ProductsListViewer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  descriptionLabel ?? "Liste des produits",
-                  style: GoogleFonts.didactGothic(
+                  descriptionLabel ?? "Nos produits",
+                  style: GoogleFonts.poppins(
                     color: Colors.black,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w700,
                     fontSize: 20.0,
                   ),
                 ),

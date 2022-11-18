@@ -15,7 +15,6 @@ class FilterBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 120.0,
       margin: const EdgeInsets.only(right: 8.0),
       decoration: BoxDecoration(
         color: isSelected ? Colors.indigo[200] : Colors.white,
@@ -56,10 +55,10 @@ class FilterBtn extends StatelessWidget {
                 ],
                 Text(
                   label,
-                  style: GoogleFonts.didactGothic(
+                  style: GoogleFonts.poppins(
                     color: Colors.indigo[700],
                     fontSize: 16.0,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                   ),
                 )
               ],

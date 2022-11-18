@@ -105,8 +105,8 @@ class _StarterState extends State<Starter> {
                         width: 80.0,
                         margin: const EdgeInsets.only(right: 6.0),
                         decoration: BoxDecoration(
-                          color: Colors.indigo,
-                          borderRadius: BorderRadius.circular(30.0),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5.0),
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 10.0,
@@ -117,9 +117,9 @@ class _StarterState extends State<Starter> {
                         ),
                         child: Material(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(5.0),
                           child: InkWell(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(5.0),
                             onTap: () {
                               Navigator.pushAndRemoveUntil(
                                   context,
@@ -133,7 +133,7 @@ class _StarterState extends State<Starter> {
                                 "assets/svgs/next_big.svg",
                                 height: 20.0,
                                 width: 20,
-                                color: Colors.white,
+                                color: Colors.indigo,
                               ),
                             ),
                           ),
@@ -205,9 +205,9 @@ class StarterSliderItem extends StatelessWidget {
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: GoogleFonts.didactGothic(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+            style: GoogleFonts.poppins(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
               color: Colors.grey[100],
             ),
           )

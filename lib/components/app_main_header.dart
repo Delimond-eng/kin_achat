@@ -51,7 +51,7 @@ class AppMainHeader extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(.5),
+                              color: Colors.black.withOpacity(.2),
                               offset: const Offset(0, 2),
                               blurRadius: 5,
                             )
@@ -78,7 +78,7 @@ class AppMainHeader extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(.5),
+                              color: Colors.black.withOpacity(.2),
                               offset: const Offset(0, 2),
                               blurRadius: 5,
                             )

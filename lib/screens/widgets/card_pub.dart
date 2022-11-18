@@ -46,7 +46,7 @@ class CardPub extends StatelessWidget {
                     children: [
                       Text(
                         data.title,
-                        style: GoogleFonts.didactGothic(
+                        style: GoogleFonts.poppins(
                           color: snapshot.data.dominantColor.bodyTextColor,
                           fontSize: 22.0,
                           fontWeight: FontWeight.w800,
@@ -57,7 +57,7 @@ class CardPub extends StatelessWidget {
                       ),
                       Text(
                         "livraison 1h",
-                        style: GoogleFonts.didactGothic(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 14.0,
                           fontWeight: FontWeight.w600,
@@ -80,7 +80,7 @@ class CardPub extends StatelessWidget {
                             ),
                             TextSpan(
                               text: "CDF",
-                              style: GoogleFonts.didactGothic(
+                              style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w600,
@@ -130,7 +130,7 @@ class CardPub extends StatelessWidget {
                     children: [
                       Text(
                         data.title,
-                        style: GoogleFonts.didactGothic(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 22.0,
                           fontWeight: FontWeight.w800,
@@ -141,7 +141,7 @@ class CardPub extends StatelessWidget {
                       ),
                       Text(
                         "livraison 1h au max.",
-                        style: GoogleFonts.didactGothic(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 12.0,
                           fontWeight: FontWeight.w600,
@@ -164,7 +164,7 @@ class CardPub extends StatelessWidget {
                             ),
                             TextSpan(
                               text: "CDF",
-                              style: GoogleFonts.didactGothic(
+                              style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w600,

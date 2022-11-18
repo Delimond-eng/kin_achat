@@ -43,54 +43,22 @@ class SearchBar extends StatelessWidget {
             Flexible(
               child: TextField(
                 //controller: widget.controller,
-                style: GoogleFonts.didactGothic(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w800,
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w700,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(8.0),
                   hintText: hintText ?? "Recherche produit...",
-                  hintStyle: GoogleFonts.didactGothic(
+                  hintStyle: GoogleFonts.poppins(
                     color: Colors.grey[500],
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15.0,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12.0,
                   ),
                   border: InputBorder.none,
                   counterText: '',
                 ),
               ),
             ),
-            Container(
-              height: 50.0,
-              width: 45.0,
-              margin: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                color: Colors.indigo,
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.indigo.withOpacity(.5),
-                    offset: const Offset(0, 2),
-                    blurRadius: 2,
-                  )
-                ],
-              ),
-              child: Material(
-                borderRadius: BorderRadius.circular(5.0),
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(5.0),
-                  onTap: onFiltered,
-                  child: const Center(
-                    child: Icon(
-                      Icons.filter_list_rounded,
-                      color: Colors.white,
-                      size: 18.0,
-                    ),
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),

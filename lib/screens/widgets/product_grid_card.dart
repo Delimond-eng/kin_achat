@@ -60,10 +60,9 @@ class GridProductCard extends StatelessWidget {
                       children: [
                         Text(
                           data.title,
-                          style: GoogleFonts.didactGothic(
+                          style: GoogleFonts.poppins(
                             color: Colors.black54,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         const SizedBox(
@@ -71,7 +70,7 @@ class GridProductCard extends StatelessWidget {
                         ),
                         Text(
                           "Livraison 2 jours",
-                          style: GoogleFonts.didactGothic(
+                          style: GoogleFonts.poppins(
                             color: Colors.yellow[900],
                             fontSize: 12.0,
                             fontWeight: FontWeight.w600,
@@ -98,7 +97,7 @@ class GridProductCard extends StatelessWidget {
                                     ),
                                     TextSpan(
                                       text: "CDF",
-                                      style: GoogleFonts.didactGothic(
+                                      style: GoogleFonts.poppins(
                                         color: Colors.black54,
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.w600,
@@ -178,7 +177,7 @@ class GridProductCard extends StatelessWidget {
                   children: [
                     Text(
                       data.title,
-                      style: GoogleFonts.didactGothic(
+                      style: GoogleFonts.poppins(
                         color: Colors.black54,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w900,
@@ -189,7 +188,7 @@ class GridProductCard extends StatelessWidget {
                     ),
                     Text(
                       "Livraison 2 jours",
-                      style: GoogleFonts.didactGothic(
+                      style: GoogleFonts.poppins(
                         color: Colors.yellow[900],
                         fontSize: 12.0,
                         fontWeight: FontWeight.w600,
@@ -216,7 +215,7 @@ class GridProductCard extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text: "CDF",
-                                  style: GoogleFonts.didactGothic(
+                                  style: GoogleFonts.poppins(
                                     color: Colors.black54,
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,

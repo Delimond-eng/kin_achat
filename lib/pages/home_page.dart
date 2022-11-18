@@ -3,14 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/app_main_header.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
 
-import '../components/filter_end_drawer.dart';
+import '../components/cart_viewer.dart';
 import '../models/category.dart';
 import '../models/product.dart';
 import '../screens/widgets/category_card.dart';
-import '../screens/widgets/filter_card.dart';
 import '../screens/widgets/filter_product_card.dart';
 
-import 'cart.dart';
 import 'product_details.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,14 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //*Cette list permet de simuler le filtrage de produits *//
-  final List<Map> _filters = [
-    {"key": "popular", "label": "Populaires"},
-    {"key": "new", "label": "Recents"},
-    {"key": "discount", "label": "Remises"},
-  ];
-  //*End List *//
-
   //*scaffold _key state allow to open filter drawer *//
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
@@ -40,8 +30,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      drawerScrimColor: Colors.transparent,
-      endDrawer: const FilterEndDrawer(),
+      endDrawer: const CartViewer(),
       backgroundColor: Colors.grey[200],
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,23 +38,36 @@ class _HomePageState extends State<HomePage> {
         children: [
           AppMainHeader(
             onOpenCart: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Cart(),
-                ),
-              );
-            },
-            onLoggedIn: () {},
-            onFiltered: () {
               _key.currentState.openEndDrawer();
             },
+            onLoggedIn: () {},
+            onFiltered: () {},
           ),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
+                  Container(
+                    height: 150.0,
+                    margin: const EdgeInsets.fromLTRB(10, 15.0, 10.0, 5.0),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.3),
+                          offset: const Offset(0, 2),
+                          blurRadius: 5,
+                        )
+                      ],
+                      image: const DecorationImage(
+                        image: AssetImage('assets/images/slider-2.jpeg'),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.centerLeft,
+                      ),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
                   _categoriesPart(context),
                   _productsFiltering(context),
                   _allProducts(context)
@@ -88,54 +90,61 @@ class _HomePageState extends State<HomePage> {
 
   //*Affichage des produits par filtrage*//
   Widget _productsFiltering(BuildContext context) {
-    var _defaultSelection = "popular";
-    return StatefulBuilder(builder: (context, setter) {
-      return Column(
-        children: [
-          const SizedBox(
-            height: 15.0,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-            child: Row(
-              children: _filters
-                  .map(
-                    (e) => FilterBtn(
-                      label: e['label'],
-                      isSelected: e['key'] == _defaultSelection,
-                      onSelected: () {
-                        setter(() => _defaultSelection = e['key']);
-                      },
-                    ),
-                  )
-                  .toList(),
+    //var _defaultSelection = "popular";
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   padding:
+        //       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+        //   child: Row(
+        //     children: _filters
+        //         .map(
+        //           (e) => FilterBtn(
+        //             label: e['label'],
+        //             isSelected: e['key'] == _defaultSelection,
+        //             onSelected: () {
+        //               setter(() => _defaultSelection = e['key']);
+        //             },
+        //           ),
+        //         )
+        //         .toList(),
+        //   ),
+        // ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Text(
+            "Recommandations",
+            style: GoogleFonts.poppins(
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+              fontSize: 20.0,
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.fromLTRB(10.0, 5, 10, 10.0),
-            child: Row(
-              children: products
-                  .map((e) => FilterProductCard(
-                      data: e,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductSelectedDetails(
-                              data: e,
-                            ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.fromLTRB(10.0, 5, 10, 10.0),
+          child: Row(
+            children: products
+                .map((e) => FilterProductCard(
+                    data: e,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductSelectedDetails(
+                            data: e,
                           ),
-                        );
-                      }))
-                  .toList(),
-            ),
-          )
-        ],
-      );
-    });
+                        ),
+                      );
+                    }))
+                .toList(),
+          ),
+        )
+      ],
+    );
   }
   //*End Filtering*//
 
@@ -145,22 +154,19 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 8.0,
-          ),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Text(
             "Catégories",
-            style: GoogleFonts.didactGothic(
+            style: GoogleFonts.poppins(
               color: Colors.black,
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w700,
               fontSize: 20.0,
             ),
           ),
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
           child: Row(
             children: categories
                 .map(

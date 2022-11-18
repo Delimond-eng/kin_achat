@@ -9,15 +9,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.2
   google_fonts: 2.0.0
   video_player: 2.4.6
-  flutter_svg: any
+  flutter_svg:
   lottie: 1.4.1
   palette_generator: 0.3.3
   get: 4.6.5
+  get_storage: 
   draggable_fab: ^0.1.4
+  connectivity_plus: ^2.3.8
+  flutter_easyloading: ^3.0.3
+  flutter_spinkit: 
+  animate_do: ^2.1.0
+  http:
+  sqflite: ^2.2.0+3
 
 dev_dependencies:
   flutter_test:

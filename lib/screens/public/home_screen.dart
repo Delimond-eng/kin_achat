@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/pages/home_page.dart';
 
-import '../../pages/cart.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
 
@@ -19,7 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
     const Center(child: Text('Page Favoris')),
     const Center(child: Text('Page Profil')),
     const Center(child: Text('Page Commandes')),
-    const Cart(isMain: true)
   ];
   @override
   void initState() {
@@ -48,15 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.house_fill), label: "Acceuil"),
+              icon: Icon(CupertinoIcons.house), label: "Acceuil"),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.heart_circle), label: "Favoris"),
+              icon: Icon(CupertinoIcons.heart), label: "Favoris"),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.person), label: "Profil"),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.bag), label: "Commandes"),
-          BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.shopping_cart), label: "Panier"),
         ],
         currentIndex: _selectedPage,
         onTap: _onPageChanged,
