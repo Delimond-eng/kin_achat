@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
                 const AuthScreen(),
                 transition: Transition.circularReveal,
                 duration: const Duration(milliseconds: 1000),
-                popGesture: false,
               );
             },
             onFiltered: () {},
