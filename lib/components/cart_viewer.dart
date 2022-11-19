@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/models/product.dart';
 
-import '../screens/widgets/product_qty_update.dart';
-import '../screens/widgets/ticket.dart';
+import '../widgets/product_qty_update.dart';
+import '../widgets/ticket.dart';
 
 class CartViewer extends StatelessWidget {
   const CartViewer({Key key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/product.dart';
-import '../screens/widgets/product_grid_card.dart';
+import '../widgets/product_grid_card.dart';
 
 class ProductsListViewer extends StatelessWidget {
   final List<Product> dataList;

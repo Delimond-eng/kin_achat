@@ -6,10 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/cart_viewer.dart';
 import 'package:kinachat/models/product.dart';
-import 'package:kinachat/screens/widgets/line.dart';
-import 'package:kinachat/screens/widgets/product_qty_update.dart';
+import '../widgets/line.dart';
+import '../widgets/product_qty_update.dart';
 
-import '../screens/widgets/utilities_widget.dart';
+import '../widgets/utilities_widget.dart';
 
 class ProductSelectedDetails extends StatelessWidget {
   final Product data;

@@ -8,9 +8,9 @@ import 'package:kinachat/screens/auth/auth.dart';
 import '../components/cart_viewer.dart';
 import '../models/category.dart';
 import '../models/product.dart';
-import '../screens/widgets/category_card.dart';
-import '../screens/widgets/filter_product_card.dart';
 
+import '../widgets/category_card.dart';
+import '../widgets/filter_product_card.dart';
 import 'product_details.dart';
 
 class HomePage extends StatefulWidget {
