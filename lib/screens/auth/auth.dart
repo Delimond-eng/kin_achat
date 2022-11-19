@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kinachat/global/controllers.dart';
 import 'package:lottie/lottie.dart';
+import '../../utils/utils.dart';
+
+GoogleSignIn googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
+  scopes: <String>['email'],
+);
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key key}) : super(key: key);
@@ -11,6 +21,15 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  @override
+  void initState() {
+    googleSignIn.onCurrentUserChanged.listen((account) {
+      gPrint(account);
+    });
+    googleSignIn.signInSilently();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -59,9 +78,10 @@ class _AuthScreenState extends State<AuthScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         _logo(),
-                        const SocialBtn(
+                        SocialBtn(
                           icon: "google_account",
                           label: "Se connecter avec Google",
+                          onPressed: _signIn,
                         ),
                         const SocialBtn(
                           icon: "facebook_account",
@@ -139,16 +159,24 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
     );
   }
+
+  Future<void> _signIn() async {
+    try {
+      await googleSignIn.signIn();
+    } catch (error) {
+      gPrint(error);
+    }
+  }
+
+  Future<void> logOut() => googleSignIn.disconnect();
 }
 
 class SocialBtn extends StatelessWidget {
   final String label;
   final String icon;
-  const SocialBtn({
-    Key key,
-    this.label,
-    this.icon,
-  }) : super(key: key);
+  final Function onPressed;
+  const SocialBtn({Key key, this.label, this.icon, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +201,7 @@ class SocialBtn extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: onPressed,
           borderRadius: BorderRadius.circular(10.0),
           child: Padding(
             padding: const EdgeInsets.all(10.0),

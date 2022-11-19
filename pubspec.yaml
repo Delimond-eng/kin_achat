@@ -26,6 +26,7 @@ dependencies:
   animate_do: ^2.1.0
   http:
   sqflite: ^2.2.0+3
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:

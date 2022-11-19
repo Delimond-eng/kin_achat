@@ -1,4 +1,4 @@
-package com.example.kinachat
+package com.rtgroup.kinachat
 
 import io.flutter.embedding.android.FlutterActivity
 

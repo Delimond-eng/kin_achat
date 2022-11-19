@@ -51,8 +51,8 @@ class SearchBar extends StatelessWidget {
                   hintText: hintText ?? "Recherche produit...",
                   hintStyle: GoogleFonts.poppins(
                     color: Colors.grey[500],
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.0,
                   ),
                   border: InputBorder.none,
                   counterText: '',
