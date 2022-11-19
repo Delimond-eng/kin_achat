@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key key}) : super(key: key);
@@ -32,36 +33,69 @@ class _AuthScreenState extends State<AuthScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: size.width,
-              height: size.height * .3,
-              margin: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(.5),
-                    offset: const Offset(0, 3),
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _logo(),
-                  const SocialBtn(
-                    icon: "google_account",
-                    label: "Se connecter avec Google",
+            Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                ClipPath(
+                  clipper: AuthCard(),
+                  child: Container(
+                    width: size.width,
+                    height: size.height * .35,
+                    margin: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(10.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.5),
+                          offset: const Offset(0, 3),
+                          blurRadius: 10,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _logo(),
+                        const SocialBtn(
+                          icon: "google_account",
+                          label: "Se connecter avec Google",
+                        ),
+                        const SocialBtn(
+                          icon: "facebook_account",
+                          label: "Se connecter avec Facebook",
+                        ),
+                      ],
+                    ),
                   ),
-                  const SocialBtn(
-                    icon: "facebook_account",
-                    label: "Se connecter avec Facebook",
+                ),
+                Positioned(
+                  top: -50.0,
+                  child: Container(
+                    height: 100.0,
+                    width: 100.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(90.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.5),
+                          offset: const Offset(0, 3),
+                          blurRadius: 10,
+                        )
+                      ],
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Lottie.asset("assets/lotties/login.json"),
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                )
+              ],
             )
           ],
         ),
@@ -78,7 +112,7 @@ class _AuthScreenState extends State<AuthScreen> {
           text: TextSpan(
             style: GoogleFonts.staatliches(
               color: Colors.indigo,
-              fontSize: 42.0,
+              fontSize: 35.0,
               fontWeight: FontWeight.w900,
               letterSpacing: 2.0,
               shadows: [
@@ -126,7 +160,7 @@ class SocialBtn extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(.2),
@@ -136,11 +170,11 @@ class SocialBtn extends StatelessWidget {
         ],
       ),
       child: Material(
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(10.0),
         color: Colors.transparent,
         child: InkWell(
           onTap: () {},
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(10.0),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -169,4 +203,26 @@ class SocialBtn extends StatelessWidget {
       ),
     );
   }
+}
+
+class AuthCard extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.lineTo(0.0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0.0);
+
+    path.addOval(Rect.fromCircle(
+        center: Offset(
+          size.width / 2,
+          0.0,
+        ),
+        radius: 60.0));
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
