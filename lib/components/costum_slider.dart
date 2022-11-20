@@ -1,9 +1,10 @@
-import 'dart:math';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/widgets/rounded_curved_sharp.dart';
+import 'package:lottie/lottie.dart';
+
+import '../widgets/utilities_widget.dart';
 
 class CostumSlider extends StatelessWidget {
   const CostumSlider({Key key}) : super(key: key);
@@ -11,27 +12,59 @@ class CostumSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PageController pageController = PageController(initialPage: 0);
+    int currentSlide = 0;
+
     initAnimateSlide(pageController);
     return StatefulBuilder(
       builder: ((context, setter) {
-        return SizedBox(
-          height: 150.0,
-          width: MediaQuery.of(context).size.width,
-          child: PageView.builder(
-            scrollDirection: Axis.horizontal,
-            controller: pageController,
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return const SlideItem();
-            },
-            onPageChanged: (index) {
-              setter(() {
-                //currentSlide = index;
-              });
-            },
-          ),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 150.0,
+              width: MediaQuery.of(context).size.width,
+              child: PageView.builder(
+                scrollDirection: Axis.horizontal,
+                controller: pageController,
+                itemCount: sliders.length,
+                itemBuilder: (context, index) {
+                  return sliders[index];
+                },
+                onPageChanged: (index) {
+                  setter(() {
+                    currentSlide = index;
+                  });
+                },
+              ),
+            ),
+            ZoomIn(
+              child: _sliderIndicators(
+                currentSlide,
+                length: sliders.length,
+              ),
+            )
+          ],
         );
       }),
+    );
+  }
+
+  Widget _sliderIndicators(int currentSlide, {int length}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (int i = 0; i < length; i++) ...[
+          if (i == currentSlide)
+            const SlideDot(
+              activeColor: Colors.indigo,
+              isActived: true,
+            )
+          else
+            const SlideDot(
+              isActived: false,
+            )
+        ]
+      ],
     );
   }
 
@@ -53,16 +86,23 @@ class CostumSlider extends StatelessWidget {
 }
 
 class SlideItem extends StatelessWidget {
-  const SlideItem({Key key}) : super(key: key);
+  final String imgBgPath, title, desc, shapeImgPath;
+  const SlideItem({
+    Key key,
+    this.imgBgPath,
+    @required this.title,
+    this.desc,
+    @required this.shapeImgPath,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FadeIn(
       child: Container(
-        margin: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 8.0),
         decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/images/slider-2.jpeg'),
+          image: DecorationImage(
+            image: AssetImage(imgBgPath ?? 'assets/images/slider-2.jpeg'),
             fit: BoxFit.cover,
             alignment: Alignment.centerLeft,
           ),
@@ -86,7 +126,7 @@ class SlideItem extends StatelessWidget {
                     children: [
                       ZoomIn(
                         child: Text(
-                          'Bienvenue sur kinachat',
+                          title,
                           style: GoogleFonts.staatliches(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w900,
@@ -98,11 +138,10 @@ class SlideItem extends StatelessWidget {
                       const SizedBox(height: 8.0),
                       FadeInUpBig(
                         child: Text(
-                          "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
+                          desc,
+                          style: GoogleFonts.didactGothic(
+                            fontSize: 11.0,
+                            fontWeight: FontWeight.w600,
                             color: Colors.grey[100],
                           ),
                         ),
@@ -110,7 +149,35 @@ class SlideItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                const RoundedCurvedSharp(height: 100.0, width: 100.0)
+                ZoomIn(
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      const RoundedCurvedSharp(
+                        height: 100.0,
+                        width: 100.0,
+                      ),
+                      if (shapeImgPath.contains(".json")) ...[
+                        Positioned(
+                          top: -5,
+                          child: Lottie.asset(
+                            shapeImgPath,
+                            fit: BoxFit.scaleDown,
+                            height: 100.0,
+                            width: 100.0,
+                          ),
+                        )
+                      ] else ...[
+                        Image.asset(
+                          shapeImgPath,
+                          fit: BoxFit.scaleDown,
+                          height: 100.0,
+                          width: 100.0,
+                        ),
+                      ]
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -119,3 +186,31 @@ class SlideItem extends StatelessWidget {
     );
   }
 }
+
+//* List des widgets sliders *//
+List<Widget> sliders = [
+  const SlideItem(
+    title: "Bienvenue cher client !",
+    desc:
+        "Faites vos achats en toute facilité et profitez des plusieurs services mis en votre disposition sur notre plateforme !",
+    shapeImgPath: "assets/lotties/a-vector_4.json",
+  ),
+  const SlideItem(
+    title: "Livraison rapide !",
+    desc:
+        "En achetant chez nous, vous bénéficiez d'un service de livraison ultra rapide, où que vous soyez !",
+    shapeImgPath: "assets/vectors/vector_3.png",
+  ),
+  const SlideItem(
+    title: "Achetez facilement ! ",
+    desc:
+        "Notre application vous facilite les tâches ardues, elle est facile à utiliser, bénéficiez d'une gamme large des produits et services !",
+    shapeImgPath: "assets/vectors/vector_2.png",
+  ),
+  const SlideItem(
+    title: "Commencez maintenant ! ",
+    desc:
+        "Bénéficiez d'une réduction de 10% pour votre première commande sur notre application !",
+    shapeImgPath: "assets/lotties/a-vector_4.json",
+  ),
+];
