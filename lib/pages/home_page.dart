@@ -44,17 +44,13 @@ class _HomePageState extends State<HomePage> {
               _key.currentState.openEndDrawer();
             },
             onLoggedIn: () {
-              // Get.to(
-              //   const AuthScreen(),
-              //   transition: Transition.circularReveal,
-              //   duration: const Duration(milliseconds: 1000),
-              // );
               showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Colors.grey[200],
-                  builder: (context) {
-                    return const Authenticate();
-                  });
+                context: context,
+                backgroundColor: Colors.grey[200],
+                builder: (context) {
+                  return const Authenticate();
+                },
+              );
             },
             onFiltered: () {},
           ),

@@ -104,7 +104,7 @@ class _StarterState extends State<Starter> {
                     margin: const EdgeInsets.only(right: 6.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(10.0),
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 10.0,
@@ -115,9 +115,9 @@ class _StarterState extends State<Starter> {
                     ),
                     child: Material(
                       color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(10.0),
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(10.0),
                         onTap: () {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -193,7 +193,8 @@ class StarterSliderItem extends StatelessWidget {
             child: Text(
               "$title ",
               textAlign: TextAlign.center,
-              style: GoogleFonts.staatliches(
+              style: const TextStyle(
+                fontFamily: 'Staatliches',
                 fontSize: 25.0,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 2.0,
@@ -208,9 +209,10 @@ class StarterSliderItem extends StatelessWidget {
             child: Text(
               subtitle,
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'DidactGothic',
+                fontWeight: FontWeight.w600,
                 color: Colors.grey[100],
               ),
             ),
