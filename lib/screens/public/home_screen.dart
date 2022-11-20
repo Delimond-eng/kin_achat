@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kinachat/pages/home_page.dart';
+import '../../pages/home_page.dart';
+import '../../pages/profil_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     const HomePage(),
     const Center(child: Text('Page Favoris')),
-    const Center(child: Text('Page Profil')),
+    const ProfilePage(),
     const Center(child: Text('Page Commandes')),
   ];
   @override

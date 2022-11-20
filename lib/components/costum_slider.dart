@@ -12,41 +12,42 @@ class CostumSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PageController pageController = PageController(initialPage: 0);
-    int currentSlide = 0;
-
-    initAnimateSlide(pageController);
-    return StatefulBuilder(
-      builder: ((context, setter) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 150.0,
-              width: MediaQuery.of(context).size.width,
-              child: PageView.builder(
-                scrollDirection: Axis.horizontal,
-                controller: pageController,
-                itemCount: sliders.length,
-                itemBuilder: (context, index) {
-                  return sliders[index];
-                },
-                onPageChanged: (index) {
-                  setter(() {
-                    currentSlide = index;
-                  });
-                },
+    return Builder(builder: (context) {
+      int currentSlide = 0;
+      initAnimateSlide(pageController);
+      return StatefulBuilder(
+        builder: ((context, setter) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 150.0,
+                width: MediaQuery.of(context).size.width,
+                child: PageView.builder(
+                  scrollDirection: Axis.horizontal,
+                  controller: pageController,
+                  itemCount: sliders.length,
+                  itemBuilder: (context, index) {
+                    return sliders[index];
+                  },
+                  onPageChanged: (index) {
+                    setter(() {
+                      currentSlide = index;
+                    });
+                  },
+                ),
               ),
-            ),
-            ZoomIn(
-              child: _sliderIndicators(
-                currentSlide,
-                length: sliders.length,
-              ),
-            )
-          ],
-        );
-      }),
-    );
+              ZoomIn(
+                child: _sliderIndicators(
+                  currentSlide,
+                  length: sliders.length,
+                ),
+              )
+            ],
+          );
+        }),
+      );
+    });
   }
 
   Widget _sliderIndicators(int currentSlide, {int length}) {

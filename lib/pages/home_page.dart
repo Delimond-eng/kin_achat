@@ -1,11 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/app_main_header.dart';
 import 'package:kinachat/components/costum_slider.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
-import 'package:kinachat/screens/auth/auth.dart';
 import 'package:kinachat/screens/auth/authenticate.dart';
 
 import '../components/cart_viewer.dart';
@@ -53,10 +51,9 @@ class _HomePageState extends State<HomePage> {
               // );
               showModalBottomSheet(
                   context: context,
+                  backgroundColor: Colors.grey[200],
                   builder: (context) {
-                    return FadeInUp(
-                      child: const Authenticate(),
-                    );
+                    return const Authenticate();
                   });
             },
             onFiltered: () {},

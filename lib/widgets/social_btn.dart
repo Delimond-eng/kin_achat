@@ -14,12 +14,11 @@ class SocialBtn extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(
-        horizontal: 10.0,
         vertical: 4.0,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(.2),
@@ -29,11 +28,11 @@ class SocialBtn extends StatelessWidget {
         ],
       ),
       child: Material(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(5.0),
         color: Colors.transparent,
         child: InkWell(
           onTap: onPressed,
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
