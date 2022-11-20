@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "632572074742",
-    "project_id": "kinachat-8fe04",
-    "storage_bucket": "kinachat-8fe04.appspot.com"
+    "project_number": "1063593769852",
+    "project_id": "kinachatapp",
+    "storage_bucket": "kinachatapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:632572074742:android:8e31bbfdccfc695631ead7",
+        "mobilesdk_app_id": "1:1063593769852:android:e0b45c024285006dbbc2f9",
         "android_client_info": {
           "package_name": "com.rtgroup.kinachat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "632572074742-uuuflknr8527g3o751pqgmb6rvh90sct.apps.googleusercontent.com",
+          "client_id": "1063593769852-u5pr9a8fmujojl5aoh0u7qrbkn8s27o2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rtgroup.kinachat",
+            "certificate_hash": "9374d45fb27b8bc5c4b4c398c274d1fe106309ff"
+          }
+        },
+        {
+          "client_id": "1063593769852-fr45vm3o7lbcgjdm2ht2ipub4ariudd9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBk5EFY50ZEtHrhURsiT_ylp9w7LMsDZ1Q"
+          "current_key": "AIzaSyDPwuDKMxxdmWL0kr_hvl-jNWPyTqtnqb4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "632572074742-uuuflknr8527g3o751pqgmb6rvh90sct.apps.googleusercontent.com",
+              "client_id": "1063593769852-fr45vm3o7lbcgjdm2ht2ipub4ariudd9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

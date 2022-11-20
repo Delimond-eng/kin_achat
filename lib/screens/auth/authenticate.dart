@@ -2,11 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/utils/utils.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../../widgets/social_btn.dart';
 
-class Authenticate extends StatelessWidget {
+class Authenticate extends StatefulWidget {
   const Authenticate({Key key}) : super(key: key);
+
+  @override
+  State<Authenticate> createState() => _AuthenticateState();
+}
+
+class _AuthenticateState extends State<Authenticate> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +89,7 @@ class Authenticate extends StatelessWidget {
               SocialBtn(
                 icon: "google_account",
                 label: "Se connecter avec Google",
-                onPressed: () {},
+                onPressed: _signIn,
               ),
             ],
           ),
@@ -109,5 +123,14 @@ class Authenticate extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _signIn() async {
+    try {
+      await googleSignIn.signIn();
+      Get.back();
+    } catch (error) {
+      gPrint(error);
+    }
   }
 }

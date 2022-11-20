@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kinachat/global/controllers.dart';
 import 'package:lottie/lottie.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,82 +15,132 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: Column(
-        children: [_header(context)],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _header(context),
+          const SizedBox(
+            height: 35.0,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    authController.currentUser.displayName.capitalizeFirst,
+                    style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
 
-  Stack _header(BuildContext context) {
+  Widget _header(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        ClipPath(
-          clipper: GShape(),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).primaryColor,
-                  Colors.indigo[300],
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomRight,
+    return Obx(() {
+      return Stack(
+        clipBehavior: Clip.none,
+        children: [
+          ClipPath(
+            clipper: GShape(),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).primaryColor,
+                    Colors.indigo[300],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomRight,
+                ),
               ),
-            ),
-            width: size.width,
-            height: size.height * .20,
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text(
-                      "Mon profil",
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w700,
+              width: size.width,
+              height: size.height * .20,
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        "Mon profil",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          bottom: -40.0,
-          left: 40.0,
-          child: Container(
-            height: 80.0,
-            width: 80.0,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(90.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(.3),
-                  offset: const Offset(0, 3),
-                  blurRadius: 3,
-                )
-              ],
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Lottie.asset("assets/lotties/login.json"),
+          if (authController.userIsLoggedIn.value == true) ...[
+            Positioned(
+              bottom: -40.0,
+              left: 40.0,
+              child: Container(
+                height: 80.0,
+                width: 80.0,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(90.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(.3),
+                      offset: const Offset(0, 3),
+                      blurRadius: 3,
+                    )
+                  ],
+                ),
+                child: GoogleUserCircleAvatar(
+                  identity: authController.currentUser,
+                ),
               ),
-            ),
-          ),
-        )
-      ],
-    );
+            )
+          ] else ...[
+            Positioned(
+              bottom: -40.0,
+              left: 40.0,
+              child: Container(
+                height: 80.0,
+                width: 80.0,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(90.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(.3),
+                      offset: const Offset(0, 3),
+                      blurRadius: 3,
+                    )
+                  ],
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Lottie.asset("assets/lotties/login.json"),
+                  ),
+                ),
+              ),
+            )
+          ]
+        ],
+      );
+    });
   }
 }
 

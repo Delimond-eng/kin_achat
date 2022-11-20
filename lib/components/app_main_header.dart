@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kinachat/global/controllers.dart';
+import 'package:lottie/lottie.dart';
 
 import '../widgets/search_bar.dart';
 
@@ -42,9 +43,13 @@ class AppMainHeader extends StatelessWidget {
                   Obx(() {
                     return Row(
                       children: [
-                        if (authController.userIsLoggedIn.value) ...[
-                          GoogleUserCircleAvatar(
-                            identity: authController.currentUser.value,
+                        if (authController.userIsLoggedIn.value == true) ...[
+                          SizedBox(
+                            height: 35.0,
+                            width: 35.0,
+                            child: GoogleUserCircleAvatar(
+                              identity: authController.currentUser,
+                            ),
                           ),
                         ] else ...[
                           Container(
@@ -52,12 +57,6 @@ class AppMainHeader extends StatelessWidget {
                             width: 35.0,
                             decoration: BoxDecoration(
                               color: Colors.indigo[100],
-                              image: const DecorationImage(
-                                alignment: Alignment.center,
-                                fit: BoxFit.cover,
-                                image:
-                                    AssetImage("assets/images/slider-1.jpeg"),
-                              ),
                               borderRadius: BorderRadius.circular(35.0),
                               boxShadow: [
                                 BoxShadow(
@@ -73,7 +72,13 @@ class AppMainHeader extends StatelessWidget {
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(35.0),
                                 onTap: onLoggedIn,
-                                child: const Center(),
+                                child: Center(
+                                  child: Lottie.asset(
+                                    "assets/lotties/login.json",
+                                    height: 17.0,
+                                    width: 17.0,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
