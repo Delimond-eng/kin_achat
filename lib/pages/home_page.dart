@@ -1,7 +1,9 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/app_main_header.dart';
+import 'package:kinachat/components/costum_slider.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
 import 'package:kinachat/screens/auth/auth.dart';
 
@@ -56,28 +58,9 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
-                  Container(
-                    height: 150.0,
-                    margin: const EdgeInsets.fromLTRB(10, 15.0, 10.0, 5.0),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(.3),
-                          offset: const Offset(0, 2),
-                          blurRadius: 5,
-                        )
-                      ],
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/slider-2.jpeg'),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.centerLeft,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
+                  _mainSlider(),
                   _categoriesPart(context),
-                  _productsFiltering(context),
+                  _productsRecommanded(context),
                   _allProducts(context)
                 ],
               ),
@@ -88,6 +71,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //*main slider *//
+  Widget _mainSlider() => FadeInUp(child: const CostumSlider());
+
   //*Affichage du grid de tous les produits*//
   Widget _allProducts(BuildContext context) {
     return ProductsListViewer(
@@ -97,37 +83,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   //*Affichage des produits par filtrage*//
-  Widget _productsFiltering(BuildContext context) {
+  Widget _productsRecommanded(BuildContext context) {
     //var _defaultSelection = "popular";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   padding:
-        //       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-        //   child: Row(
-        //     children: _filters
-        //         .map(
-        //           (e) => FilterBtn(
-        //             label: e['label'],
-        //             isSelected: e['key'] == _defaultSelection,
-        //             onSelected: () {
-        //               setter(() => _defaultSelection = e['key']);
-        //             },
-        //           ),
-        //         )
-        //         .toList(),
-        //   ),
-        // ),
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-          child: Text(
-            "Recommandations",
-            style: GoogleFonts.poppins(
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-              fontSize: 20.0,
+          child: ZoomIn(
+            child: Text(
+              "Recommandations",
+              style: GoogleFonts.poppins(
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                fontSize: 20.0,
+              ),
             ),
           ),
         ),
@@ -136,18 +106,20 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.fromLTRB(10.0, 5, 10, 10.0),
           child: Row(
             children: products
-                .map((e) => FilterProductCard(
-                    data: e,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductSelectedDetails(
-                            data: e,
-                          ),
-                        ),
-                      );
-                    }))
+                .map((e) => FadeInLeftBig(
+                      child: FilterProductCard(
+                          data: e,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductSelectedDetails(
+                                  data: e,
+                                ),
+                              ),
+                            );
+                          }),
+                    ))
                 .toList(),
           ),
         )
@@ -163,12 +135,14 @@ class _HomePageState extends State<HomePage> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-          child: Text(
-            "Catégories",
-            style: GoogleFonts.poppins(
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-              fontSize: 20.0,
+          child: ZoomIn(
+            child: Text(
+              "Catégories",
+              style: GoogleFonts.poppins(
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                fontSize: 20.0,
+              ),
             ),
           ),
         ),
@@ -178,8 +152,10 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: categories
                 .map(
-                  (e) => CategoryCard(
-                    data: e,
+                  (e) => ZoomIn(
+                    child: CategoryCard(
+                      data: e,
+                    ),
                   ),
                 )
                 .toList(),

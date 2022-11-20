@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -168,42 +169,50 @@ class StarterSliderItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (vectorPath.contains(".json")) ...[
-            Lottie.asset(
-              vectorPath,
-              animate: true,
-              alignment: Alignment.center,
-              fit: BoxFit.scaleDown,
+            FadeInDown(
+              child: Lottie.asset(
+                vectorPath,
+                animate: true,
+                alignment: Alignment.center,
+                fit: BoxFit.scaleDown,
+              ),
             )
           ] else ...[
-            Image.asset(
-              vectorPath,
-              alignment: Alignment.center,
-              fit: BoxFit.scaleDown,
+            FadeInDown(
+              child: Image.asset(
+                vectorPath,
+                alignment: Alignment.center,
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ],
           const SizedBox(
             height: 15.0,
           ),
-          Text(
-            "$title ",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.staatliches(
-              fontSize: 25.0,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 2.0,
-              color: Colors.white,
+          ZoomIn(
+            child: Text(
+              "$title ",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.staatliches(
+                fontSize: 25.0,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2.0,
+                color: Colors.white,
+              ),
             ),
           ),
           const SizedBox(
             height: 8.0,
           ),
-          Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey[100],
+          FadeInUpBig(
+            child: Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey[100],
+              ),
             ),
           )
         ],

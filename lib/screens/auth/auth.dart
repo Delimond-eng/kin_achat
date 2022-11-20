@@ -8,8 +8,6 @@ import 'package:lottie/lottie.dart';
 import '../../utils/utils.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
   scopes: <String>['email'],
 );
 
@@ -21,10 +19,14 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  GoogleSignInAccount _currentUser;
+
   @override
   void initState() {
     googleSignIn.onCurrentUserChanged.listen((account) {
-      gPrint(account);
+      setState(() {
+        _currentUser = account;
+      });
     });
     googleSignIn.signInSilently();
     super.initState();
@@ -163,6 +165,9 @@ class _AuthScreenState extends State<AuthScreen> {
   Future<void> _signIn() async {
     try {
       await googleSignIn.signIn();
+      authController.currentUser.value = _currentUser;
+      authController.userIsLoggedIn.value = true;
+      Get.back();
     } catch (error) {
       gPrint(error);
     }

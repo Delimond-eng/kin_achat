@@ -5,4 +5,5 @@ class AuthController extends GetxController {
   static AuthController instance = Get.find();
 
   Rx<GoogleSignInAccount> currentUser;
+  Rx<bool> userIsLoggedIn = false.obs;
 }

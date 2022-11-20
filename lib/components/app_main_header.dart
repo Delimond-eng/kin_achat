@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kinachat/global/controllers.dart';
 
 import '../widgets/search_bar.dart';
 
@@ -36,72 +39,81 @@ class AppMainHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _logo(),
-                  Row(
-                    children: [
-                      Container(
-                        height: 35.0,
-                        width: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.indigo[100],
-                          image: const DecorationImage(
-                            alignment: Alignment.center,
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/slider-1.jpeg"),
+                  Obx(() {
+                    return Row(
+                      children: [
+                        if (authController.userIsLoggedIn.value) ...[
+                          GoogleUserCircleAvatar(
+                            identity: authController.currentUser.value,
                           ),
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(.2),
-                              offset: const Offset(0, 2),
-                              blurRadius: 5,
-                            )
-                          ],
-                        ),
-                        child: Material(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: Colors.transparent,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(5.0),
-                            onTap: onLoggedIn,
-                            child: const Center(),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10.0,
-                      ),
-                      Container(
-                        height: 35.0,
-                        width: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(.2),
-                              offset: const Offset(0, 2),
-                              blurRadius: 5,
-                            )
-                          ],
-                        ),
-                        child: Material(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: Colors.transparent,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(5.0),
-                            onTap: onOpenCart,
-                            child: const Center(
-                              child: Icon(
-                                CupertinoIcons.shopping_cart,
-                                size: 20.0,
-                                color: Colors.indigo,
+                        ] else ...[
+                          Container(
+                            height: 35.0,
+                            width: 35.0,
+                            decoration: BoxDecoration(
+                              color: Colors.indigo[100],
+                              image: const DecorationImage(
+                                alignment: Alignment.center,
+                                fit: BoxFit.cover,
+                                image:
+                                    AssetImage("assets/images/slider-1.jpeg"),
+                              ),
+                              borderRadius: BorderRadius.circular(35.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(.2),
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 5,
+                                )
+                              ],
+                            ),
+                            child: Material(
+                              borderRadius: BorderRadius.circular(35.0),
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(35.0),
+                                onTap: onLoggedIn,
+                                child: const Center(),
                               ),
                             ),
                           ),
+                        ],
+                        const SizedBox(
+                          width: 10.0,
                         ),
-                      )
-                    ],
-                  ),
+                        Container(
+                          height: 35.0,
+                          width: 35.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(35.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(.2),
+                                offset: const Offset(0, 2),
+                                blurRadius: 5,
+                              )
+                            ],
+                          ),
+                          child: Material(
+                            borderRadius: BorderRadius.circular(35.0),
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(35.0),
+                              onTap: onOpenCart,
+                              child: const Center(
+                                child: Icon(
+                                  CupertinoIcons.shopping_cart,
+                                  size: 20.0,
+                                  color: Colors.indigo,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    );
+                  })
                 ],
               ),
               const SizedBox(height: 10.0),
