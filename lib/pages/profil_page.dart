@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:lottie/lottie.dart';
+
+import '../controllers/auth_controller.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -74,13 +77,48 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(12),
-                      child: Text(
-                        "Mon profil",
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Mon profil",
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Container(
+                            height: 35.0,
+                            width: 35.0,
+                            decoration: BoxDecoration(
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(35.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(.2),
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 5,
+                                )
+                              ],
+                            ),
+                            child: Material(
+                              borderRadius: BorderRadius.circular(35.0),
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(35.0),
+                                onTap: _loggedOut,
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.logout_rounded,
+                                    color: Colors.black,
+                                    size: 15.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     )
                   ],
@@ -140,6 +178,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ]
         ],
       );
+    });
+  }
+
+  Future<void> _loggedOut() async {
+    XDialog.show(context,
+        message: "Etes-vous sûr de vouloir vous déconnecter de votre compte ??",
+        onValidated: () async {
+      await googleSignIn.disconnect();
     });
   }
 }

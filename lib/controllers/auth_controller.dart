@@ -21,6 +21,8 @@ class AuthController extends GetxController {
       currentUser = account;
       if (account != null) {
         userIsLoggedIn.value = true;
+      } else {
+        userIsLoggedIn.value = false;
       }
     });
     googleSignIn.signInSilently();

@@ -73,11 +73,8 @@ class AppMainHeader extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(35.0),
                                 onTap: onLoggedIn,
                                 child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Lottie.asset(
-                                      "assets/lotties/login.json",
-                                    ),
+                                  child: Lottie.asset(
+                                    "assets/lotties/login.json",
                                   ),
                                 ),
                               ),
