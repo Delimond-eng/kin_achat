@@ -6,6 +6,7 @@ import 'package:kinachat/components/app_main_header.dart';
 import 'package:kinachat/components/costum_slider.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
 import 'package:kinachat/screens/auth/auth.dart';
+import 'package:kinachat/screens/auth/authenticate.dart';
 
 import '../components/cart_viewer.dart';
 import '../models/category.dart';
@@ -45,11 +46,18 @@ class _HomePageState extends State<HomePage> {
               _key.currentState.openEndDrawer();
             },
             onLoggedIn: () {
-              Get.to(
-                const AuthScreen(),
-                transition: Transition.circularReveal,
-                duration: const Duration(milliseconds: 1000),
-              );
+              // Get.to(
+              //   const AuthScreen(),
+              //   transition: Transition.circularReveal,
+              //   duration: const Duration(milliseconds: 1000),
+              // );
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return FadeInUp(
+                      child: const Authenticate(),
+                    );
+                  });
             },
             onFiltered: () {},
           ),

@@ -163,16 +163,16 @@ class SlideItem extends StatelessWidget {
                           child: Lottie.asset(
                             shapeImgPath,
                             fit: BoxFit.scaleDown,
-                            height: 100.0,
-                            width: 100.0,
+                            height: 120.0,
+                            width: 120.0,
                           ),
                         )
                       ] else ...[
                         Image.asset(
                           shapeImgPath,
                           fit: BoxFit.scaleDown,
-                          height: 100.0,
-                          width: 100.0,
+                          height: 120.0,
+                          width: 120.0,
                         ),
                       ]
                     ],
