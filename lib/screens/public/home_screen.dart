@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/global/controllers.dart';
+import '../../controllers/auth_controller.dart';
 import '../../pages/home_page.dart';
 import '../../pages/profil_page.dart';
 
@@ -22,6 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   @override
   void initState() {
+    googleSignIn.onCurrentUserChanged.listen((account) {
+      if (_selectedPage == 2 && account == null) {
+        setState(() => _selectedPage = 0);
+      }
+    });
     super.initState();
   }
 

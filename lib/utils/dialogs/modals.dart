@@ -119,7 +119,7 @@ class XDialog {
                         color: Colors.indigo,
                         height: 45.0,
                         label: 'Oui',
-                        labelColor: Colors.black,
+                        labelColor: Colors.white,
                         onPressed: () {
                           Get.back();
                           Future.delayed(const Duration(milliseconds: 100));
