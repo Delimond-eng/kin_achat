@@ -56,7 +56,7 @@ class AppMainHeader extends StatelessWidget {
                             height: 35.0,
                             width: 35.0,
                             decoration: BoxDecoration(
-                              color: Colors.indigo[100],
+                              color: Colors.yellow,
                               borderRadius: BorderRadius.circular(35.0),
                               boxShadow: [
                                 BoxShadow(
@@ -73,10 +73,11 @@ class AppMainHeader extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(35.0),
                                 onTap: onLoggedIn,
                                 child: Center(
-                                  child: Lottie.asset(
-                                    "assets/lotties/login.json",
-                                    height: 17.0,
-                                    width: 17.0,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Lottie.asset(
+                                      "assets/lotties/login.json",
+                                    ),
                                   ),
                                 ),
                               ),

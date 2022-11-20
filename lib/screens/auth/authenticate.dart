@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:kinachat/global/controllers.dart';
 import 'package:kinachat/utils/utils.dart';
 
 import '../../controllers/auth_controller.dart';

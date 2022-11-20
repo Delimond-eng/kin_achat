@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/global/controllers.dart';
 import '../../pages/home_page.dart';
 import '../../pages/profil_page.dart';
 
@@ -61,6 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onPageChanged(int index) {
+    if (index == 2 && authController.currentUser == null) {
+      setState(() => _selectedPage = 0);
+      return;
+    }
     setState(() {
       _selectedPage = index;
     });
