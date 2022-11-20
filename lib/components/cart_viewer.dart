@@ -41,12 +41,13 @@ class CartViewer extends StatelessWidget {
                         return Dismissible(
                           direction: DismissDirection.endToStart,
                           background: Container(
+                            margin: const EdgeInsets.only(bottom: 8.0),
                             child: const Padding(
                               padding: EdgeInsets.only(right: 15.0),
                               child: Icon(
                                 CupertinoIcons.clear,
                                 color: Colors.white,
-                                size: 40.0,
+                                size: 30.0,
                               ),
                             ),
                             decoration: BoxDecoration(
