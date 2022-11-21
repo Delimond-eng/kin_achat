@@ -5,6 +5,7 @@ import 'package:kinachat/global/controllers.dart';
 import '../../controllers/auth_controller.dart';
 import '../../pages/home_page.dart';
 import '../../pages/profil_page.dart';
+import '../auth/authenticate.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -69,6 +70,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onPageChanged(int index) {
     if (index == 2 && authController.currentUser == null) {
+      showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.grey[200],
+        builder: (context) {
+          return const Authenticate();
+        },
+      );
       setState(() => _selectedPage = 0);
       return;
     }
