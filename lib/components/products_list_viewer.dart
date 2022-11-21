@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/product.dart';
+import '../models/home_content.dart';
 import '../widgets/product_grid_card.dart';
 
 class ProductsListViewer extends StatelessWidget {
-  final List<Product> dataList;
+  final List<Produit> dataList;
   final String descriptionLabel;
   final bool isScrollable;
   const ProductsListViewer({

@@ -443,7 +443,7 @@ class ProductSelectedDetails extends StatelessWidget {
                   width: 35.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(35.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(.3),
@@ -468,7 +468,7 @@ class ProductSelectedDetails extends StatelessWidget {
                   width: 35.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(35.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(.3),
@@ -478,13 +478,13 @@ class ProductSelectedDetails extends StatelessWidget {
                     ],
                   ),
                   child: Material(
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(35.0),
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
                         key.currentState.openEndDrawer();
                       },
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(35.0),
                       child: Center(
                         child: Icon(
                           CupertinoIcons.shopping_cart,

@@ -27,6 +27,7 @@ dependencies:
   http:
   sqflite: ^2.2.0+3
   google_sign_in: ^5.4.2
+  optimized_cached_image: ^3.0.1
 
 dev_dependencies:
   flutter_test:

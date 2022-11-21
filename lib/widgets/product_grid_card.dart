@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../models/product.dart';
+import 'package:optimized_cached_image/optimized_cached_image.dart';
+import '../models/home_content.dart';
 
 class GridProductCard extends StatelessWidget {
-  final Product data;
+  final Produit data;
   final Function onPressed;
   final bool isList;
   const GridProductCard({
@@ -44,9 +44,18 @@ class GridProductCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: Center(
-                      child: Image.asset(
-                        data.imgPath,
-                        fit: BoxFit.scaleDown,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: OptimizedCacheImage(
+                          height: 90.0,
+                          width: 80.0,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                          imageUrl: data.image,
+                          placeholder: (context, url) => const SizedBox(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.filter_hdr_rounded),
+                        ),
                       ),
                     ),
                   ),
@@ -59,7 +68,7 @@ class GridProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.title,
+                          data.titre,
                           style: GoogleFonts.poppins(
                             color: Colors.black54,
                             fontWeight: FontWeight.w700,
@@ -87,7 +96,7 @@ class GridProductCard extends StatelessWidget {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: "${data.price} ",
+                                      text: "${data.prix} ",
                                       style: GoogleFonts.anton(
                                         color: Colors.orange[800],
                                         fontSize: 18.0,
@@ -96,7 +105,7 @@ class GridProductCard extends StatelessWidget {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: "CDF",
+                                      text: data.devise,
                                       style: GoogleFonts.poppins(
                                         color: Colors.black54,
                                         fontSize: 12.0,
@@ -114,11 +123,19 @@ class GridProductCard extends StatelessWidget {
                                 color: Colors.indigo[100],
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              child: const Center(
-                                child: Icon(
-                                  CupertinoIcons.heart,
-                                  size: 15.0,
-                                  color: Colors.indigo,
+                              child: Material(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(30.0),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  onTap: () {},
+                                  child: const Center(
+                                    child: Icon(
+                                      CupertinoIcons.heart,
+                                      size: 15.0,
+                                      color: Colors.indigo,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -157,9 +174,20 @@ class GridProductCard extends StatelessWidget {
                     color: Colors.grey[400],
                   ),
                   child: Center(
-                    child: Image.asset(
-                      data.imgPath,
-                      fit: BoxFit.scaleDown,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(5),
+                      ),
+                      child: OptimizedCacheImage(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                        imageUrl: data.image,
+                        placeholder: (context, url) => const SizedBox(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.filter_hdr_rounded),
+                      ),
                     ),
                   ),
                 ),
@@ -176,11 +204,11 @@ class GridProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.title,
+                      data.titre,
                       style: GoogleFonts.poppins(
                         color: Colors.black54,
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(
@@ -205,7 +233,7 @@ class GridProductCard extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "${data.price} ",
+                                  text: "${data.prix} ",
                                   style: GoogleFonts.anton(
                                     color: Colors.orange[800],
                                     fontSize: 20.0,
@@ -214,7 +242,7 @@ class GridProductCard extends StatelessWidget {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "CDF",
+                                  text: data.devise,
                                   style: GoogleFonts.poppins(
                                     color: Colors.black54,
                                     fontSize: 12.0,
@@ -232,11 +260,19 @@ class GridProductCard extends StatelessWidget {
                             color: Colors.indigo[100],
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: const Center(
-                            child: Icon(
-                              CupertinoIcons.heart,
-                              size: 15.0,
-                              color: Colors.indigo,
+                          child: Material(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(30.0),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(30.0),
+                              onTap: () {},
+                              child: const Center(
+                                child: Icon(
+                                  CupertinoIcons.heart,
+                                  size: 15.0,
+                                  color: Colors.indigo,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -248,6 +284,101 @@ class GridProductCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class GridProductCardPlaceholder extends StatelessWidget {
+  const GridProductCardPlaceholder({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.0),
+        color: Colors.grey[50],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(5),
+                ),
+                color: Colors.grey[400],
+              ),
+              child: const Center(
+                child: Icon(Icons.filter_hdr_rounded),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Flexible(
+                      child: Container(
+                        height: 12.0,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[500],
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 3.0,
+                ),
+                Container(
+                  height: 3.0,
+                  width: 200.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[500],
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                ),
+                const SizedBox(
+                  height: 4.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 10.0,
+                      width: 200.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[500],
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    Container(
+                      height: 30.0,
+                      width: 30.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[400],
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

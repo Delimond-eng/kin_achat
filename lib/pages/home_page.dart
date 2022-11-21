@@ -1,18 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/app_main_header.dart';
 import 'package:kinachat/components/costum_slider.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
 import 'package:kinachat/screens/auth/authenticate.dart';
+import 'package:kinachat/widgets/product_grid_card.dart';
 
 import '../components/cart_viewer.dart';
-import '../models/category.dart';
-import '../models/product.dart';
-
+import '../global/controllers.dart';
 import '../widgets/category_card.dart';
 import '../widgets/filter_product_card.dart';
-import 'product_details.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -57,14 +56,14 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  _mainSlider(),
-                  _categoriesPart(context),
-                  _productsRecommanded(context),
-                  _allProducts(context)
-                ],
-              ),
+              child: Obx(() => Column(
+                    children: [
+                      _mainSlider(),
+                      _categoriesPart(context),
+                      _productsRecommanded(context),
+                      _allProducts(context)
+                    ],
+                  )),
             ),
           )
         ],
@@ -77,8 +76,27 @@ class _HomePageState extends State<HomePage> {
 
   //*Affichage du grid de tous les produits*//
   Widget _allProducts(BuildContext context) {
+    if (homeController.isHomeLoading.value) {
+      return FadeInUp(
+        child: GridView.builder(
+          padding: const EdgeInsets.all(10.0),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: .6,
+            crossAxisCount: 2,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+          ),
+          itemCount: 6,
+          itemBuilder: ((context, index) {
+            return ZoomIn(child: const GridProductCardPlaceholder());
+          }),
+        ),
+      );
+    }
     return ProductsListViewer(
-      dataList: products,
+      dataList: homeController.produits,
       isScrollable: false,
     );
   }
@@ -105,24 +123,31 @@ class _HomePageState extends State<HomePage> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.fromLTRB(10.0, 5, 10, 10.0),
-          child: Row(
-            children: products
-                .map((e) => FadeInLeftBig(
-                      child: FilterProductCard(
-                          data: e,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductSelectedDetails(
-                                  data: e,
-                                ),
-                              ),
-                            );
-                          }),
-                    ))
-                .toList(),
-          ),
+          child: homeController.isHomeLoading.value
+              ? Row(
+                  children: List.generate(
+                      4,
+                      (index) => FadeInLeft(
+                          child: const FilterProductCardPlaceholder())),
+                )
+              : Row(
+                  children: homeController.produits
+                      .map((e) => FadeInLeftBig(
+                            child: FilterProductCard(
+                                data: e,
+                                onPressed: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => ProductSelectedDetails(
+                                  //       data: e,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                }),
+                          ))
+                      .toList(),
+                ),
         )
       ],
     );
@@ -150,17 +175,21 @@ class _HomePageState extends State<HomePage> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-          child: Row(
-            children: categories
-                .map(
-                  (e) => ZoomIn(
-                    child: CategoryCard(
-                      data: e,
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
+          child: homeController.isHomeLoading.value
+              ? Row(
+                  children: List.generate(
+                          4,
+                          (index) =>
+                              ZoomIn(child: const CategoryCardPlaceholder()))
+                      .toList())
+              : Row(
+                  children: homeController.categories
+                      .map((e) => ZoomIn(
+                              child: CategoryCard(
+                            data: e,
+                          )))
+                      .toList(),
+                ),
         ),
       ],
     );
