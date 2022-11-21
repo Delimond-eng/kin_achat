@@ -78,47 +78,97 @@ class ProductsListViewer extends StatelessWidget {
             ),
           ),
           if (!isList) ...[
-            FadeInUp(
-              child: GridView.builder(
-                padding: const EdgeInsets.all(10.0),
-                shrinkWrap: true,
-                physics: isScrollable
-                    ? const ScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: .6,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
+            if (isScrollable) ...[
+              Expanded(
+                child: FadeInUp(
+                  child: GridView.builder(
+                    padding: const EdgeInsets.all(10.0),
+                    shrinkWrap: true,
+                    physics: isScrollable
+                        ? const ScrollPhysics()
+                        : const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: .6,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 8.0,
+                    ),
+                    itemCount: dataList.length,
+                    itemBuilder: ((context, index) {
+                      var data = dataList[index];
+                      return ZoomIn(child: GridProductCard(data: data));
+                    }),
+                  ),
                 ),
-                itemCount: dataList.length,
-                itemBuilder: ((context, index) {
-                  var data = dataList[index];
-                  return ZoomIn(child: GridProductCard(data: data));
-                }),
+              )
+            ] else ...[
+              FadeInUp(
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(10.0),
+                  shrinkWrap: true,
+                  physics: isScrollable
+                      ? const ScrollPhysics()
+                      : const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: .6,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                  ),
+                  itemCount: dataList.length,
+                  itemBuilder: ((context, index) {
+                    var data = dataList[index];
+                    return ZoomIn(child: GridProductCard(data: data));
+                  }),
+                ),
               ),
-            )
+            ]
           ],
           if (isList) ...[
-            FadeInUp(
-              child: ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(10.0),
-                itemCount: dataList.length,
-                physics: isScrollable
-                    ? const ScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
-                itemBuilder: ((context, index) {
-                  var data = dataList[index];
-                  return ZoomIn(
-                    child: GridProductCard(
-                      data: data,
-                      isList: true,
-                    ),
-                  );
-                }),
-              ),
-            )
+            if (isScrollable) ...[
+              Expanded(
+                child: FadeInUp(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: dataList.length,
+                    physics: isScrollable
+                        ? const ScrollPhysics()
+                        : const NeverScrollableScrollPhysics(),
+                    itemBuilder: ((context, index) {
+                      var data = dataList[index];
+                      return ZoomIn(
+                        child: GridProductCard(
+                          data: data,
+                          isList: true,
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              )
+            ] else ...[
+              FadeInUp(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(10.0),
+                  itemCount: dataList.length,
+                  physics: isScrollable
+                      ? const ScrollPhysics()
+                      : const NeverScrollableScrollPhysics(),
+                  itemBuilder: ((context, index) {
+                    var data = dataList[index];
+                    return ZoomIn(
+                      child: GridProductCard(
+                        data: data,
+                        isList: true,
+                      ),
+                    );
+                  }),
+                ),
+              )
+            ]
           ]
         ],
       );

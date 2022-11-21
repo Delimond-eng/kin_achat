@@ -8,6 +8,7 @@ import 'package:kinachat/models/home_content.dart';
 import '../components/cart_viewer.dart';
 import '../components/products_list_viewer.dart';
 import '../global/controllers.dart';
+import '../utils/utils.dart';
 
 class CategorieProducts extends StatelessWidget {
   final Categorie data;
@@ -20,18 +21,17 @@ class CategorieProducts extends StatelessWidget {
       key: _scaffoldKey,
       endDrawer: const CartViewer(),
       drawerScrimColor: Colors.black12,
+      backgroundColor: Colors.grey[200],
       body: Column(
         children: [
-          _header(context),
-          Obx(() {
-            return Expanded(
-              child: ProductsListViewer(
-                dataList: homeController.categorieProduits,
-                descriptionLabel: "Produits",
-                isScrollable: true,
-              ),
-            );
-          })
+          _header(context, key: _scaffoldKey),
+          Expanded(
+            child: ProductsListViewer(
+              dataList: homeController.categorieProduits,
+              descriptionLabel: "Produits",
+              isScrollable: true,
+            ),
+          )
         ],
       ),
     );
@@ -73,7 +73,7 @@ class CategorieProducts extends StatelessWidget {
               ),
             ),
             Text(
-              data.categorie,
+              truncateString(data.categorie, length: 15),
               style: GoogleFonts.poppins(
                 color: Colors.black,
                 fontSize: 18.0,

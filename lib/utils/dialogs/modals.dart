@@ -22,9 +22,9 @@ class Xloading {
                 elevation: 0,
                 child: Center(
                   child: Lottie.asset(
-                    "assets/icons/98288-loading.json",
-                    height: 300.0,
-                    width: 300.0,
+                    "assets/lotties/97952-loading-animation-blue.json",
+                    height: 200.0,
+                    width: 200.0,
                     animate: true,
                   ),
                 ),

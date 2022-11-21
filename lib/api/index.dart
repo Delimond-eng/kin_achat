@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
+import 'package:kinachat/utils/utils.dart';
+
 class Api {
   static const String baseURL = "https://kinachat.rtgroup-rdc.com";
 

@@ -122,9 +122,12 @@ class CategoryCardPlaceholder extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25.0),
               ),
             ),
+            const SizedBox(
+              width: 8.0,
+            ),
             Container(
               height: 8.0,
-              width: 150.0,
+              width: 80.0,
               decoration: BoxDecoration(
                 color: Colors.grey[500],
                 borderRadius: BorderRadius.circular(8.0),

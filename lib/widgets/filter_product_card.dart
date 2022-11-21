@@ -235,7 +235,7 @@ class FilterProductCardPlaceholder extends StatelessWidget {
                   children: [
                     Container(
                       height: 10.0,
-                      width: 200.0,
+                      width: 80.0,
                       decoration: BoxDecoration(
                         color: Colors.grey[500],
                         borderRadius: BorderRadius.circular(30.0),

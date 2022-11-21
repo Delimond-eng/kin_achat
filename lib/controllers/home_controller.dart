@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:kinachat/api/repositories/public_repo.dart';
 import 'package:kinachat/models/home_content.dart';
@@ -15,9 +18,20 @@ class HomeController extends GetxController {
 
   //*end variables*//
 
+  //*connection*//
+  StreamSubscription<ConnectivityResult> connectivitySubscription;
+  final Connectivity connectivity = Connectivity();
+
   @override
   void onInit() {
     refreshHomeContent();
+    connectivitySubscription =
+        connectivity.onConnectivityChanged.listen((event) {
+      if (event == ConnectivityResult.mobile ||
+          event == ConnectivityResult.wifi) {
+        refreshHomeContent();
+      }
+    });
     super.onInit();
   }
 
