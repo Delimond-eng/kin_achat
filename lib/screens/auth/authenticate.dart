@@ -98,12 +98,16 @@ class _AuthenticateState extends State<Authenticate> {
 
   //*App Logo*//
   Widget _logo() {
-    return Center(
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: const BoxDecoration(
+        color: Colors.indigo,
+      ),
       child: RichText(
         text: TextSpan(
           style: GoogleFonts.staatliches(
-            color: Colors.indigo,
-            fontSize: 30.0,
+            color: Colors.white,
+            fontSize: 25.0,
             fontWeight: FontWeight.w900,
             letterSpacing: 2.0,
           ),
@@ -114,7 +118,7 @@ class _AuthenticateState extends State<Authenticate> {
             TextSpan(
               text: " Achat",
               style: GoogleFonts.staatliches(
-                color: Colors.black,
+                color: Colors.yellow,
               ),
             ),
           ],
