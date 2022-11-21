@@ -9,6 +9,7 @@ class HomeController extends GetxController {
 
   var produits = <Produit>[].obs;
   var recommandations = <Produit>[].obs;
+  var categorieProduits = <Produit>[].obs;
   var categories = <Categorie>[].obs;
   var isHomeLoading = false.obs;
 

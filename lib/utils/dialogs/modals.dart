@@ -18,16 +18,17 @@ class Xloading {
           return Center(
             child: SingleChildScrollView(
               child: Dialog(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  child: Center(
-                    child: Lottie.asset(
-                      "assets/icons/90464-loading.json",
-                      height: 300.0,
-                      width: 300.0,
-                      animate: true,
-                    ),
-                  )),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                child: Center(
+                  child: Lottie.asset(
+                    "assets/icons/98288-loading.json",
+                    height: 300.0,
+                    width: 300.0,
+                    animate: true,
+                  ),
+                ),
+              ),
             ),
           );
         });

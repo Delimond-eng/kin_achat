@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/api/repositories/public_repo.dart';
+import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/pages/categorie_products.dart';
+import 'package:kinachat/utils/dialogs/modals.dart';
 
 import '../models/home_content.dart';
 
 class CategoryCard extends StatelessWidget {
   final Categorie data;
   final bool hasGrid;
+
   const CategoryCard({
     Key key,
     this.data,
@@ -34,7 +40,23 @@ class CategoryCard extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(5.0),
-          onTap: () {},
+          onTap: () async {
+            Xloading.showLottieLoading(context);
+            PublicRepo.getSelectedCategoriesProducts(data.produitCategorieId)
+                .then((res) {
+              Xloading.dismiss();
+              if (res != null) {
+                homeController.categorieProduits.addAll(res.content.produits);
+                Get.to(
+                  CategorieProducts(data: data),
+                  transition: Transition.circularReveal,
+                  duration: const Duration(
+                    milliseconds: 1000,
+                  ),
+                );
+              }
+            });
+          },
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
