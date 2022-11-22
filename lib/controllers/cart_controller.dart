@@ -19,8 +19,6 @@ class CartController extends GetxController {
   /*Add item to cart*/
   Future<void> addItemToCart(Produit data) async {
     InternalRepo.addItemToDbCart(data).then((cart) {
-      cartList.clear();
-      cartList.addAll(cart);
       initCartTotal();
     });
   }
@@ -28,8 +26,6 @@ class CartController extends GetxController {
   /*Remove item from cart*/
   Future<void> removeItemTocart(Produit data) async {
     InternalRepo.removeItemToDbCart(data).then((cart) {
-      cartList.clear();
-      cartList.addAll(cart);
       initCartTotal();
     });
   }
