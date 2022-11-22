@@ -21,7 +21,6 @@ class FavoriteProducts extends StatefulWidget {
 class _FavoriteProductsState extends State<FavoriteProducts> {
   final GlobalKey<ScaffoldState> _sKey = GlobalKey();
 
-  void refreshDatas() async {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

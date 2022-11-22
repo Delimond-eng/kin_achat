@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/pages/commandes_page.dart';
 import 'package:kinachat/pages/favorite_products.dart';
 import 'package:kinachat/utils/colors.dart';
 import '../../controllers/auth_controller.dart';
@@ -22,12 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomePage(),
     const FavoriteProducts(),
     const ProfilePage(),
-    const Center(child: Text('Page Commandes')),
+    const CommandesPage(),
   ];
   @override
   void initState() {
     googleSignIn.onCurrentUserChanged.listen((account) {
-      if (_selectedPage == 2 && account == null) {
+      if ((_selectedPage == 1 || _selectedPage == 2 || _selectedPage == 3) &&
+          account == null) {
         setState(() => _selectedPage = 0);
       }
     });
@@ -48,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: GoogleFonts.poppins(
           color: secondaryColor,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: GoogleFonts.poppins(
           fontWeight: FontWeight.w500,
@@ -71,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onPageChanged(int index) {
-    if (index == 2 && authController.currentUser == null) {
+    if ((index == 1 || index == 2 || index == 3) &&
+        authController.currentUser == null) {
       showModalBottomSheet(
         context: context,
         backgroundColor: Colors.grey[200],
