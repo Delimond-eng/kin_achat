@@ -7,7 +7,7 @@ import '../utils/colors.dart';
 import '../widgets/cart_openning_btn.dart';
 
 class CommandesPage extends StatefulWidget {
-  const CommandesPage();
+  const CommandesPage({Key key}) : super(key: key);
 
   @override
   State<CommandesPage> createState() => _CommandesPageState();

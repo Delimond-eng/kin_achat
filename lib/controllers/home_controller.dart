@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:get/get.dart';
 import 'package:kinachat/api/repositories/public_repo.dart';
 import 'package:kinachat/models/home_content.dart';
-import 'package:kinachat/utils/utils.dart';
 import '../models/produit_details.dart';
 
 class HomeController extends GetxController {
@@ -49,6 +47,5 @@ class HomeController extends GetxController {
         categories.addAll(contents.reponse.categories);
       }
     });
-    ;
   }
 }
