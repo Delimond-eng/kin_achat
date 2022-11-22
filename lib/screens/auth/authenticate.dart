@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/utils/colors.dart';
+import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:kinachat/utils/utils.dart';
 
 import '../../controllers/auth_controller.dart';
@@ -88,7 +89,7 @@ class _AuthenticateState extends State<Authenticate> {
               SocialBtn(
                 icon: "google_account",
                 label: "Se connecter avec Google",
-                onPressed: _signIn,
+                onPressed: () => _signIn(context),
               ),
             ],
           ),
@@ -108,9 +109,10 @@ class _AuthenticateState extends State<Authenticate> {
     );
   }
 
-  Future<void> _signIn() async {
+  Future<void> _signIn(BuildContext context) async {
     try {
-      await googleSignIn.signIn();
+      Xloading.showLottieLoading(context);
+      await googleSignIn.signIn().then((value) => Xloading.dismiss());
       Get.back();
     } catch (error) {
       gPrint(error);

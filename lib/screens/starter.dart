@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kinachat/utils/colors.dart';
+import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:lottie/lottie.dart';
 
 import 'public/home_screen.dart';
@@ -56,9 +57,9 @@ class _StarterState extends State<Starter> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              primaryColor,
-              primaryColor,
               secondaryColor,
+              secondaryColor,
+              primaryColor,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -119,12 +120,13 @@ class _StarterState extends State<Starter> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(30.0),
                         onTap: () {
+                          Xloading.showLottieLoading(context);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const HomeScreen(),
                               ),
-                              (route) => false);
+                              (route) => false).then((_) => Xloading.dismiss());
                         },
                         child: Center(
                           child: SvgPicture.asset(
@@ -239,7 +241,7 @@ class Dot extends StatelessWidget {
       width: isSelected ? 18.0 : 10.0,
       margin: const EdgeInsets.only(right: 4.0),
       decoration: BoxDecoration(
-        color: isSelected ? primaryColor : Colors.white,
+        color: isSelected ? secondaryColor : Colors.white,
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(

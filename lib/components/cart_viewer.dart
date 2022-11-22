@@ -13,6 +13,7 @@ import 'package:optimized_cached_image/optimized_cached_image.dart';
 import '../global/controllers.dart';
 import '../models/home_content.dart';
 import '../screens/auth/authenticate.dart';
+import '../screens/public/home_screen.dart';
 import '../widgets/product_qty_update.dart';
 import '../widgets/ticket.dart';
 
@@ -120,7 +121,7 @@ class CartViewer extends StatelessWidget {
                       ),
                       DashedLine(
                         height: 2,
-                        color: Colors.grey[500],
+                        color: Colors.grey[200],
                       ),
                       TicketItem(
                         color: Colors.white,
@@ -200,7 +201,12 @@ class CartViewer extends StatelessWidget {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(5),
                     onTap: () {
-                      Navigator.pop(context);
+                      if (cartController.cartList.isEmpty) {
+                        Navigator.pop(context);
+                      } else {
+                        Navigator.pop(context);
+                        Get.back();
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
