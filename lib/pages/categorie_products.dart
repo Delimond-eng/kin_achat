@@ -8,6 +8,7 @@ import '../components/cart_viewer.dart';
 import '../components/products_list_viewer.dart';
 import '../global/controllers.dart';
 import '../utils/utils.dart';
+import '../widgets/cart_openning_btn.dart';
 
 class CategorieProducts extends StatelessWidget {
   final Categorie data;
@@ -80,66 +81,9 @@ class CategorieProducts extends StatelessWidget {
                 fontWeight: FontWeight.w900,
               ),
             ),
-            Row(
-              children: [
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(35.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(.3),
-                        offset: const Offset(0, 2),
-                        blurRadius: 2,
-                      )
-                    ],
-                  ),
-                  child: Center(
-                    child: Icon(
-                      CupertinoIcons.heart,
-                      size: 15.0,
-                      color: Colors.orange[800],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8.0,
-                ),
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(35.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(.3),
-                        offset: const Offset(0, 2),
-                        blurRadius: 2,
-                      )
-                    ],
-                  ),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(35.0),
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        key.currentState.openEndDrawer();
-                      },
-                      borderRadius: BorderRadius.circular(35.0),
-                      child: Center(
-                        child: Icon(
-                          CupertinoIcons.shopping_cart,
-                          size: 15.0,
-                          color: Colors.indigo[800],
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+            CartOpenningBtn(
+              isLight: false,
+              scaffoldKey: key,
             ),
           ],
         ),

@@ -22,7 +22,7 @@ class CartViewer extends StatelessWidget {
     return Container(
       height: _size.height,
       width: _size.width,
-      margin: const EdgeInsets.fromLTRB(5, 40.0, 5, 5),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         color: Colors.grey[200],
@@ -149,9 +149,6 @@ class CartViewer extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(5.0),
-        ),
         color: Colors.indigo,
       ),
       child: Padding(
@@ -159,82 +156,84 @@ class CartViewer extends StatelessWidget {
           horizontal: 10.0,
           vertical: 8.0,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              height: 40.0,
-              width: 40.0,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Material(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(5),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(5),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SvgPicture.asset(
-                      "assets/svgs/back.svg",
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Icon(CupertinoIcons.cart_fill, color: Colors.indigo[50]),
-            if (authController.userIsLoggedIn.value == true) ...[
-              SizedBox(
-                height: 35.0,
-                width: 35.0,
-                child: GoogleUserCircleAvatar(
-                  identity: authController.currentUser,
-                ),
-              ),
-            ] else ...[
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Container(
-                height: 35.0,
-                width: 35.0,
+                height: 40.0,
+                width: 40.0,
                 decoration: BoxDecoration(
-                  color: Colors.yellow,
-                  borderRadius: BorderRadius.circular(35.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(.2),
-                      offset: const Offset(0, 2),
-                      blurRadius: 5,
-                    )
-                  ],
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: Material(
-                  borderRadius: BorderRadius.circular(35.0),
                   color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(5),
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(35.0),
+                    borderRadius: BorderRadius.circular(5),
                     onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.grey[200],
-                        builder: (context) {
-                          return const Authenticate();
-                        },
-                      );
+                      Navigator.pop(context);
                     },
-                    child: Center(
-                      child: Lottie.asset(
-                        "assets/lotties/login.json",
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset(
+                        "assets/svgs/back.svg",
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
+              Icon(CupertinoIcons.cart_fill, color: Colors.indigo[50]),
+              if (authController.userIsLoggedIn.value == true) ...[
+                SizedBox(
+                  height: 35.0,
+                  width: 35.0,
+                  child: GoogleUserCircleAvatar(
+                    identity: authController.currentUser,
+                  ),
+                ),
+              ] else ...[
+                Container(
+                  height: 35.0,
+                  width: 35.0,
+                  decoration: BoxDecoration(
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.circular(35.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(.2),
+                        offset: const Offset(0, 2),
+                        blurRadius: 5,
+                      )
+                    ],
+                  ),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(35.0),
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(35.0),
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          backgroundColor: Colors.grey[200],
+                          builder: (context) {
+                            return const Authenticate();
+                          },
+                        );
+                      },
+                      child: Center(
+                        child: Lottie.asset(
+                          "assets/lotties/login.json",
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
