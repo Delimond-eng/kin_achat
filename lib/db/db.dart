@@ -1,3 +1,4 @@
+import 'package:kinachat/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -15,7 +16,8 @@ class DB {
 
   static _onCreate(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE Test (id INTEGER PRIMARY KEY, name TEXT, value INTEGER, num REAL)',
+      'CREATE TABLE favorites(id INTEGER PRIMARY KEY, produit_id TEXT, titre TEXT, prix TEXT, devise TEXT, description TEXT, image TEXT)',
     );
+    gPrint("db created");
   }
 }

@@ -1,25 +1,34 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/api/repositories/public_repo.dart';
+import 'package:kinachat/db/repository.dart';
+import 'package:kinachat/utils/dialogs/modals.dart';
 
 import '../models/home_content.dart';
+import '../pages/product_details.dart';
 import '../widgets/product_grid_card.dart';
 
 class ProductsListViewer extends StatelessWidget {
   final List<Produit> dataList;
   final String descriptionLabel;
   final bool isScrollable;
-  const ProductsListViewer({
-    Key key,
-    @required this.dataList,
-    this.descriptionLabel,
-    this.isScrollable = false,
-  }) : super(key: key);
+  final bool isDataDetail;
+  final bool isListFirst;
+  const ProductsListViewer(
+      {Key key,
+      @required this.dataList,
+      this.descriptionLabel,
+      this.isScrollable = false,
+      this.isDataDetail = false,
+      this.isListFirst = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool isList = false;
+    bool isList = isListFirst;
     return StatefulBuilder(builder: (context, setter) {
       return Column(
         children: [
@@ -97,7 +106,32 @@ class ProductsListViewer extends StatelessWidget {
                     itemCount: dataList.length,
                     itemBuilder: ((context, index) {
                       var data = dataList[index];
-                      return ZoomIn(child: GridProductCard(data: data));
+                      return ZoomIn(
+                        child: GridProductCard(
+                          data: data,
+                          onPressed: () {
+                            Xloading.showLottieLoading(context);
+                            PublicRepo.getSelectedProductData(data.produitId)
+                                .then((d) {
+                              Xloading.dismiss();
+                              if (d != null) {
+                                if (!isDataDetail) {
+                                  InternalRepo.getIsFavorite(data)
+                                      .then((isFavorite) {
+                                    Get.to(
+                                      ProductSelectedDetails(
+                                          data: data, isFavorite: isFavorite),
+                                      duration:
+                                          const Duration(milliseconds: 1000),
+                                      transition: Transition.circularReveal,
+                                    );
+                                  });
+                                }
+                              }
+                            });
+                          },
+                        ),
+                      );
                     }),
                   ),
                 ),
@@ -119,7 +153,32 @@ class ProductsListViewer extends StatelessWidget {
                   itemCount: dataList.length,
                   itemBuilder: ((context, index) {
                     var data = dataList[index];
-                    return ZoomIn(child: GridProductCard(data: data));
+                    return ZoomIn(
+                      child: GridProductCard(
+                        data: data,
+                        onPressed: () {
+                          Xloading.showLottieLoading(context);
+                          PublicRepo.getSelectedProductData(data.produitId)
+                              .then((d) {
+                            Xloading.dismiss();
+                            if (d != null) {
+                              if (!isDataDetail) {
+                                InternalRepo.getIsFavorite(data)
+                                    .then((isFavorite) {
+                                  Get.to(
+                                    ProductSelectedDetails(
+                                        data: data, isFavorite: isFavorite),
+                                    duration:
+                                        const Duration(milliseconds: 1000),
+                                    transition: Transition.circularReveal,
+                                  );
+                                });
+                              }
+                            }
+                          });
+                        },
+                      ),
+                    );
                   }),
                 ),
               ),
@@ -142,6 +201,27 @@ class ProductsListViewer extends StatelessWidget {
                         child: GridProductCard(
                           data: data,
                           isList: true,
+                          onPressed: () {
+                            Xloading.showLottieLoading(context);
+                            PublicRepo.getSelectedProductData(data.produitId)
+                                .then((d) {
+                              Xloading.dismiss();
+                              if (d != null) {
+                                if (!isDataDetail) {
+                                  InternalRepo.getIsFavorite(data)
+                                      .then((isFavorite) {
+                                    Get.to(
+                                      ProductSelectedDetails(
+                                          data: data, isFavorite: isFavorite),
+                                      duration:
+                                          const Duration(milliseconds: 1000),
+                                      transition: Transition.circularReveal,
+                                    );
+                                  });
+                                }
+                              }
+                            });
+                          },
                         ),
                       );
                     }),
@@ -163,6 +243,27 @@ class ProductsListViewer extends StatelessWidget {
                       child: GridProductCard(
                         data: data,
                         isList: true,
+                        onPressed: () {
+                          Xloading.showLottieLoading(context);
+                          PublicRepo.getSelectedProductData(data.produitId)
+                              .then((d) {
+                            Xloading.dismiss();
+                            if (d != null) {
+                              if (!isDataDetail) {
+                                InternalRepo.getIsFavorite(data)
+                                    .then((isFavorite) {
+                                  Get.to(
+                                    ProductSelectedDetails(
+                                        data: data, isFavorite: isFavorite),
+                                    duration:
+                                        const Duration(milliseconds: 1000),
+                                    transition: Transition.circularReveal,
+                                  );
+                                });
+                              }
+                            }
+                          });
+                        },
                       ),
                     );
                   }),

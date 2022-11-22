@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:kinachat/api/repositories/public_repo.dart';
 import 'package:kinachat/models/home_content.dart';
 
+import '../models/produit_details.dart';
+
 class HomeController extends GetxController {
   static HomeController instance = Get.find();
 
@@ -13,6 +15,7 @@ class HomeController extends GetxController {
   var produits = <Produit>[].obs;
   var recommandations = <Produit>[].obs;
   var categorieProduits = <Produit>[].obs;
+  var selectedProduitDetails = ProduitDetails().obs;
   var categories = <Categorie>[].obs;
   var isHomeLoading = false.obs;
 

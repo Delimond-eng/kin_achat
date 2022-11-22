@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/models/home_content.dart';
 
@@ -30,6 +29,7 @@ class CategorieProducts extends StatelessWidget {
               dataList: homeController.categorieProduits,
               descriptionLabel: "Produits",
               isScrollable: true,
+              isListFirst: true,
             ),
           )
         ],

@@ -2,16 +2,20 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/api/repositories/public_repo.dart';
 import 'package:kinachat/components/app_main_header.dart';
 import 'package:kinachat/components/costum_slider.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
 import 'package:kinachat/screens/auth/authenticate.dart';
+import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:kinachat/widgets/product_grid_card.dart';
 
 import '../components/cart_viewer.dart';
+import '../db/repository.dart';
 import '../global/controllers.dart';
 import '../widgets/category_card.dart';
 import '../widgets/filter_product_card.dart';
+import 'product_details.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -39,9 +43,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           AppMainHeader(
-            onOpenCart: () {
-              _key.currentState.openEndDrawer();
-            },
+            sKey: _key,
             onLoggedIn: () {
               showModalBottomSheet(
                 context: context,
@@ -132,20 +134,31 @@ class _HomePageState extends State<HomePage> {
                 )
               : Row(
                   children: homeController.produits
-                      .map((e) => FadeInLeftBig(
-                            child: FilterProductCard(
-                                data: e,
-                                onPressed: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => ProductSelectedDetails(
-                                  //       data: e,
-                                  //     ),
-                                  //   ),
-                                  // );
-                                }),
-                          ))
+                      .map(
+                        (e) => FadeInLeftBig(
+                          child: FilterProductCard(
+                              data: e,
+                              onPressed: () {
+                                Xloading.showLottieLoading(context);
+                                PublicRepo.getSelectedProductData(e.produitId)
+                                    .then((d) {
+                                  Xloading.dismiss();
+                                  if (d != null) {
+                                    InternalRepo.getIsFavorite(e)
+                                        .then((isFavorite) {
+                                      Get.to(
+                                        ProductSelectedDetails(
+                                            data: e, isFavorite: isFavorite),
+                                        duration:
+                                            const Duration(milliseconds: 1000),
+                                        transition: Transition.circularReveal,
+                                      );
+                                    });
+                                  }
+                                });
+                              }),
+                        ),
+                      )
                       .toList(),
                 ),
         )
@@ -178,16 +191,21 @@ class _HomePageState extends State<HomePage> {
           child: homeController.isHomeLoading.value
               ? Row(
                   children: List.generate(
-                          4,
-                          (index) =>
-                              ZoomIn(child: const CategoryCardPlaceholder()))
-                      .toList())
+                    4,
+                    (index) => ZoomIn(
+                      child: const CategoryCardPlaceholder(),
+                    ),
+                  ).toList(),
+                )
               : Row(
                   children: homeController.categories
-                      .map((e) => ZoomIn(
-                              child: CategoryCard(
+                      .map(
+                        (e) => ZoomIn(
+                          child: CategoryCard(
                             data: e,
-                          )))
+                          ),
+                        ),
+                      )
                       .toList(),
                 ),
         ),

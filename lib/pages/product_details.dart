@@ -1,19 +1,28 @@
 import 'dart:math';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/cart_viewer.dart';
-import 'package:kinachat/models/product.dart';
+import 'package:kinachat/global/controllers.dart';
+import 'package:optimized_cached_image/optimized_cached_image.dart';
+import '../components/products_list_viewer.dart';
+import '../db/repository.dart';
+import '../models/home_content.dart';
+import '../widgets/cart_openning_btn.dart';
 import '../widgets/line.dart';
 import '../widgets/product_qty_update.dart';
 
 import '../widgets/utilities_widget.dart';
 
 class ProductSelectedDetails extends StatelessWidget {
-  final Product data;
-  const ProductSelectedDetails({Key key, this.data}) : super(key: key);
+  final Produit data;
+  final bool isFavorite;
+  const ProductSelectedDetails({Key key, this.data, this.isFavorite = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,50 +32,54 @@ class ProductSelectedDetails extends StatelessWidget {
       endDrawer: const CartViewer(),
       drawerScrimColor: Colors.black12,
       backgroundColor: Colors.grey[200],
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Obx(
+        () => Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _header(context, key: _scaffoldKey),
+            _detailImageSliders(context),
+            _headerDetails(),
+            const SizedBox(
+              height: 5.0,
+            ),
+            _moreDetails(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _addToCartBtn(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+      child: Row(
         children: [
-          _header(context, key: _scaffoldKey),
-          _detailImageSliders(context),
-          _headerDetails(),
-          const SizedBox(
-            height: 10.0,
-          ),
-          _moreDetails(context),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-            child: Row(
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(20.0),
-                        alignment: Alignment.center,
-                        backgroundColor: Colors.indigo,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                      ),
-                      onPressed: () {},
-                      label: Text(
-                        "Ajouter au panier",
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      icon: const Icon(
-                        CupertinoIcons.cart_badge_plus,
-                      ),
-                    ),
+          Flexible(
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(15.0),
+                  alignment: Alignment.center,
+                  backgroundColor: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
-              ],
+                onPressed: () {},
+                label: Text(
+                  "Ajouter au panier",
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                icon: const Icon(
+                  CupertinoIcons.cart_badge_plus,
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -84,7 +97,7 @@ class ProductSelectedDetails extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  data.title,
+                  data.titre.toLowerCase().capitalizeFirst,
                   style: GoogleFonts.poppins(
                     color: Colors.black,
                     fontSize: 25.0,
@@ -104,7 +117,7 @@ class ProductSelectedDetails extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${data.price} ",
+                      text: "${data.prix} ",
                       style: GoogleFonts.anton(
                         color: Colors.orange[800],
                         fontSize: 28.0,
@@ -113,7 +126,7 @@ class ProductSelectedDetails extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: "CDF",
+                      text: data.devise,
                       style: GoogleFonts.poppins(
                         color: Colors.black54,
                         fontSize: 15.0,
@@ -157,168 +170,189 @@ class ProductSelectedDetails extends StatelessWidget {
   }
 
   Widget _moreDetails(BuildContext context) {
+    var detail =
+        homeController.selectedProduitDetails.value.reponse.produitDetails;
     return Expanded(
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
-          vertical: 8.0,
+          vertical: 5.0,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-              child: Text(
-                "Description",
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
+        child: FadeInUp(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                child: Text(
+                  "Description",
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-              child: Text(
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit  consectetur adipisicing elit.",
-                style: GoogleFonts.didactGothic(
-                  color: Colors.black54,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                child: Text(
+                  data.description.isEmpty
+                      ? 'Aucune description !'
+                      : data.description.toLowerCase().capitalizeFirst,
+                  style: GoogleFonts.didactGothic(
+                    color: Colors.black54,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 2.0),
-                  child: Text(
-                    "Vous preferez quelle couleur ?",
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w700,
+              const SizedBox(
+                height: 10.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 2.0),
+                    child: Text(
+                      "Vous preferez quelle couleur ?",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                ),
-                SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 5.0,
-                  ),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                      7,
-                      (index) => Container(
-                        height: 30.0,
-                        width: 30.0,
-                        margin: const EdgeInsets.only(right: 8.0),
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .primaries[
-                                  Random().nextInt(Colors.primaries.length)]
-                              .shade900,
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Container(
-                          margin: const EdgeInsets.all(10.0),
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 5.0,
+                    ),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                        7,
+                        (index) => Container(
+                          height: 30.0,
+                          width: 30.0,
+                          margin: const EdgeInsets.only(right: 8.0),
                           decoration: BoxDecoration(
-                            color:
-                                index == 0 ? Colors.white : Colors.transparent,
+                            color: Colors
+                                .primaries[
+                                    Random().nextInt(Colors.primaries.length)]
+                                .shade900,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
+                          child: Container(
+                            margin: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              color: index == 0
+                                  ? Colors.white
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
                         ),
-                      ),
-                    ).toList(),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 2.0),
-                  child: Text(
-                    "Sélectionnez la taille",
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w700,
+                      ).toList(),
                     ),
                   ),
-                ),
-                SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 5.0),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                      7,
-                      (index) => Container(
-                        height: 50.0,
-                        margin: const EdgeInsets.only(right: 8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(
-                            color: Colors.indigo[200],
-                            width: .5,
+                ],
+              ),
+              const SizedBox(
+                height: 5.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 2.0),
+                    child: Text(
+                      "Sélectionnez la taille",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 5.0),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                        7,
+                        (index) => Container(
+                          height: 50.0,
+                          margin: const EdgeInsets.only(right: 8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5.0),
+                            border: Border.all(
+                              color: Colors.indigo[200],
+                              width: .5,
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "XXL",
-                              style: GoogleFonts.poppins(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w600,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                            ),
+                            child: Center(
+                              child: Text(
+                                "XXL",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ).toList(),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-              child: Text(
-                "Autres Détails",
-                style: GoogleFonts.poppins(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  ...List.generate(
-                    6,
-                    (index) => _detailItem(context,
-                        title: "detail $index  ",
-                        value: "velit mollitia numquam nemo !"),
+                      ).toList(),
+                    ),
                   ),
                 ],
               ),
-            )
-          ],
+              if (detail.details.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 2.0),
+                  child: Text(
+                    "Autres Détails",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                    children: [
+                      ...detail.details
+                          .map(
+                            (e) => _detailItem(
+                              context,
+                              title: e.sousCategorieDetail,
+                              value: e.produitDetail,
+                            ),
+                          )
+                          .toList()
+                    ],
+                  ),
+                ),
+              ],
+              _addToCartBtn(context),
+              ProductsListViewer(
+                dataList: homeController
+                    .selectedProduitDetails.value.reponse.recommandations,
+                isScrollable: false,
+                descriptionLabel: "Produits similaires",
+                isDataDetail: true,
+                isListFirst: true,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -330,6 +364,8 @@ class ProductSelectedDetails extends StatelessWidget {
     int _currentSlider = 0;
     return StatefulBuilder(
       builder: (context, setter) {
+        var medias = homeController
+            .selectedProduitDetails.value.reponse.produitDetails.images;
         return Column(
           children: [
             SizedBox(
@@ -337,22 +373,34 @@ class ProductSelectedDetails extends StatelessWidget {
               child: PageView.builder(
                 scrollDirection: Axis.horizontal,
                 controller: _pageController,
-                itemCount: 3,
+                itemCount: medias.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    height: 200.0,
-                    decoration: BoxDecoration(
-                      color: Colors.indigo[200],
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Center(
-                      child: Hero(
-                        tag: '${data.id}',
-                        child: Image.asset(
-                          data.imgPath,
-                          fit: BoxFit.scaleDown,
+                  var img = medias[index];
+                  return ZoomIn(
+                    child: Container(
+                      margin: const EdgeInsets.all(10.0),
+                      width: double.infinity,
+                      height: 200.0,
+                      decoration: BoxDecoration(
+                        color: Colors.indigo[200],
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Center(
+                        child: Hero(
+                          tag: data.produitId,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: OptimizedCacheImage(
+                              fit: BoxFit.cover,
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width,
+                              height: 200.0,
+                              imageUrl: img.media,
+                              placeholder: (context, url) => const SizedBox(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.filter_hdr_rounded),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -365,7 +413,10 @@ class ProductSelectedDetails extends StatelessWidget {
                 },
               ),
             ),
-            _sliderIndicators(_currentSlider)
+            _sliderIndicators(
+              _currentSlider,
+              length: medias.length,
+            )
           ],
         );
       },
@@ -373,11 +424,11 @@ class ProductSelectedDetails extends StatelessWidget {
   }
 
   //*Indicateur du carousel des images du produit cible*//
-  Widget _sliderIndicators(int currentSlide) {
+  Widget _sliderIndicators(int currentSlide, {int length = 3}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        for (int i = 0; i < 3; i++) ...[
+        for (int i = 0; i < length; i++) ...[
           if (i == currentSlide)
             const SlideDot(
               activeColor: Colors.indigo,
@@ -394,6 +445,7 @@ class ProductSelectedDetails extends StatelessWidget {
 
   //*Header la page *//
   Widget _header(BuildContext context, {key}) {
+    bool isLiked = isFavorite;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -438,62 +490,55 @@ class ProductSelectedDetails extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(35.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(.3),
-                        offset: const Offset(0, 2),
-                        blurRadius: 2,
-                      )
-                    ],
-                  ),
-                  child: Center(
-                    child: Icon(
-                      CupertinoIcons.heart,
-                      size: 15.0,
-                      color: Colors.orange[800],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8.0,
-                ),
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(35.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(.3),
-                        offset: const Offset(0, 2),
-                        blurRadius: 2,
-                      )
-                    ],
-                  ),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(35.0),
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        key.currentState.openEndDrawer();
-                      },
+                StatefulBuilder(builder: (context, setter) {
+                  return Container(
+                    height: 35.0,
+                    width: 35.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(35.0),
-                      child: Center(
-                        child: Icon(
-                          CupertinoIcons.shopping_cart,
-                          size: 15.0,
-                          color: Colors.indigo[800],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(.3),
+                          offset: const Offset(0, 2),
+                          blurRadius: 2,
+                        )
+                      ],
+                    ),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(35.0),
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(35.0),
+                        onTap: () async {
+                          InternalRepo.insertFavorite(data).then((s) {
+                            if (s == data.produitId) {
+                              setter(() => isLiked = true);
+                            }
+                            if (s.isEmpty) {
+                              setter(() => isLiked = false);
+                            }
+                          });
+                        },
+                        child: Center(
+                          child: Icon(
+                            isLiked
+                                ? CupertinoIcons.heart_fill
+                                : CupertinoIcons.heart,
+                            size: 15.0,
+                            color: Colors.orange[800],
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  );
+                }),
+                const SizedBox(
+                  width: 8.0,
+                ),
+                CartOpenningBtn(
+                  scaffoldKey: key,
+                  isLight: false,
                 )
               ],
             ),
@@ -525,7 +570,7 @@ class ProductSelectedDetails extends StatelessWidget {
           ),
           Flexible(
             child: Text(
-              value,
+              value.isEmpty ? 'non spécifié' : value,
               style: GoogleFonts.poppins(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,

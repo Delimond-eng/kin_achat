@@ -3,9 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/widgets.dart';
 import 'package:kinachat/models/product.dart';
 import 'package:kinachat/utils/utils.dart';
+import 'package:lottie/lottie.dart';
 
+import '../global/controllers.dart';
+import '../screens/auth/authenticate.dart';
 import '../widgets/product_qty_update.dart';
 import '../widgets/ticket.dart';
 
@@ -184,35 +188,52 @@ class CartViewer extends StatelessWidget {
               ),
             ),
             Icon(CupertinoIcons.cart_fill, color: Colors.indigo[50]),
-            Container(
-              height: 35.0,
-              width: 35.0,
-              decoration: BoxDecoration(
-                color: Colors.indigo[100],
-                image: const DecorationImage(
-                  alignment: Alignment.center,
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/images/slider-1.jpeg"),
-                ),
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(.2),
-                    offset: const Offset(0, 2),
-                    blurRadius: 5,
-                  )
-                ],
-              ),
-              child: Material(
-                borderRadius: BorderRadius.circular(5.0),
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(5.0),
-                  onTap: () {},
-                  child: const Center(),
+            if (authController.userIsLoggedIn.value == true) ...[
+              SizedBox(
+                height: 35.0,
+                width: 35.0,
+                child: GoogleUserCircleAvatar(
+                  identity: authController.currentUser,
                 ),
               ),
-            ),
+            ] else ...[
+              Container(
+                height: 35.0,
+                width: 35.0,
+                decoration: BoxDecoration(
+                  color: Colors.yellow,
+                  borderRadius: BorderRadius.circular(35.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(.2),
+                      offset: const Offset(0, 2),
+                      blurRadius: 5,
+                    )
+                  ],
+                ),
+                child: Material(
+                  borderRadius: BorderRadius.circular(35.0),
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(35.0),
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.grey[200],
+                        builder: (context) {
+                          return const Authenticate();
+                        },
+                      );
+                    },
+                    child: Center(
+                      child: Lottie.asset(
+                        "assets/lotties/login.json",
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),

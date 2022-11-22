@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
 import '../models/home_content.dart';
+import '../utils/utils.dart';
 
 class FilterProductCard extends StatelessWidget {
   final Produit data;
   final Function onPressed;
+
   const FilterProductCard({Key key, this.data, this.onPressed})
       : super(key: key);
 
@@ -46,22 +47,19 @@ class FilterProductCard extends StatelessWidget {
                   color: Colors.indigo[200],
                 ),
                 child: Center(
-                  child: Hero(
-                    tag: data.produitId,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(5),
-                      ),
-                      child: OptimizedCacheImage(
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center,
-                        height: 160.0,
-                        width: MediaQuery.of(context).size.width / 1.80,
-                        imageUrl: data.image,
-                        placeholder: (context, url) => const SizedBox(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.filter_hdr_rounded),
-                      ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(5),
+                    ),
+                    child: OptimizedCacheImage(
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                      height: 160.0,
+                      width: MediaQuery.of(context).size.width / 1.80,
+                      imageUrl: data.image,
+                      placeholder: (context, url) => const SizedBox(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.filter_hdr_rounded),
                     ),
                   ),
                 ),
@@ -78,9 +76,10 @@ class FilterProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.titre,
+                      truncateString(capitalizeFirst(data.titre.toLowerCase()),
+                          length: 15),
                       style: GoogleFonts.poppins(
-                        color: Colors.black54,
+                        color: Colors.black,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
                       ),
@@ -127,21 +126,7 @@ class FilterProductCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          height: 30.0,
-                          width: 30.0,
-                          decoration: BoxDecoration(
-                            color: Colors.indigo[100],
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              CupertinoIcons.heart,
-                              size: 15.0,
-                              color: Colors.indigo,
-                            ),
-                          ),
-                        ),
+                        const SizedBox()
                       ],
                     ),
                   ],

@@ -1,4 +1,6 @@
+import 'package:kinachat/global/controllers.dart';
 import 'package:kinachat/models/home_content.dart';
+import 'package:kinachat/models/produit_details.dart';
 import 'package:kinachat/utils/utils.dart';
 
 import '../../models/category_produits.dart';
@@ -19,7 +21,6 @@ class PublicRepo {
 
   static Future<CategorieProduits> getSelectedCategoriesProducts(
       categoryId) async {
-    gPrint(categoryId);
     var datas = await Api.request(
       method: "post",
       url: "/content/categorie",
@@ -29,6 +30,22 @@ class PublicRepo {
     );
     if (datas != null) {
       return CategorieProduits.fromJson(datas);
+    }
+    return null;
+  }
+
+  static Future<ProduitDetails> getSelectedProductData(produitId) async {
+    var datas = await Api.request(
+      method: "post",
+      url: "/content/produit",
+      body: {
+        "produit_id": produitId,
+      },
+    );
+    if (datas != null) {
+      var d = ProduitDetails.fromJson(datas);
+      homeController.selectedProduitDetails.value = d;
+      return d;
     }
     return null;
   }

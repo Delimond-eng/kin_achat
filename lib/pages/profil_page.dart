@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kinachat/components/cart_viewer.dart';
 import 'package:kinachat/global/controllers.dart';
 import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:lottie/lottie.dart';
 
 import '../controllers/auth_controller.dart';
+import '../widgets/cart_openning_btn.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -16,10 +18,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final GlobalKey<ScaffoldState> sKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
+      key: sKey,
+      endDrawer: const CartViewer(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,35 +93,45 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Container(
-                            height: 35.0,
-                            width: 35.0,
-                            decoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(35.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(.2),
-                                  offset: const Offset(0, 2),
-                                  blurRadius: 5,
-                                )
-                              ],
-                            ),
-                            child: Material(
-                              borderRadius: BorderRadius.circular(35.0),
-                              color: Colors.transparent,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(35.0),
-                                onTap: _loggedOut,
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.logout_rounded,
-                                    color: Colors.black,
-                                    size: 15.0,
+                          Row(
+                            children: [
+                              Container(
+                                height: 35.0,
+                                width: 35.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow,
+                                  borderRadius: BorderRadius.circular(35.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(.2),
+                                      offset: const Offset(0, 2),
+                                      blurRadius: 5,
+                                    )
+                                  ],
+                                ),
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(35.0),
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(35.0),
+                                    onTap: _loggedOut,
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.logout_rounded,
+                                        color: Colors.black,
+                                        size: 15.0,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              CartOpenningBtn(
+                                scaffoldKey: sKey,
+                              )
+                            ],
                           ),
                         ],
                       ),

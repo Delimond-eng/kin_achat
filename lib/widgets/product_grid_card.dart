@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/utils/utils.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
 import '../models/home_content.dart';
 
@@ -68,9 +69,9 @@ class GridProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.titre,
+                          capitalizeFirst(data.titre.toLowerCase()),
                           style: GoogleFonts.poppins(
-                            color: Colors.black54,
+                            color: Colors.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -116,29 +117,7 @@ class GridProductCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 30.0,
-                              width: 30.0,
-                              decoration: BoxDecoration(
-                                color: Colors.indigo[100],
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Material(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(30.0),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  onTap: () {},
-                                  child: const Center(
-                                    child: Icon(
-                                      CupertinoIcons.heart,
-                                      size: 15.0,
-                                      color: Colors.indigo,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            const SizedBox()
                           ],
                         ),
                       ],
@@ -204,9 +183,9 @@ class GridProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.titre,
+                      capitalizeFirst(data.titre.toLowerCase()),
                       style: GoogleFonts.poppins(
-                        color: Colors.black54,
+                        color: Colors.black,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
                       ),
@@ -253,29 +232,7 @@ class GridProductCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          height: 30.0,
-                          width: 30.0,
-                          decoration: BoxDecoration(
-                            color: Colors.indigo[100],
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: Material(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(30.0),
-                              onTap: () {},
-                              child: const Center(
-                                child: Icon(
-                                  CupertinoIcons.heart,
-                                  size: 15.0,
-                                  color: Colors.indigo,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        const SizedBox()
                       ],
                     ),
                   ],

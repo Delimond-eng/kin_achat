@@ -6,14 +6,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kinachat/global/controllers.dart';
 import 'package:lottie/lottie.dart';
 
+import '../widgets/cart_openning_btn.dart';
 import '../widgets/search_bar.dart';
 
 class AppMainHeader extends StatelessWidget {
   final Function onFiltered;
-  final Function onOpenCart;
+  final GlobalKey<ScaffoldState> sKey;
   final Function onLoggedIn;
-  const AppMainHeader(
-      {Key key, this.onFiltered, this.onOpenCart, this.onLoggedIn})
+  const AppMainHeader({Key key, this.onFiltered, this.onLoggedIn, this.sKey})
       : super(key: key);
 
   @override
@@ -84,35 +84,8 @@ class AppMainHeader extends StatelessWidget {
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Container(
-                          height: 35.0,
-                          width: 35.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(35.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(.2),
-                                offset: const Offset(0, 2),
-                                blurRadius: 5,
-                              )
-                            ],
-                          ),
-                          child: Material(
-                            borderRadius: BorderRadius.circular(35.0),
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(35.0),
-                              onTap: onOpenCart,
-                              child: const Center(
-                                child: Icon(
-                                  CupertinoIcons.shopping_cart,
-                                  size: 20.0,
-                                  color: Colors.indigo,
-                                ),
-                              ),
-                            ),
-                          ),
+                        CartOpenningBtn(
+                          scaffoldKey: sKey,
                         )
                       ],
                     );
