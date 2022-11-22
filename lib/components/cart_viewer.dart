@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/widgets.dart';
 import 'package:kinachat/db/repository.dart';
-import 'package:kinachat/models/product.dart';
-import 'package:kinachat/utils/utils.dart';
 import 'package:lottie/lottie.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
 

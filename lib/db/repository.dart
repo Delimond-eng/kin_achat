@@ -1,4 +1,3 @@
-import 'package:kinachat/utils/utils.dart';
 import '../models/home_content.dart';
 import 'db.dart';
 
