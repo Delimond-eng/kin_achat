@@ -13,7 +13,6 @@ import 'package:optimized_cached_image/optimized_cached_image.dart';
 import '../global/controllers.dart';
 import '../models/home_content.dart';
 import '../screens/auth/authenticate.dart';
-import '../screens/public/home_screen.dart';
 import '../widgets/product_qty_update.dart';
 import '../widgets/ticket.dart';
 

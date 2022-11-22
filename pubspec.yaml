@@ -13,10 +13,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   google_fonts: 2.0.0
-  video_player: 2.4.6
   flutter_svg:
   lottie: 1.4.1
-  palette_generator: 0.3.3
   get: 4.6.5
   get_storage: 
   draggable_fab: ^0.1.4
