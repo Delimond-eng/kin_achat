@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/widgets.dart';
 import 'package:kinachat/db/repository.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
 
@@ -100,7 +101,7 @@ class CartViewer extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 170.0,
                   margin: const EdgeInsets.all(10),
-                  color: Colors.indigo[400],
+                  color: secondaryColor,
                   isCornerRounded: true,
                   padding: const EdgeInsets.all(5),
                   child: Column(
@@ -168,7 +169,14 @@ class CartViewer extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
-        color: Colors.indigo,
+        gradient: LinearGradient(
+          colors: [
+            primaryColor,
+            secondaryColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomRight,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -400,6 +408,8 @@ class CartItem extends StatelessWidget {
                           PQtyUpdate(
                             item: item,
                             onQuantityChanged: (int q) async {
+                              homeController.selectedProduit.value.defaultQty =
+                                  q;
                               InternalRepo.addItemToDbCart(item, q: q)
                                   .then((value) {
                                 cartController.initCartTotal();

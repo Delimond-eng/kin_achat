@@ -102,6 +102,7 @@ class Produit {
   String description;
   String image;
   int defaultQty;
+  bool isFavorite = false;
 
   Produit({
     this.produitId,
@@ -131,7 +132,9 @@ class Produit {
     data['devise'] = devise;
     data['description'] = description;
     data['image'] = image;
-    data['qty'] = defaultQty ?? 1;
+    if (isFavorite == false) {
+      data['qty'] = defaultQty ?? 1;
+    }
     return data;
   }
 }

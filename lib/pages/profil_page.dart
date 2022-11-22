@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kinachat/components/cart_viewer.dart';
 import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:lottie/lottie.dart';
 
@@ -64,11 +65,11 @@ class _ProfilePageState extends State<ProfilePage> {
           ClipPath(
             clipper: GShape(),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Theme.of(context).primaryColor,
-                    Colors.indigo[300],
+                    primaryColor,
+                    secondaryColor,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomRight,
@@ -79,11 +80,13 @@ class _ProfilePageState extends State<ProfilePage> {
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Mon profil",
@@ -93,7 +96,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
                                 height: 35.0,
@@ -126,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               const SizedBox(
-                                width: 10.0,
+                                height: 10.0,
                               ),
                               CartOpenningBtn(
                                 scaffoldKey: sKey,

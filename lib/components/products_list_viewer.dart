@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/api/repositories/public_repo.dart';
 import 'package:kinachat/db/repository.dart';
 import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:kinachat/utils/dialogs/modals.dart';
 
 import '../models/home_content.dart';
@@ -77,7 +78,7 @@ class ProductsListViewer extends StatelessWidget {
                           child: Icon(
                             isList ? Icons.dashboard : CupertinoIcons.list_dash,
                             size: 18.0,
-                            color: Colors.indigo,
+                            color: secondaryColor,
                           ),
                         ),
                       ),

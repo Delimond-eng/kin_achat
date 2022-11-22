@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kinachat/controllers/auth_controller.dart';
 import 'package:kinachat/controllers/cart_controller.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'controllers/home_controller.dart';
 import 'db/db.dart';
 import 'screens/starter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await GetStorage.init();
   await DB.initDb();
   Get.put(AuthController());
@@ -24,9 +30,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'kin achat app',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
+      theme: ThemeData(primaryColor: secondaryColor),
       home: Builder(
         builder: (context) {
           return const Starter();

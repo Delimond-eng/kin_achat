@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/cart_viewer.dart';
 import 'package:kinachat/db/repository.dart';
 import 'package:kinachat/models/home_content.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:lottie/lottie.dart';
 
 import '../components/products_list_viewer.dart';
@@ -84,11 +85,11 @@ class _FavoriteProductsState extends State<FavoriteProducts> {
   Widget _header(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Theme.of(context).primaryColor,
-            Colors.indigo[300],
+            primaryColor,
+            secondaryColor,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomRight,

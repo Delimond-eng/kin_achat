@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kinachat/global/controllers.dart';
 import 'package:lottie/lottie.dart';
 
+import '../utils/colors.dart';
 import '../widgets/cart_openning_btn.dart';
 import '../widgets/search_bar.dart';
 
@@ -20,11 +20,11 @@ class AppMainHeader extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Theme.of(context).primaryColor,
-            Colors.indigo[300],
+            primaryColor,
+            secondaryColor,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomRight,
@@ -104,33 +104,25 @@ class AppMainHeader extends StatelessWidget {
 
   //*App Logo*//
   Widget _logo() {
-    return RichText(
-      text: TextSpan(
-        style: GoogleFonts.staatliches(
-          color: Colors.white,
-          fontSize: 28.0,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 2.0,
-          shadows: [
-            Shadow(
-              color: Colors.black.withOpacity(.1),
-              blurRadius: 5,
-              offset: const Offset(0, 5),
-            )
-          ],
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        const SizedBox(
+          height: 50.0,
+          width: 50.0,
         ),
-        children: [
-          const TextSpan(
-            text: "Kin",
+        Positioned(
+          top: -5,
+          left: 0,
+          child: Image.asset(
+            "assets/logo.png",
+            height: 60.0,
+            width: 60.0,
+            alignment: Alignment.center,
+            fit: BoxFit.scaleDown,
           ),
-          TextSpan(
-            text: " Achat",
-            style: GoogleFonts.staatliches(
-              color: Colors.yellow,
-            ),
-          ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }

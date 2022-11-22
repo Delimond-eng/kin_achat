@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
 import '../models/home_content.dart';
 import '../utils/utils.dart';
@@ -44,7 +45,7 @@ class FilterProductCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(5),
                   ),
-                  color: Colors.indigo[200],
+                  color: secondaryColor.withOpacity(.4),
                 ),
                 child: Center(
                   child: ClipRRect(
@@ -170,7 +171,7 @@ class FilterProductCardPlaceholder extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(5),
               ),
-              color: Colors.indigo[200],
+              color: secondaryColor.withOpacity(.5),
             ),
             child: const Center(
               child: Icon(Icons.filter_hdr_rounded),

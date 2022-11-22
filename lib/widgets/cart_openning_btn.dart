@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/utils/colors.dart';
 
 import '../global/controllers.dart';
 
@@ -24,7 +25,7 @@ class CartOpenningBtn extends StatelessWidget {
           height: 35.0,
           width: 35.0,
           decoration: BoxDecoration(
-            color: isLight ? Colors.white : Colors.indigo,
+            color: isLight ? Colors.white : secondaryColor,
             borderRadius: BorderRadius.circular(35.0),
             boxShadow: [
               BoxShadow(
@@ -46,7 +47,7 @@ class CartOpenningBtn extends StatelessWidget {
                 child: Icon(
                   CupertinoIcons.shopping_cart,
                   size: 16.0,
-                  color: isLight ? Colors.indigo[800] : Colors.white,
+                  color: isLight ? secondaryColor : Colors.white,
                 ),
               ),
             ),

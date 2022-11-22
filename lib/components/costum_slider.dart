@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:kinachat/widgets/rounded_curved_sharp.dart';
 import 'package:lottie/lottie.dart';
 
@@ -57,7 +58,7 @@ class CostumSlider extends StatelessWidget {
         for (int i = 0; i < length; i++) ...[
           if (i == currentSlide)
             const SlideDot(
-              activeColor: Colors.indigo,
+              activeColor: secondaryColor,
               isActived: true,
             )
           else

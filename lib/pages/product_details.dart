@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/cart_viewer.dart';
 import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
 import '../components/products_list_viewer.dart';
 import '../db/repository.dart';
@@ -61,12 +62,14 @@ class ProductSelectedDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: Text(
-                  product.titre.toLowerCase().capitalizeFirst,
-                  style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.w800,
+                child: ZoomIn(
+                  child: Text(
+                    product.titre.toLowerCase().capitalizeFirst,
+                    style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ),
@@ -78,56 +81,61 @@ class ProductSelectedDetails extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "${product.prix} ",
-                      style: GoogleFonts.anton(
-                        color: Colors.orange[800],
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 1.0,
-                      ),
-                    ),
-                    TextSpan(
-                      text: product.devise,
-                      style: GoogleFonts.poppins(
-                        color: Colors.black54,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+              FadeInRight(
+                child: RichText(
+                  text: TextSpan(
                     children: [
-                      const GLine(),
-                      Text(
-                        "Quantité",
-                        style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
+                      TextSpan(
+                        text: "${product.prix} ",
+                        style: GoogleFonts.anton(
+                          color: Colors.orange[800],
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.0,
                         ),
                       ),
-                      const GLine(),
+                      TextSpan(
+                        text: product.devise,
+                        style: GoogleFonts.poppins(
+                          color: Colors.black54,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
                     ],
                   ),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  PQtyUpdate(
-                    onQuantityChanged: (int q) {
-                      homeController.selectedProduit.value.defaultQty = q;
-                    },
-                  ),
-                ],
+                ),
+              ),
+              FadeInLeft(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const GLine(),
+                        Text(
+                          "Quantité",
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const GLine(),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    PQtyUpdate(
+                      item: homeController.selectedProduit.value,
+                      onQuantityChanged: (int q) {
+                        homeController.selectedProduit.value.defaultQty = q;
+                      },
+                    ),
+                  ],
+                ),
               )
             ],
           ),
@@ -257,7 +265,7 @@ class ProductSelectedDetails extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5.0),
                             border: Border.all(
-                              color: Colors.indigo[200],
+                              color: secondaryColor.withOpacity(.5),
                               width: .5,
                             ),
                           ),
@@ -322,7 +330,7 @@ class ProductSelectedDetails extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(15.0),
                             alignment: Alignment.center,
-                            backgroundColor: Colors.indigo,
+                            backgroundColor: secondaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -389,7 +397,7 @@ class ProductSelectedDetails extends StatelessWidget {
                       width: double.infinity,
                       height: 200.0,
                       decoration: BoxDecoration(
-                        color: Colors.indigo[200],
+                        color: secondaryColor.withOpacity(.4),
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       child: Center(
@@ -435,7 +443,7 @@ class ProductSelectedDetails extends StatelessWidget {
         for (int i = 0; i < length; i++) ...[
           if (i == currentSlide)
             const SlideDot(
-              activeColor: Colors.indigo,
+              activeColor: secondaryColor,
               isActived: true,
             )
           else
@@ -569,7 +577,7 @@ class ProductSelectedDetails extends StatelessWidget {
           Text(
             "$title ",
             style: GoogleFonts.poppins(
-              color: Colors.indigo,
+              color: secondaryColor,
               fontWeight: FontWeight.w700,
             ),
           ),

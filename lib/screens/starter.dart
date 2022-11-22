@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:lottie/lottie.dart';
 
 import 'public/home_screen.dart';
@@ -52,12 +53,12 @@ class _StarterState extends State<Starter> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.indigo[900],
-              Colors.indigo[900],
-              Colors.indigo[400],
+              primaryColor,
+              primaryColor,
+              secondaryColor,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -103,7 +104,7 @@ class _StarterState extends State<Starter> {
                     margin: const EdgeInsets.only(right: 6.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 10.0,
@@ -114,9 +115,9 @@ class _StarterState extends State<Starter> {
                     ),
                     child: Material(
                       color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(30.0),
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(30.0),
                         onTap: () {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -130,7 +131,7 @@ class _StarterState extends State<Starter> {
                             "assets/svgs/next_big.svg",
                             height: 20.0,
                             width: 20,
-                            color: Colors.indigo,
+                            color: secondaryColor,
                           ),
                         ),
                       ),
@@ -238,7 +239,7 @@ class Dot extends StatelessWidget {
       width: isSelected ? 18.0 : 10.0,
       margin: const EdgeInsets.only(right: 4.0),
       decoration: BoxDecoration(
-        color: isSelected ? Colors.yellow[800] : Colors.white,
+        color: isSelected ? primaryColor : Colors.white,
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kinachat/utils/colors.dart';
 
 import '../models/home_content.dart';
 
@@ -11,12 +12,12 @@ class PQtyUpdate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int qty = item != null ? item.defaultQty : 1;
+    int qty = item.defaultQty ?? 1;
     return StatefulBuilder(builder: (context, setter) {
       return Row(
         children: [
           RoundedIconBtn(
-            color: qty <= 1 ? Colors.grey[400] : Colors.indigo,
+            color: qty <= 1 ? Colors.grey[400] : secondaryColor,
             icon: CupertinoIcons.minus,
             size: 25.0,
             onPressed: () async {
@@ -39,7 +40,7 @@ class PQtyUpdate extends StatelessWidget {
             width: 8.0,
           ),
           RoundedIconBtn(
-            color: Colors.indigo,
+            color: secondaryColor,
             icon: CupertinoIcons.add,
             size: 25.0,
             onPressed: () async {

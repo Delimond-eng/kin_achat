@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/utils/colors.dart';
 
 class FilterEndDrawer extends StatelessWidget {
   const FilterEndDrawer({Key key}) : super(key: key);
@@ -28,7 +29,7 @@ class FilterEndDrawer extends StatelessWidget {
             height: 50.0,
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Colors.indigo,
+              color: secondaryColor,
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(5.0),
               ),

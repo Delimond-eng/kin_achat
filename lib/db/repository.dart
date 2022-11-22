@@ -3,6 +3,7 @@ import 'db.dart';
 
 class InternalRepo {
   static Future<String> insertFavorite(Produit data) async {
+    data.isFavorite = true;
     var db = await DB.initDb();
     var p = await db
         .query("favorites", where: "produit_id=?", whereArgs: [data.produitId]);
@@ -44,7 +45,8 @@ class InternalRepo {
     if (s.isEmpty) {
       db.insert("carts", data.toJson());
     } else {
-      db.update("carts", {"qty": (q)});
+      db.update("carts", {"qty": (q)},
+          where: "produit_id=?", whereArgs: [data.produitId]);
     }
     var carts = await getDbCart();
     return carts;

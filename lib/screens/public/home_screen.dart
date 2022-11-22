@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/global/controllers.dart';
 import 'package:kinachat/pages/favorite_products.dart';
+import 'package:kinachat/utils/colors.dart';
 import '../../controllers/auth_controller.dart';
 import '../../pages/home_page.dart';
 import '../../pages/profil_page.dart';
@@ -41,16 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         elevation: 1.0,
-        selectedItemColor: Colors.indigo[800],
+        selectedItemColor: secondaryColor,
         showUnselectedLabels: true,
         unselectedItemColor: Colors.grey[600],
         type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: GoogleFonts.didactGothic(
-          color: Theme.of(context).primaryColor,
-          fontWeight: FontWeight.w900,
+        selectedLabelStyle: GoogleFonts.poppins(
+          color: secondaryColor,
+          fontWeight: FontWeight.w700,
         ),
-        unselectedLabelStyle: GoogleFonts.didactGothic(
-          fontWeight: FontWeight.w900,
+        unselectedLabelStyle: GoogleFonts.poppins(
+          fontWeight: FontWeight.w500,
           color: Colors.grey[600],
         ),
         items: const [
