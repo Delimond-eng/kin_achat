@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kinachat/utils/colors.dart';
 import 'package:lottie/lottie.dart';
 
 class Xloading {
@@ -117,7 +118,7 @@ class XDialog {
                     ),
                     Flexible(
                       child: Btn(
-                        color: Colors.indigo,
+                        color: secondaryColor,
                         height: 45.0,
                         label: 'Oui',
                         labelColor: Colors.white,
@@ -251,10 +252,10 @@ class Btn extends StatelessWidget {
       height: height ?? 55.0,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: color ?? Colors.indigo,
+        color: color ?? secondaryColor,
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(
-          color: isOutlined ? Colors.indigo : Colors.transparent,
+          color: isOutlined ? secondaryColor : Colors.transparent,
         ),
       ),
       child: Material(
