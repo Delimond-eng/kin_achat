@@ -49,49 +49,6 @@ class ProductSelectedDetails extends StatelessWidget {
     );
   }
 
-  Widget _addToCartBtn(BuildContext context, {GlobalKey<ScaffoldState> sKey}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-      child: Row(
-        children: [
-          Flexible(
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(15.0),
-                  alignment: Alignment.center,
-                  backgroundColor: Colors.indigo,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                onPressed: () {
-                  cartController
-                      .addItemToCart(
-                    homeController.selectedProduit.value,
-                  )
-                      .then((_) {
-                    sKey.currentState.openEndDrawer();
-                  });
-                },
-                label: Text(
-                  "Ajouter au panier",
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                icon: const Icon(
-                  CupertinoIcons.cart_badge_plus,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   //*Affichage des détails du produits*//
 
   Widget _headerDetails() {
@@ -353,7 +310,46 @@ class ProductSelectedDetails extends StatelessWidget {
                   ),
                 ),
               ],
-              _addToCartBtn(context, sKey: sKey),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(15.0),
+                            alignment: Alignment.center,
+                            backgroundColor: Colors.indigo,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            InternalRepo.addItemToDbCart(product,
+                                    q: product.defaultQty)
+                                .then((_) {
+                              cartController.initCartTotal();
+                              sKey.currentState.openEndDrawer();
+                            });
+                          },
+                          label: Text(
+                            "Ajouter au panier",
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          icon: const Icon(
+                            CupertinoIcons.cart_badge_plus,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               ProductsListViewer(
                 dataList: homeController
                     .selectedProduitDetails.value.reponse.recommandations,
