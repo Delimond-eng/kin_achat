@@ -1,7 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../global/controllers.dart';
 
 class CartOpenningBtn extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -52,7 +55,7 @@ class CartOpenningBtn extends StatelessWidget {
         Positioned(
           top: -5.0,
           right: -2.0,
-          child: FadeInUp(
+          child: ZoomIn(
             child: Container(
               padding: const EdgeInsets.all(5.0),
               decoration: BoxDecoration(
@@ -66,12 +69,14 @@ class CartOpenningBtn extends StatelessWidget {
                   )
                 ],
               ),
-              child: Text(
-                "0",
-                style: GoogleFonts.poppins(
-                  fontSize: 8.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
+              child: Obx(
+                () => Text(
+                  '${cartController.cartList.length}',
+                  style: GoogleFonts.poppins(
+                    fontSize: 8.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),

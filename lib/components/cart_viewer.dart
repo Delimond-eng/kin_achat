@@ -2,13 +2,17 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/widgets.dart';
+import 'package:kinachat/db/repository.dart';
 import 'package:kinachat/models/product.dart';
 import 'package:kinachat/utils/utils.dart';
 import 'package:lottie/lottie.dart';
+import 'package:optimized_cached_image/optimized_cached_image.dart';
 
 import '../global/controllers.dart';
+import '../models/home_content.dart';
 import '../screens/auth/authenticate.dart';
 import '../widgets/product_qty_update.dart';
 import '../widgets/ticket.dart';
@@ -27,119 +31,136 @@ class CartViewer extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
         color: Colors.grey[200],
       ),
-      child: Column(
-        children: [
-          _header(context),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  FadeInUp(
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(10.0),
-                      itemCount: 3,
-                      itemBuilder: (context, i) {
-                        var item = products[i];
-                        return Dismissible(
-                          direction: DismissDirection.endToStart,
-                          background: Container(
-                            margin: const EdgeInsets.only(bottom: 8.0),
-                            child: const Padding(
-                              padding: EdgeInsets.only(right: 15.0),
-                              child: Icon(
-                                CupertinoIcons.clear,
-                                color: Colors.white,
-                                size: 30.0,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.red[300],
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            alignment: Alignment.centerRight,
+      child: Obx(
+        () => Column(
+          children: [
+            _header(context),
+            Expanded(
+              child: cartController.cartList.isEmpty
+                  ? ZoomIn(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Lottie.asset(
+                            "assets/lotties/empty-cart.json",
                           ),
-                          onDismissed: (direction) {
-                            if (direction == DismissDirection.endToStart) {
-                              gPrint("Dismissed");
-                            }
-                          },
-                          key: ObjectKey(i),
-                          child: CartItem(
-                            item: item,
-                            onRemoved: () {},
+                        ),
+                      ),
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          FadeInUp(
+                            child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(10.0),
+                              itemCount: cartController.cartList.length,
+                              itemBuilder: (context, i) {
+                                var item = cartController.cartList[i];
+                                return Dismissible(
+                                  direction: DismissDirection.endToStart,
+                                  background: Container(
+                                    margin: const EdgeInsets.only(bottom: 8.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.only(right: 15.0),
+                                      child: Icon(
+                                        CupertinoIcons.clear,
+                                        color: Colors.white,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red[300],
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    alignment: Alignment.centerRight,
+                                  ),
+                                  onDismissed: (direction) {
+                                    if (direction ==
+                                        DismissDirection.endToStart) {
+                                      cartController.removeItemTocart(item);
+                                    }
+                                  },
+                                  key: ObjectKey(i),
+                                  child: CartItem(
+                                    item: item,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
             ),
-          ),
-          ZoomIn(
-            child: TicketDetail(
-              width: MediaQuery.of(context).size.width,
-              height: 170.0,
-              margin: const EdgeInsets.all(10),
-              color: Colors.indigo[400],
-              isCornerRounded: true,
-              padding: const EdgeInsets.all(5),
-              child: Column(
-                children: [
-                  const TicketItem(
-                    title: "Sous total",
-                    value: "\$ 25.05",
-                  ),
-                  const TicketItem(
-                    title: "Frais livraison",
-                    value: "\$2.00",
-                  ),
-                  const TicketItem(
-                    title: "Total",
-                    value: "\$27.05",
-                  ),
-                  DashedLine(
-                    height: 2,
-                    color: Colors.grey[500],
-                  ),
-                  const TicketItem(
-                    color: Colors.white,
-                    title: "Total",
-                    value: "\$24.02",
-                    fSize: 18.0,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-            child: FadeInLeft(
-              child: SizedBox(
-                width: double.infinity,
-                height: 50.0,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  child: Text(
-                    "Commander maintenant",
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+            if (cartController.cartList.isNotEmpty) ...[
+              ZoomIn(
+                child: TicketDetail(
+                  width: MediaQuery.of(context).size.width,
+                  height: 170.0,
+                  margin: const EdgeInsets.all(10),
+                  color: Colors.indigo[400],
+                  isCornerRounded: true,
+                  padding: const EdgeInsets.all(5),
+                  child: Column(
+                    children: [
+                      TicketItem(
+                        title: "Sous total",
+                        value: '\$ ${cartController.cartTotal.value}',
+                      ),
+                      const TicketItem(
+                        title: "Frais livraison",
+                        value: "\$2.00",
+                      ),
+                      const TicketItem(
+                        title: "Taxe",
+                        value: "\$ 0.00",
+                      ),
+                      DashedLine(
+                        height: 2,
+                        color: Colors.grey[500],
+                      ),
+                      TicketItem(
+                        color: Colors.white,
+                        title: "Total",
+                        value: "\$ ${cartController.cartTotal.value + 2}",
+                        fSize: 18.0,
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                child: FadeInLeft(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50.0,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      child: Text(
+                        "Commander maintenant",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ]
+          ],
+        ),
       ),
     );
   }
@@ -185,7 +206,40 @@ class CartViewer extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(CupertinoIcons.cart_fill, color: Colors.indigo[50]),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Icon(CupertinoIcons.cart_fill, color: Colors.indigo[50]),
+                  Positioned(
+                    top: -10.0,
+                    right: -5.0,
+                    child: ZoomIn(
+                      child: Container(
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(.2),
+                              offset: const Offset(0, 2),
+                              blurRadius: 5,
+                            )
+                          ],
+                        ),
+                        child: Text(
+                          '${cartController.cartList.length}',
+                          style: GoogleFonts.poppins(
+                            fontSize: 8.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
               if (authController.userIsLoggedIn.value == true) ...[
                 SizedBox(
                   height: 35.0,
@@ -241,12 +295,10 @@ class CartViewer extends StatelessWidget {
 }
 
 class CartItem extends StatelessWidget {
-  final Product item;
-  final Function onRemoved;
+  final Produit item;
   const CartItem({
     Key key,
     this.item,
-    this.onRemoved,
   }) : super(key: key);
 
   @override
@@ -274,9 +326,18 @@ class CartItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Center(
-                    child: Image.asset(
-                      item.imgPath,
-                      fit: BoxFit.scaleDown,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: OptimizedCacheImage(
+                        height: 90.0,
+                        width: 80.0,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                        imageUrl: item.image,
+                        placeholder: (context, url) => const SizedBox(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.filter_hdr_rounded),
+                      ),
                     ),
                   ),
                 ),
@@ -289,7 +350,7 @@ class CartItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item.title,
+                        item.titre,
                         style: GoogleFonts.poppins(
                           color: Colors.black54,
                           fontWeight: FontWeight.w700,
@@ -318,7 +379,7 @@ class CartItem extends StatelessWidget {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "${item.price} ",
+                                    text: "${item.prix} ",
                                     style: GoogleFonts.anton(
                                       color: Colors.orange[800],
                                       fontSize: 18.0,
@@ -327,7 +388,7 @@ class CartItem extends StatelessWidget {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: "CDF",
+                                    text: item.devise,
                                     style: GoogleFonts.poppins(
                                       color: Colors.black54,
                                       fontSize: 12.0,
@@ -339,8 +400,12 @@ class CartItem extends StatelessWidget {
                             ),
                           ),
                           PQtyUpdate(
-                            onQuantityChanged: (int q) {
-                              item.qty = q;
+                            item: item,
+                            onQuantityChanged: (int q) async {
+                              InternalRepo.addItemToDbCart(item, q: q)
+                                  .then((value) {
+                                cartController.initCartTotal();
+                              });
                             },
                           )
                         ],

@@ -143,12 +143,13 @@ class _HomePageState extends State<HomePage> {
                                 PublicRepo.getSelectedProductData(e.produitId)
                                     .then((d) {
                                   Xloading.dismiss();
+                                  homeController.selectedProduit.value = e;
                                   if (d != null) {
                                     InternalRepo.getIsFavorite(e)
                                         .then((isFavorite) {
                                       Get.to(
                                         ProductSelectedDetails(
-                                            data: e, isFavorite: isFavorite),
+                                            isFavorite: isFavorite),
                                         duration:
                                             const Duration(milliseconds: 1000),
                                         transition: Transition.circularReveal,

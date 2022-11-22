@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/pages/favorite_products.dart';
 import '../../controllers/auth_controller.dart';
 import '../../pages/home_page.dart';
 import '../../pages/profil_page.dart';
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedPage = 0;
   final List<Widget> _pages = [
     const HomePage(),
-    const Center(child: Text('Page Favoris')),
+    const FavoriteProducts(),
     const ProfilePage(),
     const Center(child: Text('Page Commandes')),
   ];

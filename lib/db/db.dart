@@ -18,6 +18,8 @@ class DB {
     await db.execute(
       'CREATE TABLE favorites(id INTEGER PRIMARY KEY, produit_id TEXT, titre TEXT, prix TEXT, devise TEXT, description TEXT, image TEXT)',
     );
+    await db.execute(
+        "CREATE TABLE carts(cart_id INTEGER PRIMARY KEY, produit_id TEXT, titre TEXT, prix TEXT, devise TEXT, description TEXT, image TEXT, qty INTEGER)");
     gPrint("db created");
   }
 }

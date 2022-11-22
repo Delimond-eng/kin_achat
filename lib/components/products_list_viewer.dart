@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/api/repositories/public_repo.dart';
 import 'package:kinachat/db/repository.dart';
+import 'package:kinachat/global/controllers.dart';
 import 'package:kinachat/utils/dialogs/modals.dart';
 
 import '../models/home_content.dart';
@@ -114,13 +115,14 @@ class ProductsListViewer extends StatelessWidget {
                             PublicRepo.getSelectedProductData(data.produitId)
                                 .then((d) {
                               Xloading.dismiss();
+                              homeController.selectedProduit.value = data;
                               if (d != null) {
                                 if (!isDataDetail) {
                                   InternalRepo.getIsFavorite(data)
                                       .then((isFavorite) {
                                     Get.to(
                                       ProductSelectedDetails(
-                                          data: data, isFavorite: isFavorite),
+                                          isFavorite: isFavorite),
                                       duration:
                                           const Duration(milliseconds: 1000),
                                       transition: Transition.circularReveal,
@@ -161,13 +163,14 @@ class ProductsListViewer extends StatelessWidget {
                           PublicRepo.getSelectedProductData(data.produitId)
                               .then((d) {
                             Xloading.dismiss();
+                            homeController.selectedProduit.value = data;
                             if (d != null) {
                               if (!isDataDetail) {
                                 InternalRepo.getIsFavorite(data)
                                     .then((isFavorite) {
                                   Get.to(
                                     ProductSelectedDetails(
-                                        data: data, isFavorite: isFavorite),
+                                        isFavorite: isFavorite),
                                     duration:
                                         const Duration(milliseconds: 1000),
                                     transition: Transition.circularReveal,
@@ -206,13 +209,14 @@ class ProductsListViewer extends StatelessWidget {
                             PublicRepo.getSelectedProductData(data.produitId)
                                 .then((d) {
                               Xloading.dismiss();
+                              homeController.selectedProduit.value = data;
                               if (d != null) {
                                 if (!isDataDetail) {
                                   InternalRepo.getIsFavorite(data)
                                       .then((isFavorite) {
                                     Get.to(
                                       ProductSelectedDetails(
-                                          data: data, isFavorite: isFavorite),
+                                          isFavorite: isFavorite),
                                       duration:
                                           const Duration(milliseconds: 1000),
                                       transition: Transition.circularReveal,
@@ -248,13 +252,14 @@ class ProductsListViewer extends StatelessWidget {
                           PublicRepo.getSelectedProductData(data.produitId)
                               .then((d) {
                             Xloading.dismiss();
+                            homeController.selectedProduit.value = data;
                             if (d != null) {
                               if (!isDataDetail) {
                                 InternalRepo.getIsFavorite(data)
                                     .then((isFavorite) {
                                   Get.to(
                                     ProductSelectedDetails(
-                                        data: data, isFavorite: isFavorite),
+                                        isFavorite: isFavorite),
                                     duration:
                                         const Duration(milliseconds: 1000),
                                     transition: Transition.circularReveal,

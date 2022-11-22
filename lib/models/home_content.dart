@@ -101,6 +101,7 @@ class Produit {
   String devise;
   String description;
   String image;
+  int defaultQty;
 
   Produit({
     this.produitId,
@@ -109,6 +110,7 @@ class Produit {
     this.devise,
     this.description,
     this.image,
+    this.defaultQty = 1,
   });
 
   Produit.fromJson(Map<String, dynamic> json) {
@@ -118,6 +120,7 @@ class Produit {
     devise = json['devise'];
     description = json['description'];
     image = json['image'];
+    defaultQty = json['qty'];
   }
 
   Map<String, dynamic> toJson() {
@@ -128,6 +131,7 @@ class Produit {
     data['devise'] = devise;
     data['description'] = description;
     data['image'] = image;
+    data['qty'] = defaultQty ?? 1;
     return data;
   }
 }

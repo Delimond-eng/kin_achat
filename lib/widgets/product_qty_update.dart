@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/home_content.dart';
+
 class PQtyUpdate extends StatelessWidget {
   final Function(int qty) onQuantityChanged;
-  const PQtyUpdate({Key key, this.onQuantityChanged}) : super(key: key);
+  final Produit item;
+  const PQtyUpdate({Key key, this.onQuantityChanged, this.item})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int qty = 1;
+    int qty = item != null ? item.defaultQty : 1;
     return StatefulBuilder(builder: (context, setter) {
       return Row(
         children: [

@@ -19,9 +19,8 @@ import '../widgets/product_qty_update.dart';
 import '../widgets/utilities_widget.dart';
 
 class ProductSelectedDetails extends StatelessWidget {
-  final Produit data;
   final bool isFavorite;
-  const ProductSelectedDetails({Key key, this.data, this.isFavorite = false})
+  const ProductSelectedDetails({Key key, this.isFavorite = false})
       : super(key: key);
 
   @override
@@ -43,14 +42,14 @@ class ProductSelectedDetails extends StatelessWidget {
             const SizedBox(
               height: 5.0,
             ),
-            _moreDetails(context),
+            _moreDetails(context, _scaffoldKey),
           ],
         ),
       ),
     );
   }
 
-  Widget _addToCartBtn(BuildContext context) {
+  Widget _addToCartBtn(BuildContext context, {GlobalKey<ScaffoldState> sKey}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
       child: Row(
@@ -67,7 +66,15 @@ class ProductSelectedDetails extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  cartController
+                      .addItemToCart(
+                    homeController.selectedProduit.value,
+                  )
+                      .then((_) {
+                    sKey.currentState.openEndDrawer();
+                  });
+                },
                 label: Text(
                   "Ajouter au panier",
                   style: GoogleFonts.poppins(
@@ -88,6 +95,7 @@ class ProductSelectedDetails extends StatelessWidget {
   //*Affichage des détails du produits*//
 
   Widget _headerDetails() {
+    Produit product = homeController.selectedProduit.value;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
@@ -97,7 +105,7 @@ class ProductSelectedDetails extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  data.titre.toLowerCase().capitalizeFirst,
+                  product.titre.toLowerCase().capitalizeFirst,
                   style: GoogleFonts.poppins(
                     color: Colors.black,
                     fontSize: 25.0,
@@ -117,7 +125,7 @@ class ProductSelectedDetails extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${data.prix} ",
+                      text: "${product.prix} ",
                       style: GoogleFonts.anton(
                         color: Colors.orange[800],
                         fontSize: 28.0,
@@ -126,7 +134,7 @@ class ProductSelectedDetails extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: data.devise,
+                      text: product.devise,
                       style: GoogleFonts.poppins(
                         color: Colors.black54,
                         fontSize: 15.0,
@@ -158,7 +166,9 @@ class ProductSelectedDetails extends StatelessWidget {
                     height: 5.0,
                   ),
                   PQtyUpdate(
-                    onQuantityChanged: (int q) {},
+                    onQuantityChanged: (int q) {
+                      homeController.selectedProduit.value.defaultQty = q;
+                    },
                   ),
                 ],
               )
@@ -169,7 +179,8 @@ class ProductSelectedDetails extends StatelessWidget {
     );
   }
 
-  Widget _moreDetails(BuildContext context) {
+  Widget _moreDetails(BuildContext context, GlobalKey<ScaffoldState> sKey) {
+    Produit product = homeController.selectedProduit.value;
     var detail =
         homeController.selectedProduitDetails.value.reponse.produitDetails;
     return Expanded(
@@ -198,9 +209,9 @@ class ProductSelectedDetails extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
                 child: Text(
-                  data.description.isEmpty
+                  product.description.isEmpty
                       ? 'Aucune description !'
-                      : data.description.toLowerCase().capitalizeFirst,
+                      : product.description.toLowerCase().capitalizeFirst,
                   style: GoogleFonts.didactGothic(
                     color: Colors.black54,
                     fontSize: 15.0,
@@ -342,7 +353,7 @@ class ProductSelectedDetails extends StatelessWidget {
                   ),
                 ),
               ],
-              _addToCartBtn(context),
+              _addToCartBtn(context, sKey: sKey),
               ProductsListViewer(
                 dataList: homeController
                     .selectedProduitDetails.value.reponse.recommandations,
@@ -386,20 +397,17 @@ class ProductSelectedDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       child: Center(
-                        child: Hero(
-                          tag: data.produitId,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5.0),
-                            child: OptimizedCacheImage(
-                              fit: BoxFit.cover,
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width,
-                              height: 200.0,
-                              imageUrl: img.media,
-                              placeholder: (context, url) => const SizedBox(),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.filter_hdr_rounded),
-                            ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0),
+                          child: OptimizedCacheImage(
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            height: 200.0,
+                            imageUrl: img.media,
+                            placeholder: (context, url) => const SizedBox(),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.filter_hdr_rounded),
                           ),
                         ),
                       ),
@@ -446,6 +454,7 @@ class ProductSelectedDetails extends StatelessWidget {
   //*Header la page *//
   Widget _header(BuildContext context, {key}) {
     bool isLiked = isFavorite;
+    Produit product = homeController.selectedProduit.value;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -511,8 +520,8 @@ class ProductSelectedDetails extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(35.0),
                         onTap: () async {
-                          InternalRepo.insertFavorite(data).then((s) {
-                            if (s == data.produitId) {
+                          InternalRepo.insertFavorite(product).then((s) {
+                            if (s == product.produitId) {
                               setter(() => isLiked = true);
                             }
                             if (s.isEmpty) {
