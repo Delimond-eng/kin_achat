@@ -1,7 +1,6 @@
 import 'package:kinachat/global/controllers.dart';
 import 'package:kinachat/models/home_content.dart';
 import 'package:kinachat/models/produit_details.dart';
-import 'package:kinachat/utils/utils.dart';
 
 import '../../models/category_produits.dart';
 import '../index.dart';

@@ -6,7 +6,7 @@ void gPrint(value) {
   }
 }
 
-String truncateString(String text, {length: 7, omission: '...'}) {
+String truncateString(String text, {length = 7, omission = '...'}) {
   if (length >= text.length) {
     return text;
   }
