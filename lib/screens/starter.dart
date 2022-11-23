@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kinachat/global/local_data.dart';
 import 'package:kinachat/utils/colors.dart';
 import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:lottie/lottie.dart';
@@ -121,6 +122,7 @@ class _StarterState extends State<Starter> {
                         borderRadius: BorderRadius.circular(30.0),
                         onTap: () {
                           Xloading.showLottieLoading(context);
+                          storage.write("using", true);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

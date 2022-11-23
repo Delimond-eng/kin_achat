@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kinachat/controllers/auth_controller.dart';
 import 'package:kinachat/controllers/cart_controller.dart';
+import 'package:kinachat/screens/splash_screen.dart';
 import 'package:kinachat/utils/colors.dart';
 import 'controllers/home_controller.dart';
 import 'db/db.dart';
-import 'screens/starter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primaryColor: secondaryColor),
       home: Builder(
         builder: (context) {
-          return const Starter();
+          return const SplashScreen();
         },
       ),
     );
