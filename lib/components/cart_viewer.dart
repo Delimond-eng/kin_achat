@@ -17,7 +17,8 @@ import '../widgets/product_qty_update.dart';
 import '../widgets/ticket.dart';
 
 class CartViewer extends StatelessWidget {
-  const CartViewer({Key key}) : super(key: key);
+  final bool isDetail;
+  const CartViewer({Key key, this.isDetail = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -200,11 +201,15 @@ class CartViewer extends StatelessWidget {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(5),
                     onTap: () {
-                      if (cartController.cartList.isEmpty) {
-                        Navigator.pop(context);
+                      if (isDetail) {
+                        if (cartController.cartList.isEmpty) {
+                          Navigator.pop(context);
+                        } else {
+                          Navigator.pop(context);
+                          Get.back();
+                        }
                       } else {
                         Navigator.pop(context);
-                        Get.back();
                       }
                     },
                     child: Padding(
