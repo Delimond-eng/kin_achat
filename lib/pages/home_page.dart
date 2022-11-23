@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 const SearchComponent(),
                 duration: const Duration(milliseconds: 1000),
                 fullscreenDialog: true,
-                transition: Transition.rightToLeft,
+                transition: Transition.circularReveal,
               );
             },
           ),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +12,17 @@ import '../components/products_list_viewer.dart';
 import '../db/repository.dart';
 import '../models/home_content.dart';
 import '../widgets/cart_openning_btn.dart';
-import '../widgets/line.dart';
-import '../widgets/product_qty_update.dart';
 
 import '../widgets/utilities_widget.dart';
 
 class ProductSelectedDetails extends StatelessWidget {
   final bool isFavorite;
-  const ProductSelectedDetails({Key key, this.isFavorite = false})
-      : super(key: key);
+  final bool isSearched;
+  const ProductSelectedDetails({
+    Key key,
+    this.isFavorite = false,
+    this.isSearched = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -520,7 +520,12 @@ class ProductSelectedDetails extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(5),
                   onTap: () {
-                    Navigator.pop(context);
+                    if (isSearched) {
+                      Navigator.pop(context);
+                      Get.back();
+                    } else {
+                      Navigator.pop(context);
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

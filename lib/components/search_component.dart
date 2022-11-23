@@ -1,13 +1,21 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/components/cart_viewer.dart';
+import 'package:kinachat/global/controllers.dart';
+import 'package:kinachat/models/home_content.dart';
 import 'package:kinachat/widgets/search_bar.dart';
 import 'package:lottie/lottie.dart';
 
+import '../api/repositories/public_repo.dart';
+import '../db/repository.dart';
+import '../pages/product_details.dart';
 import '../utils/colors.dart';
+import '../utils/dialogs/modals.dart';
 import '../widgets/cart_openning_btn.dart';
+import '../widgets/product_grid_card.dart';
 
 class SearchComponent extends StatelessWidget {
   const SearchComponent({Key key}) : super(key: key);
@@ -15,7 +23,8 @@ class SearchComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> sKey = GlobalKey();
-
+    List<Produit> _foundedItems = <Produit>[];
+    final searchController = TextEditingController();
     return Scaffold(
       key: sKey,
       endDrawer: const CartViewer(),
@@ -23,18 +32,91 @@ class SearchComponent extends StatelessWidget {
       body: Column(
         children: [
           _header(context, sKey),
-          SearchBar(
-            onChanged: (kWord) {},
-          ),
           Expanded(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Lottie.asset("assets/lotties/search.json"),
-              ),
-            ),
+            child: StatefulBuilder(builder: (context, setter) {
+              return Column(
+                children: [
+                  SearchBar(
+                    controller: searchController,
+                    onChanged: (kWord) {
+                      if (kWord.isNotEmpty) {
+                        var s = homeController.produits
+                            .where((el) => el.titre
+                                .toLowerCase()
+                                .contains(kWord.toLowerCase()))
+                            .toList();
+                        setter(() {
+                          if (s.isNotEmpty) {
+                            _foundedItems.clear();
+                            _foundedItems.addAll(s);
+                          }
+                        });
+                      } else {
+                        setter(() => _foundedItems.clear());
+                      }
+                    },
+                  ),
+                  Expanded(
+                    child: _foundedItems.isEmpty
+                        ? _emptyState()
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.all(10.0),
+                            itemCount: _foundedItems.length,
+                            itemBuilder: (context, index) {
+                              var data = _foundedItems[index];
+                              return ZoomIn(
+                                child: GridProductCard(
+                                  data: data,
+                                  isList: true,
+                                  onPressed: () {
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    Xloading.showLottieLoading(context);
+                                    PublicRepo.getSelectedProductData(
+                                      data.produitId,
+                                    ).then((d) {
+                                      Xloading.dismiss();
+                                      homeController.selectedProduit.value =
+                                          data;
+                                      if (d != null) {
+                                        InternalRepo.getIsFavorite(data)
+                                            .then((isFavorite) {
+                                          Get.to(
+                                            ProductSelectedDetails(
+                                                isSearched: true,
+                                                isFavorite: isFavorite),
+                                            duration: const Duration(
+                                                milliseconds: 1000),
+                                            transition:
+                                                Transition.circularReveal,
+                                          );
+                                        });
+                                      }
+                                    });
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                  )
+                ],
+              );
+            }),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _emptyState() {
+    return ZoomIn(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Lottie.asset("assets/lotties/search.json"),
+        ),
       ),
     );
   }

@@ -152,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
           Text(
-            "Veuillez configurer vos adresses de livraison pour permettre à nos livreurs de vous retrouver facilement en cas d'une commande en cours!",
+            "Veuillez configurer vos adresses de livraison pour permettre à nos agents livreurs de vous retrouver facilement en cas d'une commande en cours!",
             style: GoogleFonts.poppins(
               color: Colors.grey,
               fontSize: 12.0,
