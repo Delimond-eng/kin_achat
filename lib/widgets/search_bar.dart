@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchBar extends StatelessWidget {
-  final Function onFiltered;
   final TextEditingController controller;
   final String hintText;
+  final Function(String value) onChanged;
   const SearchBar({
     Key key,
     this.controller,
     this.hintText,
-    this.onFiltered,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -19,13 +19,14 @@ class SearchBar extends StatelessWidget {
     return Container(
       height: 50.0,
       width: size.width,
+      margin: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.indigo[800].withOpacity(.8),
-            blurRadius: 1.0,
+            color: Colors.grey.withOpacity(.3),
+            blurRadius: 2.0,
             offset: const Offset(0, 2),
           ),
         ],
@@ -42,7 +43,8 @@ class SearchBar extends StatelessWidget {
             ),
             Flexible(
               child: TextField(
-                //controller: widget.controller,
+                controller: controller,
+                onChanged: onChanged,
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w700,
                 ),

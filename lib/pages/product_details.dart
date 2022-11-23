@@ -39,7 +39,7 @@ class ProductSelectedDetails extends StatelessWidget {
           children: [
             _header(context, key: _scaffoldKey),
             _detailImageSliders(context),
-            _headerDetails(),
+            _headerDetails(context, _scaffoldKey),
             const SizedBox(
               height: 5.0,
             ),
@@ -52,7 +52,7 @@ class ProductSelectedDetails extends StatelessWidget {
 
   //*Affichage des détails du produits*//
 
-  Widget _headerDetails() {
+  Widget _headerDetails(BuildContext context, GlobalKey<ScaffoldState> sKey) {
     Produit product = homeController.selectedProduit.value;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -107,6 +107,45 @@ class ProductSelectedDetails extends StatelessWidget {
                 ),
               ),
               FadeInLeft(
+                child: Container(
+                  height: 50.0,
+                  width: 60.0,
+                  decoration: BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: BorderRadius.circular(5.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(.1),
+                        blurRadius: 2,
+                        offset: const Offset(0, 2),
+                      )
+                    ],
+                  ),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        InternalRepo.addItemToDbCart(product,
+                                q: product.defaultQty)
+                            .then((_) {
+                          cartController.initCartTotal();
+                          sKey.currentState.openEndDrawer();
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: const Center(
+                        child: Icon(
+                          CupertinoIcons.cart_badge_plus,
+                          color: Colors.white,
+                          size: 22.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+              /*FadeInLeft(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -136,7 +175,7 @@ class ProductSelectedDetails extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              )*/
             ],
           ),
         ],
@@ -187,7 +226,7 @@ class ProductSelectedDetails extends StatelessWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              Column(
+              /*Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
@@ -288,13 +327,13 @@ class ProductSelectedDetails extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
+              ),*/
               if (detail.details.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 2.0),
                   child: Text(
-                    "Autres Détails",
+                    "Détails",
                     style: GoogleFonts.poppins(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600,

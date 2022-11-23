@@ -6,6 +6,7 @@ import 'package:kinachat/api/repositories/public_repo.dart';
 import 'package:kinachat/components/app_main_header.dart';
 import 'package:kinachat/components/costum_slider.dart';
 import 'package:kinachat/components/products_list_viewer.dart';
+import 'package:kinachat/components/search_component.dart';
 import 'package:kinachat/screens/auth/authenticate.dart';
 import 'package:kinachat/utils/dialogs/modals.dart';
 import 'package:kinachat/widgets/product_grid_card.dart';
@@ -53,7 +54,14 @@ class _HomePageState extends State<HomePage> {
                 },
               );
             },
-            onFiltered: () {},
+            onSearched: () {
+              Get.to(
+                const SearchComponent(),
+                duration: const Duration(milliseconds: 1000),
+                fullscreenDialog: true,
+                transition: Transition.rightToLeft,
+              );
+            },
           ),
           Expanded(
             child: SingleChildScrollView(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -6,13 +7,12 @@ import 'package:lottie/lottie.dart';
 
 import '../utils/colors.dart';
 import '../widgets/cart_openning_btn.dart';
-import '../widgets/search_bar.dart';
 
 class AppMainHeader extends StatelessWidget {
-  final Function onFiltered;
   final GlobalKey<ScaffoldState> sKey;
   final Function onLoggedIn;
-  const AppMainHeader({Key key, this.onFiltered, this.onLoggedIn, this.sKey})
+  final Function onSearched;
+  const AppMainHeader({Key key, this.onLoggedIn, this.sKey, this.onSearched})
       : super(key: key);
 
   @override
@@ -39,12 +39,45 @@ class AppMainHeader extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _logo(),
                   Obx(() {
                     return Row(
                       children: [
+                        Container(
+                          height: 35.0,
+                          width: 35.0,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(35.0),
+                            border: Border.all(color: Colors.white, width: 1),
+                          ),
+                          child: Material(
+                            borderRadius: BorderRadius.circular(35.0),
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: onSearched,
+                              borderRadius: BorderRadius.circular(35.0),
+                              child: const Center(
+                                child: Icon(
+                                  CupertinoIcons.search,
+                                  size: 16.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        CartOpenningBtn(
+                          scaffoldKey: sKey,
+                        ),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
                         if (authController.userIsLoggedIn.value == true) ...[
                           SizedBox(
                             height: 35.0,
@@ -83,20 +116,10 @@ class AppMainHeader extends StatelessWidget {
                             ),
                           ),
                         ],
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        CartOpenningBtn(
-                          scaffoldKey: sKey,
-                        )
                       ],
                     );
                   })
                 ],
-              ),
-              const SizedBox(height: 10.0),
-              SearchBar(
-                onFiltered: onFiltered,
               ),
             ],
           ),
@@ -119,8 +142,8 @@ class AppMainHeader extends StatelessWidget {
           left: 0,
           child: Image.asset(
             "assets/logo.png",
-            height: 60.0,
-            width: 60.0,
+            height: 55.0,
+            width: 55.0,
             alignment: Alignment.center,
             fit: BoxFit.scaleDown,
           ),
