@@ -83,7 +83,7 @@ class CartViewer extends StatelessWidget {
                                       cartController.removeItemTocart(item);
                                     }
                                   },
-                                  key: ObjectKey(i),
+                                  key: ObjectKey(item),
                                   child: CartItem(
                                     item: item,
                                   ),
