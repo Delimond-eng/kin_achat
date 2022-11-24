@@ -8,6 +8,7 @@ import 'package:kinachat/global/controllers.dart';
 import 'package:kinachat/pages/categorie_products.dart';
 import 'package:kinachat/utils/colors.dart';
 import 'package:kinachat/utils/dialogs/modals.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../models/home_content.dart';
 
@@ -115,23 +116,33 @@ class CategoryCardPlaceholder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: 25.0,
-              width: 25.0,
-              decoration: BoxDecoration(
-                color: Colors.grey[400],
-                borderRadius: BorderRadius.circular(25.0),
+            Shimmer.fromColors(
+              baseColor: Colors.grey[400],
+              highlightColor: Colors.grey[300],
+              enabled: true,
+              child: Container(
+                height: 25.0,
+                width: 25.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
               ),
             ),
             const SizedBox(
               width: 8.0,
             ),
-            Container(
-              height: 8.0,
-              width: 80.0,
-              decoration: BoxDecoration(
-                color: Colors.grey[500],
-                borderRadius: BorderRadius.circular(8.0),
+            Shimmer.fromColors(
+              baseColor: Colors.grey[500],
+              highlightColor: Colors.grey[400],
+              enabled: true,
+              child: Container(
+                height: 8.0,
+                width: 80.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey[500],
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
             ),
           ],

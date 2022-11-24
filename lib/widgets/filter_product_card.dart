@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kinachat/utils/colors.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
+import 'package:shimmer/shimmer.dart';
 import '../models/home_content.dart';
 import '../utils/utils.dart';
 
@@ -163,18 +164,23 @@ class FilterProductCardPlaceholder extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 160.0,
-            width: MediaQuery.of(context).size.width / 1.80,
-            margin: const EdgeInsets.all(4.0),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(5),
+          Shimmer.fromColors(
+            baseColor: secondaryColor.withOpacity(.4),
+            highlightColor: secondaryColor.withOpacity(.2),
+            enabled: true,
+            child: Container(
+              height: 160.0,
+              width: MediaQuery.of(context).size.width / 1.80,
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(5),
+                ),
+                color: secondaryColor.withOpacity(.3),
               ),
-              color: secondaryColor.withOpacity(.5),
-            ),
-            child: const Center(
-              child: Icon(Icons.filter_hdr_rounded),
+              child: const Center(
+                child: Icon(Icons.filter_hdr_rounded),
+              ),
             ),
           ),
           const SizedBox(
@@ -191,12 +197,17 @@ class FilterProductCardPlaceholder extends StatelessWidget {
                 Row(
                   children: [
                     Flexible(
-                      child: Container(
-                        height: 12.0,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[500],
-                          borderRadius: BorderRadius.circular(30.0),
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey[500],
+                        highlightColor: Colors.grey[400],
+                        enabled: true,
+                        child: Container(
+                          height: 12.0,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[500],
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
                         ),
                       ),
                     ),
@@ -205,12 +216,17 @@ class FilterProductCardPlaceholder extends StatelessWidget {
                 const SizedBox(
                   height: 3.0,
                 ),
-                Container(
-                  height: 3.0,
-                  width: 200.0,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[500],
-                    borderRadius: BorderRadius.circular(30.0),
+                Shimmer.fromColors(
+                  baseColor: Colors.grey[500],
+                  highlightColor: Colors.grey[400],
+                  enabled: true,
+                  child: Container(
+                    height: 3.0,
+                    width: 200.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[500],
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -219,20 +235,30 @@ class FilterProductCardPlaceholder extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 10.0,
-                      width: 80.0,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[500],
-                        borderRadius: BorderRadius.circular(30.0),
+                    Shimmer.fromColors(
+                      baseColor: Colors.grey[500],
+                      highlightColor: Colors.grey[400],
+                      enabled: true,
+                      child: Container(
+                        height: 10.0,
+                        width: 80.0,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[500],
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
                       ),
                     ),
-                    Container(
-                      height: 30.0,
-                      width: 30.0,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[400],
-                        borderRadius: BorderRadius.circular(30.0),
+                    Shimmer.fromColors(
+                      baseColor: Colors.grey[500],
+                      highlightColor: Colors.grey[400],
+                      enabled: true,
+                      child: Container(
+                        height: 30.0,
+                        width: 30.0,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[400],
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
                       ),
                     ),
                   ],
