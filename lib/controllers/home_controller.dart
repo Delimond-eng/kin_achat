@@ -39,6 +39,7 @@ class HomeController extends GetxController {
   }
 
   void refreshHomeContent() async {
+    isHomeLoading.value = true;
     PublicRepo.getHomeContent().then((contents) {
       isHomeLoading.value = false;
       if (contents != null) {
